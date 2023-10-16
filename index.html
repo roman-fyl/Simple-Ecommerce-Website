@@ -1,13 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,600&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
     <title>Task_2_8</title>
     <link rel="stylesheet" href="./styles/styles.css">
 </head>
+
 <body>
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <a href="#"><img src="./images/logo.png" alt="logo"></a>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <div>Shop</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div>Mainpage</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div>Our history</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <div>All items</div>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <span>
+                    <img src="./images/icon-cart.png" alt="Cart">
+                    <img src="./images/icon-profile.png" alt="Profile">
+
+                </span>
+            </div>
+        </div>
+    </header>
+    <section class="intro">
+        <div class="container">
+            <div class="intro__content">
+                <h1>Discover foxlife</h1>
+                <span>Lorem ipsum dolor sit amet consectetur. Phar eget turpis sem ultricies dolor sit amet
+                    consectetur.</span>
+            </div>
+        </div>
+    </section>
+    <section class="items">
+        <div class="container">
+            <div class="items__content">
+                <div class="items__element item1">
+                    <span>Lorem ipsum dolor sit amet ipsum</span>
+                    <img src="./images/item1.png" alt="item1">
+                </div>
+                <div class="items__element item3">
+                    <span>Lorem ipsum dolor sit amet ipsum</span>
+                    <img src="./images/item3.png" alt="item3">
+                </div>
+                <div class="items__element item2">
+                    <span>Lorem ipsum dolor sit amet ipsum</span>
+                    <img src="./images/item2.png" alt="item3">
+                </div>
+            </div>
+            <div class="items__button">
+                <input type="submit" class="button__all__foxes" value="All foxes" />
+            </div>
+        </div>
+    </section>
+    <section class="subscription">
+        <div class="container">
+            <div class="subscription__content">
+                <span>Join our newsletter</span>
+                <p>Lorem ipsum dolor sit amet consectetur. Molestie turpis quis turpis fermentum egestas bibendum.Lorem
+                    ipsum dolor sit amet consectetur.</p>
+                <form action="/submit" method="post" class="subscription__form">
+                    <input type="email" tabindex="1" name="email" placeholder="Enter your email" minlength="5"
+                        maxlength="30" id="sigup" required />
+                    <input type="submit" class="button__submit" value="Subscribe" />
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <nav class="footer__content">
+                    <ul>
+                        <li title="Logo"><img src="./images/main-logo-footer.png" alt="Logo"></li>
+                        <li>Lorem ipsum dolor sit amet consectetur consectetur</li>
+                        <li>Call us: <a href="#">8956-3254-7887</a></li>
+                        <li>
+                            <ul class="footer__social-list">
+                                <li>
+                                  <a href="#"><img src="./images/instagram.png" alt="Instagram" /></a>
+                                </li>
+                                <li>
+                                  <a href="#"><img src="./images/telegram.png" alt="Telegram" /></a>
+                                </li>
+                                <li>
+                                  <a href="#"><img src="./images/twitter.png" alt="Twitter" /></a>
+                                </li>
+                              </ul>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li title="Shop">Shop</li>
+                        <li><a href="#">Sign Up</a></li>
+                        <li><a href="#">About Us</a></li>
+                    </ul>
+                    <ul>
+                        <li title="Products">Products</li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                    </ul>
+                    <ul>
+                        <li title="Collection">Collection</li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                    </ul>
+                    <ul>
+                        <li title="Weekly updates">Weekly updates</li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                    </ul>
+                    <ul>
+                        <li title="About us">About us</li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </footer>
     <script src="./scripts/script.js"></script>
 </body>
+
 </html>
