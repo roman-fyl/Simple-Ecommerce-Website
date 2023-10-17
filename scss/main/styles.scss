@@ -255,32 +255,106 @@ section {
         line-height: calc(30px / 20px);
     }
 }
+
 .footer {
     background-color: $black;
+
     &__content {
         padding: 100px;
-        color:$white;
+        color: $white;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
     }
+
     &__links {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
     }
+
     &__social-list {
         display: flex;
         flex-direction: row;
-        gap: 15px; 
+        gap: 15px;
     }
-    a, li {
-        color:$white;
+
+    &__copyright {
+        padding: 0 0 50px 0;
+        color: $white;
+        display: flex;
+        justify-content: center;
+        font: 700 12px $fontMontserrat;
+        line-height: calc(14px / 12px);
+    }
+
+    a,
+    li {
+        color: $white;
         font: 400 14px $fontMontserrat;
         line-height: calc(17px / 14px);
         padding: 10px 0;
     }
-    li:first-child{
+
+    li:first-child {
         font-weight: bold;
+    }
+}
+
+.page {
+    .header {
+        background-color: rgba(242, 242, 242, 1);
+
+        nav {
+            ul {
+                li {
+                    a {
+                        color: $black;
+
+                        &:hover {
+                            color: $orange;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.history {
+    background-color: rgba(230, 230, 230, 1);
+    padding: 50px 0;
+
+    h1 {
+        font: 700 50px $fontPlayfair;
+        line-height: calc(60px / 50px);
+    }
+    
+
+    &__content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.text {
+    h2 {
+        font: 700 24px $fontPlayfair;
+        line-height: calc(34px / 24px);
+        padding-bottom: 20px;
+    }
+    p {
+        font: 400 20px $fontMontserrat;
+        line-height: calc(30px / 20px);
+        text-align: justify;
+    }
+    span {
+        padding: 40px;
+    }
+    .paragraph-1, .paragraph-2 {
+        display: flex;
+        padding: 20px 0;
+        align-items:center;
     }
 }

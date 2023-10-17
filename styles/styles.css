@@ -303,7 +303,16 @@ section {
   flex-direction: row;
   gap: 15px;
 }
-.footer a, .footer li {
+.footer__copyright {
+  padding: 0 0 50px 0;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  font: 700 12px Montserrat;
+  line-height: 1.1666666667;
+}
+.footer a,
+.footer li {
   color: #fff;
   font: 400 14px Montserrat;
   line-height: 1.2142857143;
@@ -311,4 +320,47 @@ section {
 }
 .footer li:first-child {
   font-weight: bold;
+}
+
+.page .header {
+  background-color: rgb(242, 242, 242);
+}
+.page .header nav ul li a {
+  color: rgb(0, 0, 0);
+}
+.page .header nav ul li a:hover {
+  color: rgb(204, 85, 32);
+}
+
+.history {
+  background-color: rgb(230, 230, 230);
+  padding: 50px 0;
+}
+.history h1 {
+  font: 700 50px Playfair;
+  line-height: 1.2;
+}
+.history__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text h2 {
+  font: 700 24px Playfair;
+  line-height: 1.4166666667;
+  padding-bottom: 20px;
+}
+.text p {
+  font: 400 20px Montserrat;
+  line-height: 1.5;
+  text-align: justify;
+}
+.text span {
+  padding: 40px;
+}
+.text .paragraph-1, .text .paragraph-2 {
+  display: flex;
+  padding: 20px 0;
+  align-items: center;
 }
