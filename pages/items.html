@@ -9,7 +9,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,600&family=Roboto:wght@400;700&display=swap"
         rel="stylesheet">
-    <title>Our history</title>
+    <title>Our items</title>
     <link rel="stylesheet" href="../styles/styles.css">
 </head>
 
@@ -53,79 +53,66 @@
     <section class="history">
         <div class="container">
             <div class="history__content">
-                <h1>Our history</h1>
+                <h1>All items</h1>
             </div>
         </div>
     </section>
-    <section class="text">
+    <section class="catalog">
         <div class="container">
-            <div class="text__content">
-                <div class="paragraph-1">
-                    <span>
-                        <h2>Lorem ipsum dolor sit amet ipsum</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur.
-                            Amet aliquam non congue vivamus. Viverra consequat
-                            donec fringilla dolor phasellus nibh ultricies purus.
-                            Id netus semper feugiat elit turpis convallis platea.
-                            Aliquam semper in amet vitae sit augue non. Sit arcu
-                            phasellus morbi diam nullam. Proin lorem nunc ante
-                            aliquam mauris nunc. Egestas leo orci pellentesque cras.
-                            Vitae id enim amet dolor tellus dignissim id mattis.
-                            Augue dis nunc eu tempus habitant eu.Lorem ipsum dolor
-                            sit amet consectetur. Amet aliquam non congue vivamus.
-                            Viverra consequat donec fringilla dolor phasellus nibh
-                            ultricies purus. Id netus semper feugiat elit turpis
-                            convallis platea. Aliquam semper in amet vitae sit
-                            augue non. Sit arcu phasellus morbi diam nullam.
-                            Proin lorem nunc ante aliquam mauris nunc. Egestas
-                            leo orci pellentesque cras. Vitae id enim amet dolor
-                            tellus dignissim id mattis. Augue dis nunc eu tempus
-                            habitant eu.</p>
-                    </span>
-                    <img src="../images/history-img1.png" alt="Image 1">
+            <div class="catalog__content">
+                <div class="catalog__search">
+                    <input type="text" class="search__field" tabindex="2" name="search" placeholder="Search"
+                        maxlength="20" required>
+                    <span>Topic</span>
+                    <ul class="catalog__filter">
+                        <li>All</li>
+                        <li>Forest</li>
+                        <li>Fox kids</li>
+                        <li>Other</li>
+                    </ul>
+                    <div class="catalog__price">
+                        <span>Price</span>
+                        <input type="range" tabindex="12" id="price" name="price" class="price__form" min="0"
+                            max="50000" value="0" />
+                        <div class="price__display">Value: 0</div>
+                    </div>
                 </div>
-                <div class="paragraph-2">
-                    <img src="../images/history-img2.png" alt="Image 2">
-                    <span>
-                        <h2>Lorem ipsum dolor sit amet ipsum</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur.
-                            Amet aliquam non congue vivamus. Viverra consequat
-                            donec fringilla dolor phasellus nibh ultricies purus.
-                            Id netus semper feugiat elit turpis convallis platea.
-                            Aliquam semper in amet vitae sit augue non. Sit arcu
-                            phasellus morbi diam nullam. Proin lorem nunc ante
-                            aliquam mauris nunc. Egestas leo orci pellentesque cras.
-                            Vitae id enim amet dolor tellus dignissim id mattis.
-                            Augue dis nunc eu tempus habitant eu.Lorem ipsum dolor
-                            sit amet consectetur. Amet aliquam non congue vivamus.
-                            Viverra consequat donec fringilla dolor phasellus nibh
-                            ultricies purus. Id netus semper feugiat elit turpis
-                            convallis platea. Aliquam semper in amet vitae sit
-                            augue non. Sit arcu phasellus morbi diam nullam.
-                            Proin lorem nunc ante aliquam mauris nunc. Egestas
-                            leo orci pellentesque cras. Vitae id enim amet dolor
-                            tellus dignissim id mattis. Augue dis nunc eu tempus
-                            habitant eu.</p>
-                    </span>
+                <ul class="catalog__list">
+                    <li class="catalog__item">
+                        <img src="../images/item1.png" alt="item1">
+                        <div class="item__description">
+                            <h3>Stylish chair</h3>
+                            <span class="item__price">$120</span>
+                            <span class="item__rate"><img src="../images/rate.png" alt="Rate"></span>
+                            <span class="item__topic">Forest</span>
+                        </div>
+                    </li>
+                    <li class="catalog__item">
+                        <img src="../images/item2.png" alt="item1">
+                        <div class="item__description">
+                            <h3>Stylish chair</h3>
+                            <span class="item__price">$120</span>
+                            <span class="item__rate"><img src="../images/rate.png" alt="Rate"></span>
+                            <span class="item__topic">Office</span>
+                        </div>
+                    </li>
+                    <li class="catalog__item">
+                        <img src="../images/item2.png" alt="item1">
+                        <div class="item__description">
+                            <h3>Stylish chair</h3>
+                            <span class="item__price">$120</span>
+                            <span class="item__rate"><img src="../images/rate.png" alt="Rate"></span>
+                            <span class="item__topic">Foxkid</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <span class="items__button catalog__page">
+                <a href="../pages/items.html"><input type="button" class="button__all__foxes" value="Load More" /></a>
+            </span>
+        </div>
+    </section>
 
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="subscription">
-        <div class="container">
-            <div class="subscription__content">
-                <span>Join our newsletter</span>
-                <p>Lorem ipsum dolor sit amet consectetur. Molestie turpis quis turpis fermentum egestas bibendum.Lorem
-                    ipsum dolor sit amet consectetur.</p>
-                <form action="/submit" method="post" class="subscription__form">
-                    <input type="email" tabindex="1" name="email" placeholder="Enter your email" minlength="5"
-                        maxlength="30" id="sigup" required />
-                    <input type="submit" class="button__submit" value="Subscribe" />
-                </form>
-            </div>
-        </div>
-    </section>
     <footer class="footer">
         <div class="container">
             <nav class="footer__content">
