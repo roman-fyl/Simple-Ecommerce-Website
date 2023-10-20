@@ -31,6 +31,17 @@ section {
                 display: flex;
                 flex-direction: row;
 
+                @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+                    flex-direction: column;
+                    position: absolute;
+                    z-index: 1;
+                    top: 100%;
+                    background: rgba(60, 60, 60, 0.7);
+                    left: 0;
+                    width: 100%;
+                }
+
+
                 li {
                     padding: 0 10px;
                     margin: 20px 0;
@@ -58,6 +69,23 @@ section {
             }
         }
     }
+
+    &__mobile {
+        display: none;
+        cursor: pointer;
+
+        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+            display: block;
+        }
+    }
+}
+
+.bar {
+    width: 15px;
+    height: 3px;
+    background-color: $white;
+    margin: 6px 0;
+    transition: 0.4s;
 }
 
 .intro {
@@ -124,14 +152,57 @@ section {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto;
         gap: 15px;
+        justify-content: center;
+
+        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+            grid-template-areas:
+                "item1"
+                "item2"
+                "item3";
+            grid-template-columns: 100%;
+            grid-template-rows: auto auto auto;
+        }
     }
 
     &__element {
         display: flex;
+        justify-content: space-around;
         font: 700 24px $fontPlayfair;
         line-height: calc(34px / 24px);
         background-color: rgba(244, 244, 244, 1);
-        padding: 20px;
+        padding: 30px;
+
+        h3 {
+            font: 600 18px $fontMontserrat;
+            line-height: calc(27px / 18px);
+            color: rgba(150, 149, 149, 1);
+            content: "#Office";
+            top: 50px;
+            left: 40px;
+
+            @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+                font-size: 14px;
+            }
+        }
+
+        img {
+            max-width: 100%;
+            object-fit: contain;
+
+            @media (min-width: $tablet) and (max-width: $desktop - .1px) {
+                max-width: none;
+            }
+
+            @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+                min-width: 40%;
+            }
+        }
+
+        @media (min-width: $mobile) and (max-width: $desktop - .1px) {
+            font-size: 20px;
+            padding: 15px;
+            justify-content: space-between;
+        }
     }
 
     &__button {
@@ -142,30 +213,22 @@ section {
 }
 
 .item1 {
-    position: relative;
     grid-area: item1;
     grid-row-start: 1;
     grid-row-end: 2;
     grid-column-start: 1;
     grid-column-end: 2;
 
-    &::before {
-        font: 600 18px $fontMontserrat;
-        line-height: calc(27px / 18px);
-        color: rgba(150, 149, 149, 1);
-        content: "#Food";
-        top: 50px;
-        left: 40px;
-        position: absolute;
+    @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 2;
     }
 
-    span {
-        padding: 70px 20px;
-    }
 }
 
 .item2 {
-    position: relative;
     grid-area: item2;
     grid-row-start: 2;
     grid-row-end: 3;
@@ -173,42 +236,29 @@ section {
     grid-column-end: 2;
     flex-direction: row-reverse;
 
-    &::before {
-        font: 600 18px $fontMontserrat;
-        line-height: calc(27px / 18px);
-        color: rgba(150, 149, 149, 1);
-        content: "#House";
-        top: 50px;
-        right: 320px;
-        position: absolute;
+    @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 1;
+        grid-column-end: 2;
     }
 
-    span {
-        padding: 70px 20px;
-    }
 }
 
 .item3 {
-    position: relative;
     grid-area: item3;
     grid-row-start: 1;
     grid-row-end: 3;
     grid-column-start: 2;
     grid-column-end: 3;
 
-    &::before {
-        font: 600 18px $fontMontserrat;
-        line-height: calc(27px / 18px);
-        color: rgba(150, 149, 149, 1);
-        content: "#Office";
-        top: 50px;
-        left: 40px;
-        position: absolute;
+    @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+        grid-row-start: 3;
+        grid-row-end: 4;
+        grid-column-start: 1;
+        grid-column-end: 2;
     }
 
-    span {
-        padding: 70px 20px;
-    }
 }
 
 .button {
@@ -235,6 +285,10 @@ section {
         background: $black;
         cursor: pointer;
         transition: box-shadow 0.2s ease-in-out;
+
+        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+            width: 100%;
+        }
     }
 }
 
@@ -247,11 +301,19 @@ section {
         padding: 100px;
         align-items: center;
         gap: 30px;
+
+        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+            padding: 10px;
+        }
     }
 
     span {
         font: 600 32px $fontMontserrat;
         line-height: calc(48px / 32px);
+
+        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+            text-align: center;
+        }
     }
 
     p {
@@ -259,12 +321,22 @@ section {
         line-height: calc(27px / 18px);
         width: 730px;
         text-align: center;
+
+        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+            width: 100%;
+            text-align: justify;
+        }
     }
 
     form {
         display: flex;
         align-items: center;
         justify-content: space-around;
+        flex-direction: row;
+
+        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+            flex-direction: column;
+        }
     }
 
     input[type="email"] {
@@ -280,11 +352,42 @@ section {
     background-color: $black;
 
     &__content {
-        padding: 100px;
+        padding: 100px 0;
         color: $white;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        align-items: flex-start;
+
+        span {
+            margin-right: 50px;
+
+
+            ul {
+                @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+                    text-align: center;
+                }
+            }
+
+            @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+                margin-right: 0;
+                margin: 0 auto;
+            }
+        }
+
+        nav {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex: 1 1 auto;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+            padding: 10px;
+            flex-direction: column;
+        }
     }
 
     &__links {
@@ -297,6 +400,10 @@ section {
         display: flex;
         flex-direction: row;
         gap: 15px;
+
+        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+            justify-content: center;
+        }
     }
 
     &__copyright {
@@ -339,6 +446,10 @@ section {
             }
         }
     }
+
+    .bar {
+        background-color: $black;
+    }
 }
 
 .history {
@@ -359,6 +470,10 @@ section {
 }
 
 .text {
+    img {
+        width: 100%;
+    }
+
     h2 {
         font: 700 24px $fontPlayfair;
         line-height: calc(34px / 24px);
@@ -373,6 +488,10 @@ section {
 
     span {
         padding: 40px;
+
+        @media (min-width: $mobile) and (max-width: $desktop - .1px) {
+            padding: 15px 0;
+        }
     }
 
     .paragraph-1,
@@ -380,6 +499,10 @@ section {
         display: flex;
         padding: 20px 0;
         align-items: center;
+
+        @media (min-width: $mobile) and (max-width: $desktop - .1px) {
+            display: block;
+        }
     }
 }
 
@@ -391,6 +514,10 @@ section {
         flex-direction: row;
         margin-top: 50px;
         column-gap: 50px;
+
+        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+            flex-direction: column;
+        }
     }
 
     &__list {
@@ -404,11 +531,15 @@ section {
 
     &__item {
         display: flex;
-        width: 48%;
+        width: 45%;
         flex-direction: column;
 
         img {
             border-radius: 7px;
+        }
+
+        @media (min-width: $mobile) and (max-width: $desktop - .1px) {
+            width: 100%;
         }
     }
 
@@ -424,6 +555,15 @@ section {
                 background-color: $orange;
                 color: $white;
             }
+
+            @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+                width: 45%;
+            }
+        }
+
+        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+            display: flex;
+            flex-wrap: wrap;
         }
     }
 
