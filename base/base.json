@@ -1,0 +1,10 @@
+[
+    {
+        "category": "forest",
+        "imageSrc": "../images/items/item1.png",
+        "imageAlt": "Stylish Chair",
+        "title": "Stylish Chair",
+        "rate": "5",
+        "price": "120"
+    }
+]
