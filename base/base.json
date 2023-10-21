@@ -6,5 +6,61 @@
         "title": "Stylish Chair",
         "rate": "5",
         "price": "120"
+    },
+    {
+        "category": "office",
+        "imageSrc": "../images/items/item2.png",
+        "imageAlt": "Stylish Chair",
+        "title": "Stylish Chair",
+        "rate": "4.7",
+        "price": "130"
+    },
+    {
+        "category": "fox kid",
+        "imageSrc": "../images/items/item3.png",
+        "imageAlt": "Stylish Chair",
+        "title": "Style Chair",
+        "rate": "4.1",
+        "price": "135"
+    },
+    {
+        "category": "fox kid",
+        "imageSrc": "../images/items/item4.png",
+        "imageAlt": "Stylish Chair",
+        "title": "Style Chairs",
+        "rate": "5",
+        "price": "140"
+    },
+    {
+        "category": "forest",
+        "imageSrc": "../images/items/item5.png",
+        "imageAlt": "Stylish Chair",
+        "title": "Stylish Chair",
+        "rate": "4.9",
+        "price": "150"
+    },
+    {
+        "category": "other",
+        "imageSrc": "../images/items/item6.png",
+        "imageAlt": "Stylish Chair",
+        "title": "Stylish Chair",
+        "rate": "4.7",
+        "price": "160"
+    },
+    {
+        "category": "forest",
+        "imageSrc": "../images/items/item7.png",
+        "imageAlt": "Stylish Chair",
+        "title": "Style Chair",
+        "rate": "5",
+        "price": "90"
+    },
+    {
+        "category": "fox kid",
+        "imageSrc": "../images/items/item8.png",
+        "imageAlt": "Stylish Chair",
+        "title": "Style Chairs",
+        "rate": "5",
+        "price": "140"
     }
 ]

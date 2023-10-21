@@ -567,6 +567,7 @@ section {
   font: 500 16px Montserrat;
   line-height: 1.5;
   padding: 15px;
+  text-transform: capitalize;
 }
 .catalog__filter li:hover {
   background-color: rgb(204, 85, 32);
@@ -634,6 +635,7 @@ h3 {
   font: 400 16px Montserrat;
   line-height: 1.5;
   color: rgb(150, 149, 149);
+  text-transform: capitalize;
 }
 
 input[type=range] {

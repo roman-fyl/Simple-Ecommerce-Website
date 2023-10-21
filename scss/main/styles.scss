@@ -550,6 +550,7 @@ section {
             font: 500 16px $fontMontserrat;
             line-height: calc(24px / 16px);
             padding: 15px;
+            text-transform: capitalize;
 
             &:hover {
                 background-color: $orange;
@@ -632,6 +633,7 @@ h3 {
         font: 400 16px $fontMontserrat;
         line-height: calc(24px / 16px);
         color: rgba(150, 149, 149, 1);
+        text-transform: capitalize;
     }
 }
 
