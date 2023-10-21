@@ -2,13 +2,14 @@
 
 const store = async () => {
     const catalogFilter = document.getElementById('catalog__filter');
-    let items;
+    const searchInput = document.querySelector('.search__field');
+    let searchingItem = '';
+    let items, data;
 
     const getData = async () => {
         try {
             const response = await fetch('../base/base.json');
-            const data = await response.json();
-            console.log(data)
+            data = await response.json();
             return data
         } catch (error) {
             console.error(error)
@@ -73,6 +74,28 @@ const store = async () => {
             catalogFilter.appendChild(optionElement);
         })
     }
+
+    const searchItem = ({ type, keyCode }) => {
+        const name = searchInput.value.toLowerCase();
+        console.log(name)
+        let searchResult = data;
+
+
+        if (
+            type === "input" ||
+            type === "change" ||
+            (type === "keydown" && keyCode === 13) ||
+            type === "click"
+        ) {
+            if (name) {
+                searchResult = data.filter((item) => {
+                    return item.title.toLowerCase().includes(name);
+                })
+            }
+        }
+        showItems(searchResult, 'all');
+    }
+
     catalogFilter.addEventListener('click', (event) => {
         if (event.target.tagName === "LI") {
             const selectedCategory = event.target.getAttribute('data-value');
@@ -84,6 +107,7 @@ const store = async () => {
     showItems(items, 'all')
     const filterOptions = createFilterOptions(items)
     showFilters(filterOptions)
+    searchInput.addEventListener('input', searchItem)
 }
 
 document.addEventListener('DOMContentLoaded', store)
