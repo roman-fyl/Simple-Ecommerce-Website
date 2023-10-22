@@ -3,7 +3,8 @@
 const store = async () => {
     const catalogFilter = document.getElementById('catalog__filter');
     const searchInput = document.querySelector('.search__field');
-    let searchingItem = '';
+    const priceRange = document.querySelector('input[name="price"]');
+    const priceDisplay = document.querySelector('.price__display');
     let items, data;
 
     const getData = async () => {
@@ -56,21 +57,16 @@ const store = async () => {
     }
 
     const showFilters = (filterOptions) => {
-
         const allFilterOption = document.createElement('li');
-
         allFilterOption.textContent = "All";
         allFilterOption.setAttribute('data-value', 'all');
         catalogFilter.innerHTML = "";
-
         catalogFilter.appendChild(allFilterOption);;
 
         filterOptions.forEach((option) => {
             const optionElement = document.createElement('li')
-
             optionElement.textContent = option
             optionElement.setAttribute('data-value', option);
-
             catalogFilter.appendChild(optionElement);
         })
     }
@@ -79,7 +75,6 @@ const store = async () => {
         const name = searchInput.value.toLowerCase();
         console.log(name)
         let searchResult = data;
-
 
         if (
             type === "input" ||
@@ -94,18 +89,18 @@ const store = async () => {
             }
         }
         showItems(searchResult, 'all');
-
     }
 
-    const priceShow = () => {
-        const priceRange = document.querySelector('input[name="price"]');
-        const priceDisplay = document.querySelector('.price__display');
-
-        priceRange.addEventListener('input', () => {
+    const priceFilter = () => { 
+       priceRange.addEventListener('input', () => {
+            const minPrice = parseFloat(priceRange.value);
             priceDisplay.textContent = `Value: $ ${priceRange.value}`
+           const filteredByPrice = data.filter((item) => {
+            return parseFloat(item.price) >= minPrice;
+           })
+            showItems(filteredByPrice, 'all');
+            return
         })
-
-
     }
 
 
@@ -114,6 +109,9 @@ const store = async () => {
             const selectedCategory = event.target.getAttribute('data-value');
             showItems(items, selectedCategory)
             searchInput.value = "";
+            priceRange.value = 0;
+            priceDisplay.textContent = `Value: $ ${priceRange.value}`;
+
         }
     })
 
@@ -122,7 +120,7 @@ const store = async () => {
     const filterOptions = createFilterOptions(items)
     showFilters(filterOptions)
     searchInput.addEventListener('input', searchItem)
-    priceShow();
+    priceFilter();
 }
 
 document.addEventListener('DOMContentLoaded', store)
