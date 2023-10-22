@@ -94,12 +94,26 @@ const store = async () => {
             }
         }
         showItems(searchResult, 'all');
+
     }
+
+    const priceShow = () => {
+        const priceRange = document.querySelector('input[name="price"]');
+        const priceDisplay = document.querySelector('.price__display');
+
+        priceRange.addEventListener('input', () => {
+            priceDisplay.textContent = `Value: $ ${priceRange.value}`
+        })
+
+
+    }
+
 
     catalogFilter.addEventListener('click', (event) => {
         if (event.target.tagName === "LI") {
             const selectedCategory = event.target.getAttribute('data-value');
             showItems(items, selectedCategory)
+            searchInput.value = "";
         }
     })
 
@@ -108,6 +122,7 @@ const store = async () => {
     const filterOptions = createFilterOptions(items)
     showFilters(filterOptions)
     searchInput.addEventListener('input', searchItem)
+    priceShow();
 }
 
 document.addEventListener('DOMContentLoaded', store)

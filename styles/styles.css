@@ -602,6 +602,9 @@ section {
   font: 700 20px Montserrat;
   line-height: 1.5;
 }
+.price__display span {
+  display: inline;
+}
 
 .search__field {
   border: 1px solid rgb(150, 149, 149);

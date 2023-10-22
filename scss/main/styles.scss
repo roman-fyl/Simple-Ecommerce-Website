@@ -591,6 +591,9 @@ section {
     &__display {
         font: 700 20px $fontMontserrat;
         line-height: calc(30px / 20px);
+        span {
+            display: inline;
+        }
     }
 }
 
