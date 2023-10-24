@@ -71,15 +71,21 @@ section {
     }
 
     &__mobile {
-        display: none;
         cursor: pointer;
+        display: none;
 
         @media (min-width: $mobile) and (max-width: $tablet - .1px) {
             display: block;
         }
     }
 }
-
+.displayShow {
+    display: block !important;
+  }
+  
+  .displayHide {
+    display: none !important;
+  }
 .bar {
     width: 15px;
     height: 3px;
@@ -437,6 +443,9 @@ section {
                 li {
                     a {
                         color: $black;
+                        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+                            color: $white;
+                        }
 
                         &:hover {
                             color: $orange;
@@ -644,3 +653,7 @@ input[type="range"] {
     width: 100%;
     accent-color: $orange;
 }
+.active {
+    background-color: $orange;
+    color: $white !important;
+  }

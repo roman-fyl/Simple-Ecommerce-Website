@@ -122,13 +122,21 @@ section {
   padding-left: 20px;
 }
 .header__mobile {
-  display: none;
   cursor: pointer;
+  display: none;
 }
 @media (min-width: 320px) and (max-width: 767.9px) {
   .header__mobile {
     display: block;
   }
+}
+
+.displayShow {
+  display: block !important;
+}
+
+.displayHide {
+  display: none !important;
 }
 
 .bar {
@@ -469,6 +477,11 @@ section {
 .page .header nav ul li a {
   color: rgb(0, 0, 0);
 }
+@media (min-width: 320px) and (max-width: 767.9px) {
+  .page .header nav ul li a {
+    color: #fff;
+  }
+}
 .page .header nav ul li a:hover {
   color: rgb(204, 85, 32);
 }
@@ -644,4 +657,9 @@ h3 {
 input[type=range] {
   width: 100%;
   accent-color: rgb(204, 85, 32);
+}
+
+.active {
+  background-color: rgb(204, 85, 32);
+  color: #fff !important;
 }
