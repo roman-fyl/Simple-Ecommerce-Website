@@ -79,13 +79,15 @@ section {
         }
     }
 }
+
 .displayShow {
-    display: block !important;
-  }
-  
-  .displayHide {
+    display: flex !important;
+}
+
+.displayHide {
     display: none !important;
-  }
+}
+
 .bar {
     width: 15px;
     height: 3px;
@@ -296,6 +298,13 @@ section {
             width: 100%;
         }
     }
+
+    &__close {
+        a {
+            padding: 15px;
+            color: $white;
+        }
+    }
 }
 
 .subscription {
@@ -443,6 +452,7 @@ section {
                 li {
                     a {
                         color: $black;
+
                         @media (min-width: $mobile) and (max-width: $tablet - .1px) {
                             color: $white;
                         }
@@ -544,9 +554,25 @@ section {
         flex-direction: column;
         position: relative;
 
+        &__cart {
+            img {
+                &:first-child {
+
+                    // width: 130px;
+                    @media (min-width: $mobile) and (max-width: $desktop - .1px) {
+                        width: 100%;
+                    }
+                }
+
+            }
+
+
+        }
+
         img {
             border-radius: 7px;
         }
+
         &__add_cart {
             position: absolute;
             top: 10px;
@@ -556,23 +582,23 @@ section {
             display: flex;
             justify-content: center;
             flex-direction: column;
-            align-items:center;
+            align-items: center;
             cursor: pointer;
             border-radius: 3px;
+            transition: all $transition;
+
             span {
                 color: $white !important;
+
                 &:hover {
                     color: $gray !important;
                 }
             }
-            &:hover {
-                scale: 1.1;
-            }
 
-        @media (min-width: $mobile) and (max-width: $desktop - .1px) {
-            width: 100%;
+            &:hover {
+                transform: scale(1.1);
+            }
         }
-    }
 
         @media (min-width: $mobile) and (max-width: $desktop - .1px) {
             width: 100%;
@@ -627,6 +653,7 @@ section {
     &__display {
         font: 700 20px $fontMontserrat;
         line-height: calc(30px / 20px);
+
         span {
             display: inline;
         }
@@ -648,6 +675,10 @@ h3 {
     font: 700 20px $fontMontserrat;
     line-height: calc(30px / 20px);
     flex: 1 1 10%;
+
+    @media (min-width: $mobile) and (max-width: $desktop - .1px) {
+        flex: 0 0 80%;
+    }
 }
 
 .item {
@@ -656,6 +687,7 @@ h3 {
         display: flex;
         flex-direction: row;
         margin-top: 15px;
+        flex-wrap: wrap;
     }
 
     &__price {
@@ -680,7 +712,106 @@ input[type="range"] {
     width: 100%;
     accent-color: $orange;
 }
+
 .active {
     background-color: $orange;
     color: $white !important;
-  }
+}
+
+.cart {
+    &__section {
+        padding: 20px;
+        z-index: 999;
+        position: fixed;
+        top: 0;
+        right: 0;
+        min-width: 300px;
+        min-height: 100vh;
+        background: rgb(77, 77, 77);
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        color: $white;
+
+        h2 {
+            font: 700 50px $fontPlayfair;
+            line-height: calc(90px / 80px);
+            padding: 50px 0;
+        }
+
+        h4 {
+            font: 700 50px $fontPlayfair;
+            line-height: calc(90px / 80px);
+        }
+
+        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+            width: 100%;
+        }
+
+        @media (min-width: $tablet) and (max-width: $desktop - .1px) {
+            width: 50%;
+        }
+    }
+
+    &__list {
+        width: 100%;
+        flex: 1 1 auto;
+        margin-bottom: 50px;
+    }
+
+    &__element {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        @media (min-width: $mobile) and (max-width: $desktop - .1px) {
+            flex-direction: row;
+            justify-content: space-between;
+            column-gap: 5px;
+        }
+    }
+
+    &__quantity {
+        display: flex;
+        gap: 10px;
+    }
+
+    &__updates {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        row-gap: 5px;
+        padding-left: 20px;
+    }
+
+    &__change {
+        a {
+            font: 700 27px $fontRoboto;
+            line-height: calc(49px / 27px);
+            color: $white;
+        }
+    }
+
+    &__field_amount {
+        background: $orange;
+        padding: 5px 15px;
+        border-radius: 7px;
+        font: 700 19px $fontRoboto;
+        line-height: calc(34px / 19px);
+    }
+
+    &__remove {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+
+        span {
+            font: 400 11px $fontRoboto;
+            line-height: calc(20px / 11px);
+        }
+    }
+}

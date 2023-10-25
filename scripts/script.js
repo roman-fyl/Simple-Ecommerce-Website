@@ -7,8 +7,14 @@ const store = async () => {
   const priceDisplay = document.querySelector(".price__display");
   const navigation = document.querySelector(".header__content nav");
   const menu = document.querySelector(".header__mobile");
+  const elementCart = document.querySelector(".cart__section");
+  const buttonCart = document.querySelector(".cart");
+  const buttonCartClose = document.querySelector(".button__close");
 
   let items, data, allFilterOption;
+
+  let filteredItems = [];
+  
 
   const getData = async () => {
     try {
@@ -79,19 +85,15 @@ const store = async () => {
     });
   };
 
+//input search
   const searchItem = ({ type, keyCode }) => {
     cleanFilters();
     showFilters(filterOptions);  // reset Li selection    
     const name = searchInput.value.toLowerCase();
-    console.log(name);
     let searchResult = data;
 
     if (
-      type === "input" ||
-      type === "change" ||
-      (type === "keydown" && keyCode === 13) ||
-      type === "click"
-    ) {
+      type === "input" || type === "change" || (type === "keydown" && keyCode === 13) || type === "click") {
       if (name) {
         searchResult = data.filter((item) => {
           return item.title.toLowerCase().includes(name);
@@ -100,9 +102,8 @@ const store = async () => {
     }
     showItems(searchResult, "all");
   };
-
+//price search
   const priceFilter = (event) => {
-    
     priceRange.addEventListener("input", () => {
       const minPrice = parseFloat(priceRange.value);
       priceDisplay.textContent = `Value: $ ${priceRange.value}`;
@@ -114,6 +115,24 @@ const store = async () => {
       return;
     });
   };
+//category search
+  if(catalogFilter) {
+    catalogFilter.addEventListener("click", (event) => {
+      if (event.target.tagName === "LI") {
+          buttonSwitcher(event)
+  
+        const selectedCategory = event.target.getAttribute("data-value");
+        showItems(items, selectedCategory);
+        searchInput.value = "";
+        cleanFilters();
+        return;
+      }
+      return;
+    });
+  } else {
+    console.error('catalogFilter doesnt exist')
+  }
+
   const cleanFilters = () => {
     priceRange.value = 0;
     priceDisplay.textContent = `Value: $ ${priceRange.value}`;
@@ -133,24 +152,23 @@ const menuToggle = () => {
   return
 }
 
-
-  if(catalogFilter) {
-    catalogFilter.addEventListener("click", (event) => {
-      if (event.target.tagName === "LI") {
-          buttonSwitcher(event)
-  
-        const selectedCategory = event.target.getAttribute("data-value");
-  
-        showItems(items, selectedCategory);
-        searchInput.value = "";
-        cleanFilters();
-        return;
-      }
-      return;
-    });
-  } else {
-    console.log('catalogFilter doesnt exist')
+buttonCart.addEventListener('click', () => {
+  if(elementCart.classList.contains('displayHide')) {
+    elementCart.classList.remove('displayHide')
+    elementCart.classList.add('displayShow')
+    console.log('show cart')
+    return
   }
+});
+buttonCartClose.addEventListener('click', () => {
+  if(elementCart.classList.contains('displayShow')) {
+    elementCart.classList.remove('displayShow')
+    elementCart.classList.add('displayHide')
+    console.log('hide cart')
+    return
+  }
+});
+
 
   items = await getData();
   showItems(items, "all");
