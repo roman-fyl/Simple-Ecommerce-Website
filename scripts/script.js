@@ -33,6 +33,10 @@ const store = async () => {
         elements.push(`
                     <li class="catalog__item">
                         <img src="${item.imageSrc}" alt="${item.imageAlt}">
+                        <div class="catalog__item__add_cart">
+                        <a href="#"><img src='../images/icon-add-to-cart.png' alt="Add to cart"></a>
+                        <span>Add</span>
+                        </div>
                         <div class="item__description">
                             <h3>${item.title}</h3>
                             <span class="item__price">$${item.price}</span>

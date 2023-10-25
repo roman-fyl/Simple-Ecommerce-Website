@@ -1,6 +1,6 @@
 "use strict";
 
-const menuSwitcher = async () => {
+const menuSwitcher = () => {
  
   const navigation = document.querySelector(".header__content nav");
   const menu = document.querySelector(".header__mobile");
