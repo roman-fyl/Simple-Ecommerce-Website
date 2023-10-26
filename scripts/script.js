@@ -16,7 +16,7 @@ const store = async () => {
   let filteredItems = [], selectedItems = [];
 
 
-  const getData = async () => {
+  const getData = async () => { 
     try {
       const response = await fetch("../base/base.json");
       data = await response.json();
@@ -179,10 +179,12 @@ const store = async () => {
   } else {
     console.log('no button buttonCartClose')
   }
-  const showCart = (selectedItems) => {
-    console.log(selectedItems)
+  const showCart = (selectedItem) => {
+    if (!Array.isArray(selectedItems)) {
+      selectedItems = [];
+  }
+    let elements = [];
     const cart = document.querySelector(".cart__list");
-    const elements = [];
 
 
     selectedItems.forEach((item) => {
@@ -211,11 +213,10 @@ const store = async () => {
     })
     // console.log(cart)
     cart.innerHTML = elements.join("");
-return
+    return
   }
   const addItemsToCart = async (event) => {
     let quanity = 0;
-
     const liElement = await event.target.closest('.catalog__item');
     if (liElement) {
       const idN = liElement.getAttribute('idN');
@@ -223,28 +224,41 @@ return
       const title = liElement.querySelector('.item__description h3').textContent;
       const price = liElement.querySelector('.item__description .item__price').textContent;
       const selectedItem = {
-          idN:  idN,
-          imageSrc: imageSrc,
-          title: title,
-          price: price
+        idN: idN,
+        imageSrc: imageSrc,
+        title: title,
+        price: price
       }
 
-      const existItem = selectedItems.find(item => item.idN === idN) 
+      const existItem = selectedItems.find(item => item.idN === idN)
       if (existItem) {
         quanity += 1;
-        console.log(quanity)
+        // console.log(quanity)
       } else {
         selectedItems.push(selectedItem)
         quanity = 1
         console.log(quanity)
       }
-      console.log(selectedItems, quanity)
+      
+      // console.log(selectedItems, quanity)
       showCart(selectedItems);
+      setLocalStorage(selectedItem)
       return selectedItems;
     }
   };
 
-  catalogList.addEventListener('click', (event) => {
+const setLocalStorage = (selectedItem) => {
+ localStorage.setItem('idN', JSON.stringify(selectedItems));
+ return
+}
+const getLocalStorage = () => {
+  const storedItems = JSON.parse(localStorage.getItem('idN'))
+  console.log(storedItems)
+  return storedItems
+}
+
+
+catalogList.addEventListener('click', (event) => {
     const target = event.target;
     const addCartButton = target.closest('.catalog__item__add_cart')
     if (addCartButton) {
@@ -259,6 +273,7 @@ return
   searchInput.addEventListener("input", searchItem);
   menu.addEventListener('click', menuToggle);
   priceFilter();
+  selectedItems = getLocalStorage();
   showCart(selectedItems);
 };
 
