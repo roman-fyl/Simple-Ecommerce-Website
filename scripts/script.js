@@ -154,6 +154,7 @@ const store = async () => {
 
   if (buttonCart) {
     buttonCart.addEventListener('click', () => {
+      addItemsToCart();
       if (elementCart.classList.contains('displayHide')) {
         elementCart.classList.remove('displayHide')
         elementCart.classList.add('displayShow')
@@ -167,6 +168,7 @@ const store = async () => {
 
   if (buttonCartClose) {
     buttonCartClose.addEventListener('click', () => {
+      addItemsToCart()
       if (elementCart.classList.contains('displayShow')) {
         elementCart.classList.remove('displayShow')
         elementCart.classList.add('displayHide')
@@ -177,11 +179,13 @@ const store = async () => {
   } else {
     console.log('no button buttonCartClose')
   }
-  const showCart = (selectedItem) => {
+  const showCart = (selectedItems) => {
+    console.log(selectedItems)
     const cart = document.querySelector(".cart__list");
     const elements = [];
 
-    selectedItem.forEach((item) => {
+
+    selectedItems.forEach((item) => {
       elements.push(`
         <li class="cart__element">
           <div class="catalog__item__cart">
@@ -207,23 +211,35 @@ const store = async () => {
     })
     // console.log(cart)
     cart.innerHTML = elements.join("");
-
+return
   }
-  const addItemsToCart = (event) => {
-    const liElement = event.target.closest('.catalog__item');
+  const addItemsToCart = async (event) => {
+    let quanity = 0;
+
+    const liElement = await event.target.closest('.catalog__item');
     if (liElement) {
       const idN = liElement.getAttribute('idN');
-      const imgSrc = liElement.querySelector('img').getAttribute('src')
+      const imageSrc = liElement.querySelector('img').getAttribute('src')
       const title = liElement.querySelector('.item__description h3').textContent;
       const price = liElement.querySelector('.item__description .item__price').textContent;
       const selectedItem = {
           idN:  idN,
-          imgSrc: imgSrc,
+          imageSrc: imageSrc,
           title: title,
           price: price
       }
-      selectedItems.push(selectedItem)
-      console.log(selectedItems)
+
+      const existItem = selectedItems.find(item => item.idN === idN) 
+      if (existItem) {
+        quanity += 1;
+        console.log(quanity)
+      } else {
+        selectedItems.push(selectedItem)
+        quanity = 1
+        console.log(quanity)
+      }
+      console.log(selectedItems, quanity)
+      showCart(selectedItems);
       return selectedItems;
     }
   };
