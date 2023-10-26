@@ -2,6 +2,7 @@
 
 const store = async () => {
   const catalogFilter = document.getElementById("catalog__filter");
+  const catalogList = document.getElementById("catalog__list");
   const searchInput = document.querySelector(".search__field");
   const priceRange = document.querySelector('input[name="price"]');
   const priceDisplay = document.querySelector(".price__display");
@@ -12,9 +13,8 @@ const store = async () => {
   const buttonCartClose = document.querySelector(".button__close");
 
   let items, data, allFilterOption;
+  let filteredItems = [], selectedItems = [];
 
-  let filteredItems = [];
-  
 
   const getData = async () => {
     try {
@@ -37,7 +37,7 @@ const store = async () => {
       )
       .forEach((item) => {
         elements.push(`
-                    <li class="catalog__item">
+                    <li class="catalog__item" idn="${item.idN}">
                         <img src="${item.imageSrc}" alt="${item.imageAlt}">
                         <div class="catalog__item__add_cart">
                         <a href="#"><img src='../images/icon-add-to-cart.png' alt="Add to cart"></a>
@@ -65,7 +65,7 @@ const store = async () => {
         filterList[item.category] = 1;
       }
     });
-    console.log(filterList);
+    // console.log(filterList);
     return Object.keys(filterList);
   };
 
@@ -85,7 +85,7 @@ const store = async () => {
     });
   };
 
-//input search
+  //input search
   const searchItem = ({ type, keyCode }) => {
     cleanFilters();
     showFilters(filterOptions);  // reset Li selection    
@@ -102,7 +102,7 @@ const store = async () => {
     }
     showItems(searchResult, "all");
   };
-//price search
+  //price search
   const priceFilter = (event) => {
     priceRange.addEventListener("input", () => {
       const minPrice = parseFloat(priceRange.value);
@@ -115,12 +115,12 @@ const store = async () => {
       return;
     });
   };
-//category search
-  if(catalogFilter) {
+  //category search
+  if (catalogFilter) {
     catalogFilter.addEventListener("click", (event) => {
       if (event.target.tagName === "LI") {
-          buttonSwitcher(event)
-  
+        buttonSwitcher(event)
+
         const selectedCategory = event.target.getAttribute("data-value");
         showItems(items, selectedCategory);
         searchInput.value = "";
@@ -145,30 +145,96 @@ const store = async () => {
       item.classList.remove("active");
     });
     event.target.classList.add("active");
-    
-  }
-const menuToggle = () => {
-  navigation.classList.toggle('displayShow');
-  return
-}
 
-buttonCart.addEventListener('click', () => {
-  if(elementCart.classList.contains('displayHide')) {
-    elementCart.classList.remove('displayHide')
-    elementCart.classList.add('displayShow')
-    console.log('show cart')
+  }
+  const menuToggle = () => {
+    navigation.classList.toggle('displayShow');
     return
   }
-});
-buttonCartClose.addEventListener('click', () => {
-  if(elementCart.classList.contains('displayShow')) {
-    elementCart.classList.remove('displayShow')
-    elementCart.classList.add('displayHide')
-    console.log('hide cart')
-    return
-  }
-});
 
+  if (buttonCart) {
+    buttonCart.addEventListener('click', () => {
+      if (elementCart.classList.contains('displayHide')) {
+        elementCart.classList.remove('displayHide')
+        elementCart.classList.add('displayShow')
+        // console.log('show cart')
+        return
+      }
+    });
+  } else {
+    console.log('Button cart doesnt exist')
+  }
+
+  if (buttonCartClose) {
+    buttonCartClose.addEventListener('click', () => {
+      if (elementCart.classList.contains('displayShow')) {
+        elementCart.classList.remove('displayShow')
+        elementCart.classList.add('displayHide')
+        // console.log('hide cart')
+        return
+      }
+    });
+  } else {
+    console.log('no button buttonCartClose')
+  }
+  const showCart = (selectedItem) => {
+    const cart = document.querySelector(".cart__list");
+    const elements = [];
+
+    selectedItem.forEach((item) => {
+      elements.push(`
+        <li class="cart__element">
+          <div class="catalog__item__cart">
+          <img src="${item.imageSrc}" alt="${item.imageAlt}">
+              <div class="item__description">
+                  <h3>${item.title}</h3>
+                  <span class="item__price">${item.price}</span>
+              </div>
+          </div>
+          <div class="cart__updates">
+              <div class="cart__quantity">
+                  <span class="cart__change"><a href="#">-</a></span>
+                  <span class="cart__field_amount">1</span>
+                  <span class="cart__change"><a href="#">+</a></span>
+              </div>
+              <div class="cart__remove">
+                  <span>Remove</span>
+                  <a href="#"><img src="../images/icon-close.png" alt="Close"></a>
+              </div>
+          </div>
+      </li>
+      `)
+    })
+    // console.log(cart)
+    cart.innerHTML = elements.join("");
+
+  }
+  const addItemsToCart = (event) => {
+    const liElement = event.target.closest('.catalog__item');
+    if (liElement) {
+      const idN = liElement.getAttribute('idN');
+      const imgSrc = liElement.querySelector('img').getAttribute('src')
+      const title = liElement.querySelector('.item__description h3').textContent;
+      const price = liElement.querySelector('.item__description .item__price').textContent;
+      const selectedItem = {
+          idN:  idN,
+          imgSrc: imgSrc,
+          title: title,
+          price: price
+      }
+      selectedItems.push(selectedItem)
+      console.log(selectedItems)
+      return selectedItems;
+    }
+  };
+
+  catalogList.addEventListener('click', (event) => {
+    const target = event.target;
+    const addCartButton = target.closest('.catalog__item__add_cart')
+    if (addCartButton) {
+      addItemsToCart(event);
+    }
+  })
 
   items = await getData();
   showItems(items, "all");
@@ -177,6 +243,7 @@ buttonCartClose.addEventListener('click', () => {
   searchInput.addEventListener("input", searchItem);
   menu.addEventListener('click', menuToggle);
   priceFilter();
+  showCart(selectedItems);
 };
 
 document.addEventListener("DOMContentLoaded", store);
