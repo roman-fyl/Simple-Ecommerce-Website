@@ -1,0 +1,74 @@
+[
+    {
+        "category": "forest",
+        "imageSrc": "../images/items/item1.png",
+        "imageAlt": "Stylish Chair",
+        "title": "Stylish Chair",
+        "rate": "5",
+        "price": "120",
+        "idN": "ABC01"
+    },
+    {
+        "category": "office",
+        "imageSrc": "../images/items/item2.png",
+        "imageAlt": "Yellow Chair",
+        "title": "Yellow Chair",
+        "rate": "4.7",
+        "price": "130",
+        "idN": "ABC02"
+    },
+    {
+        "category": "fox kid",
+        "imageSrc": "../images/items/item3.png",
+        "imageAlt": "Red Chair",
+        "title": "Red Chair",
+        "rate": "4.1",
+        "price": "135",
+        "idN": "ABC03"
+    },
+    {
+        "category": "fox kid",
+        "imageSrc": "../images/items/item4.png",
+        "imageAlt": "Brown Chair",
+        "title": "Brown Chair",
+        "rate": "5",
+        "price": "140",
+        "idN": "ABC04"
+    },
+    {
+        "category": "forest",
+        "imageSrc": "../images/items/item5.png",
+        "imageAlt": "Stylishing Chair",
+        "title": "Stylishing Chair",
+        "rate": "4.9",
+        "price": "150",
+        "idN": "ABC05"
+    },
+    {
+        "category": "other",
+        "imageSrc": "../images/items/item6.png",
+        "imageAlt": "Stylish Chair",
+        "title": "Stylish Chair",
+        "rate": "4.7",
+        "price": "160",
+        "idN": "ABC06"
+    },
+    {
+        "category": "forest",
+        "imageSrc": "../images/items/item7.png",
+        "imageAlt": "Black Chair",
+        "title": "Black Chair",
+        "rate": "5",
+        "price": "90",
+        "idN": "ABC07"
+    },
+    {
+        "category": "fox kid",
+        "imageSrc": "../images/items/item8.png",
+        "imageAlt": "Stylish Chair",
+        "title": "Style Chairs",
+        "rate": "5",
+        "price": "140",
+        "idN": "ABC08"
+    }
+]

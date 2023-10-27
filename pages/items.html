@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,600&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+    <title>Our items</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+
+<body class="page">
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <div class="header__mobile">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <a href="../index.html"><img src="../images/main-logo-footer.png" alt="logo"></a>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="../pages/items.html">
+                                <div>Shop</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../index.html">
+                                <div>Mainpage</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../pages/our-history.html">
+                                <div>Our history</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../pages/items.html">
+                                <div>All items</div>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <span>
+                    <a href="#"><img src="../images/icon-cart-page.png" alt="Cart" class="cart"></a>
+                    <a href="#"><img src="../images/icon-profile-page.png" alt="Profile"></a>
+                </span>
+            </div>
+        </div>
+    </header>
+<!--Cart started-->
+<section class="cart__section displayHide">
+    <div class="button__close"><a href="#"><img src="../images/icon-close.png" alt="Close"></a></div>
+    <h2>Your bag</h2>
+    <ul class="cart__list" id="cart__list">
+        <!--Inserted by -->
+    </ul>
+    <h4>Total:</h4>
+    <h4 id="total__amount"></h4>
+    <span class="items__button catalog__page">
+        <a href="#"><input type="button" class="button__all__foxes" value="Checkout" /></a>
+    </span>
+</section>
+<!--Cart Ended-->
+    <section class="history">
+        <div class="container">
+            <div class="history__content">
+                <h1>All items</h1>
+            </div>
+        </div>
+    </section>
+    <section class="catalog">
+        <div class="container">
+            <div class="catalog__content">
+                <div class="catalog__search">
+                    <input type="text" class="search__field" tabindex="2" name="search" placeholder="Search"
+                        maxlength="20" required>
+                    <span>Topic</span>
+                    <ul class="catalog__filter" id="catalog__filter">
+                        <li>All</li>
+                        <!--Inserted from JS-->
+                    </ul>
+                    <div class="catalog__price">
+                        <span>Price</span>
+                        <input type="range" tabindex="12" id="price" name="price" class="price__form" min="0" max="200"
+                            value="0" />
+                        <div class="price__display">Value:<span id="price__value">0</span></div>
+                    </div>
+                </div>
+                <ul class="catalog__list" id="catalog__list">
+                    <!--Inserted from JS-->
+                </ul>
+            </div>
+            <span class="items__button catalog__page">
+                <a href="../pages/items.html"><input type="button" class="button__all__foxes" value="Load More" /></a>
+            </span>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <span>
+                    <ul>
+                        <li title="Logo"><a href="../index.html"><img src="../images/main-logo-footer.png"
+                                    alt="Logo"></a>
+                        </li>
+                        <li>Lorem ipsum dolor sit amet consectetur consectetur</li>
+                        <li>Call us: <a href="#">8956-3254-7887</a></li>
+                        <li>
+                            <ul class="footer__social-list">
+                                <li>
+                                    <a href="#"><img src="../images/instagram.png" alt="Instagram" /></a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="../images/telegram.png" alt="Telegram" /></a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="../images/twitter.png" alt="Twitter" /></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </span>
+                <nav>
+                    <ul>
+                        <li title="Shop">Shop</li>
+                        <li><a href="#">Sign Up</a></li>
+                        <li><a href="#">About Us</a></li>
+                    </ul>
+                    <ul>
+                        <li title="Products">Products</li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                    </ul>
+                    <ul>
+                        <li title="Collection">Collection</li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                    </ul>
+                    <ul>
+                        <li title="Weekly updates">Weekly updates</li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                    </ul>
+                    <ul>
+                        <li title="About us">About us</li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <span class="footer__copyright">Storelogo, 2023 All rights reserved</span>
+        </div>
+        </div>
+    </footer>
+    <script src="../scripts/scriptbasic.js"></script>
+    <script src="../scripts/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,600&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+    <title>Task_2_8</title>
+    <link rel="stylesheet" href="./styles/styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <div class="header__mobile">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <a href="./index.html"><img src="./images/logo.png" alt="logo"></a>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="./pages/items.html">
+                                <div>Shop</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./index.html">
+                                <div>Mainpage</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./pages/our-history.html">
+                                <div>Our history</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./pages/items.html">
+                                <div>All items</div>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <span>
+                    <a href="#"><img src="../images/icon-cart-page.png" alt="Cart" class="cart"></a>
+                    <a href="#"><img src="../images/icon-profile-page.png" alt="Profile"></a>
+                </span>
+            </div>
+        </div>
+    </header>
+    <!--Cart started-->
+<section class="cart__section displayHide">
+    <div class="button__close"><a href="#"><img src="../images/icon-close.png" alt="Close"></a></div>
+    <h2>Your bag</h2>
+    <ul class="cart__list" id="cart__list">
+        <!--Inserted by -->
+    </ul>
+    <h4>Total:</h4>
+    <h4 id="total__amount"></h4>
+    <span class="items__button catalog__page">
+        <a href="#"><input type="button" class="button__all__foxes" value="Checkout" /></a>
+    </span>
+</section>
+<!--Cart Ended-->
+    <section class="intro">
+        <div class="container">
+            <div class="intro__content">
+                <h1>Discover foxlife</h1>
+                <span>Lorem ipsum dolor sit amet consectetur. Phar eget turpis sem ultricies dolor sit amet
+                    consectetur.</span>
+            </div>
+        </div>
+    </section>
+    <section class="items">
+        <div class="container">
+            <div class="items__content">
+                <div class="items__element item1">
+                    <div>
+                        <h3>#Food</h3>
+                        <span>Lorem ipsum dolor sit amet ipsum</span>
+                    </div>
+                    <img src="../images/hp-item1.png" alt="item1">
+                </div>
+                <div class="items__element item3">
+                    <div>
+                        <h3>#House</h3>
+                        <span>Lorem ipsum dolor sit amet ipsum</span>
+                    </div>
+                    <img src="../images/hp-item3.png" alt="item3">
+                </div>
+                <div class="items__element item2">
+                    <div>
+                        <h3>#Office</h3>
+                        <span>Lorem ipsum dolor sit amet ipsum</span>
+                    </div>
+                    <img src="../images/hp-item2.png" alt="item3">
+                </div>
+            </div>
+            <div class="items__button">
+                <a href="./pages/items.html"><input type="button" class="button__all__foxes" value="All foxes" /></a>
+            </div>
+        </div>
+    </section>
+    <section class="subscription">
+        <div class="container">
+            <div class="subscription__content">
+                <span>Join our newsletter</span>
+                <p>Lorem ipsum dolor sit amet consectetur. Molestie turpis quis turpis fermentum egestas bibendum.Lorem
+                    ipsum dolor sit amet consectetur.</p>
+                <form action="/submit" method="post" class="subscription__form">
+                    <input type="email" tabindex="1" name="email" placeholder="Enter your email" minlength="5"
+                        maxlength="30" id="sigup" required />
+                    <input type="submit" class="button__submit" value="Subscribe" />
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <span>
+                    <ul>
+                        <li title="Logo"><a href="./index.html"><img src="./images/main-logo-footer.png" alt="Logo"></a>
+                        </li>
+                        <li>Lorem ipsum dolor sit amet consectetur consectetur</li>
+                        <li>Call us: <a href="#">8956-3254-7887</a></li>
+                        <li>
+                            <ul class="footer__social-list">
+                                <li>
+                                    <a href="#"><img src="./images/instagram.png" alt="Instagram" /></a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="./images/telegram.png" alt="Telegram" /></a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="./images/twitter.png" alt="Twitter" /></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </span>
+                <nav>
+                    <ul>
+                        <li title="Shop">Shop</li>
+                        <li><a href="#">Sign Up</a></li>
+                        <li><a href="#">About Us</a></li>
+                    </ul>
+                    <ul>
+                        <li title="Products">Products</li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                    </ul>
+                    <ul>
+                        <li title="Collection">Collection</li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                    </ul>
+                    <ul>
+                        <li title="Weekly updates">Weekly updates</li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                    </ul>
+                    <ul>
+                        <li title="About us">About us</li>
+                        <li><a href="#">lorem ipsum</a></li>
+                        <li><a href="#">lorem ipsum</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <span class="footer__copyright">Storelogo, 2023 All rights reserved</span>
+        </div>
+        </div>
+    </footer>
+    <script src="./scripts/scriptbasic.js"></script>
+    <script src="./scripts/script.js"></script>
+</body>
+
+</html>
