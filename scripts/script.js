@@ -39,20 +39,20 @@ const store = async () => {
       )
       .forEach((item) => {
         elements.push(`
-                      <li class="catalog__item" idn="${item.idN}">
-                          <img src="${item.imageSrc}" alt="${item.imageAlt}">
-                          <div class="catalog__item__add_cart">
-                          <a href="#"><img src='../images/icon-add-to-cart.png' alt="Add to cart"></a>
-                          <span>Add</span>
-                          </div>
-                          <div class="item__description">
-                              <h3>${item.title}</h3>
-                              <span class="item__price">$${item.price}</span>
-                              <span class="item__rate"><img src="../images/rate.png" alt="Rate">${item.rate}</span>
-                              <span class="item__topic">${item.category}</span>
-                          </div>
-                      </li>
-          `);
+                        <li class="catalog__item" idn="${item.idN}">
+                            <img src="${item.imageSrc}" alt="${item.imageAlt}">
+                            <div class="catalog__item__add_cart">
+                            <a href="#"><img src='../images/icon-add-to-cart.png' alt="Add to cart"></a>
+                            <span>Add</span>
+                            </div>
+                            <div class="item__description">
+                                <h3>${item.title}</h3>
+                                <span class="item__price">$${item.price}</span>
+                                <span class="item__rate"><img src="../images/rate.png" alt="Rate">${item.rate}</span>
+                                <span class="item__topic">${item.category}</span>
+                            </div>
+                        </li>
+            `);
       });
 
     catalogList.innerHTML = elements.join("");
@@ -140,7 +140,6 @@ const store = async () => {
     priceDisplay.textContent = `Value: $ ${priceRange.value}`;
   };
   const buttonSwitcher = (event) => {
-    // const selectedCategory = event.target.getAttribute("data-value");
     const filterItems = document.querySelectorAll("li");
 
     filterItems.forEach((item) => {
@@ -182,47 +181,50 @@ const store = async () => {
     console.log('no button buttonCartClose')
   }
   const showCart = (selectedItem) => {
-
     if (!Array.isArray(selectedItems)) {
       selectedItems = [];
     }
+    if (selectedItems.length === 0) {
+      elementCart.classList.remove('displayShow')
+      elementCart.classList.add('displayHide')
+    }
+
     let elements = [];
     const cart = document.querySelector(".cart__list");
 
-
     selectedItems.forEach((item) => {
       elements.push(`
-          <li class="cart__element" idn="${item.idN}">
-            <div class="catalog__item__cart">
-            <img src="${item.imageSrc}" alt="${item.imageAlt}">
-                <div class="item__description">
-                    <h3>${item.title}</h3>
-                    <span class="item__price">${item.price}</span>
-                </div>
-            </div>
-            <div class="cart__updates">
-                <div class="cart__quantity">
-                    <span class="cart__change"><a href="#">-</a></span>
-                    <span class="cart__field_amount">1</span>
-                    <span class="cart__change"><a href="#">+</a></span>
-                </div>
-                <div class="cart__remove">
-                    <span>Remove</span>
-                    <a href="#"><img src="../images/icon-close.png" alt="Close"></a>
-                </div>
-            </div>
-        </li>
-        `)
-    })
-    // console.log(cart)
+            <li class="cart__element" data-idn="${item.idN}">
+              <div class="catalog__item__cart">
+              <img src="${item.imageSrc}" alt="${item.imageAlt}">
+                  <div class="item__description">
+                      <h3>${item.title}</h3>
+                      <span class="item__price">${item.price}</span>
+                  </div>
+              </div>
+              <div class="cart__updates">
+                  <div class="cart__quantity">
+                      <span class="cart__change"><a href="#">-</a></span>
+                      <span class="cart__field_amount">${item.quantity}</span>
+                      <span class="cart__change"><a href="#">+</a></span>
+                  </div>
+                  <div class="cart__remove" data-idn="${item.idN}">
+                      <span>Remove</span>
+                      <a href="#"><img src="../images/icon-close.png" alt="Close"></a>
+                  </div>
+              </div>
+          </li>
+          `);
+    });
+
     cart.innerHTML = elements.join("");
-    return
-  }
+  };
+
   const addItemsToCart = async (event) => {
     elementCart.classList.remove('displayHide')
     elementCart.classList.add('displayShow')
 
-    let quanity = 0;
+    let quantity = 0;
     const liElement = await event.target.closest('.catalog__item');
     if (liElement) {
       const idN = liElement.getAttribute('idN');
@@ -233,22 +235,23 @@ const store = async () => {
         idN: idN,
         imageSrc: imageSrc,
         title: title,
-        price: price
+        price: price,
+        quantity: 1
       }
 
 
       const existItem = selectedItems.find(item => item.idN === idN)
       if (existItem) {
-        quanity += 1;
+        quantity += 1;
         existItem.quantity = (existItem.quantity || 0) + 1;
-        // console.log(quanity)
+        // console.log(quantity)
       } else {
         selectedItem.quantity = 1;
         selectedItems.push(selectedItem);
-        // console.log(quanity)
+        // console.log(quantity)
       }
 
-      // console.log(selectedItems, quanity)
+      // console.log(selectedItems, quantity)
       showCart(selectedItems);
       showCartAmount(selectedItems)
       setLocalStorage(selectedItem)
@@ -272,6 +275,7 @@ const store = async () => {
     showCart(selectedItems);
     showCartAmount(selectedItems)
     setLocalStorage(selectedItems);
+
   }
 
   const showCartAmount = (selectedItems) => {
@@ -281,8 +285,9 @@ const store = async () => {
 
     selectedItems.forEach(item => {
       const itemPrice = parseFloat(item.price.replace("$", ""));
-      const itemQuanity = item.quanity || 1;
-      total += itemPrice * itemQuanity;
+      const itemquantity = item.quantity || 1;
+      console.log(total)
+      total += itemPrice * itemquantity;
     })
     totalAmount.textContent = `$${total.toFixed(2)}`
     console.log(total)
@@ -291,11 +296,10 @@ const store = async () => {
   if (cartList) {
     cartList.addEventListener('click', (event) => {
       const target = event.target;
-      const removeCartButton = target.closest('.cart__element');
-      const idN = removeCartButton.getAttribute('idn');
+      const removeCartButton = target.closest('.cart__remove');
       if (removeCartButton) {
-        // console.log(idN)
-        removeItem(idN)
+        const idN = removeCartButton.getAttribute('data-idn');
+        removeItem(idN);
       }
     });
   }
