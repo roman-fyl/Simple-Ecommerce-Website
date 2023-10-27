@@ -12,6 +12,7 @@ const store = async () => {
   const elementCart = document.querySelector(".cart__section");
   const buttonCart = document.querySelector(".cart");
   const buttonCartClose = document.querySelector(".button__close");
+  const totalAmount = document.getElementById("total__amount");
 
   let items, data, allFilterOption;
   let selectedItems = [];
@@ -139,7 +140,7 @@ const store = async () => {
     priceDisplay.textContent = `Value: $ ${priceRange.value}`;
   };
   const buttonSwitcher = (event) => {
-    const selectedCategory = event.target.getAttribute("data-value");
+    // const selectedCategory = event.target.getAttribute("data-value");
     const filterItems = document.querySelectorAll("li");
 
     filterItems.forEach((item) => {
@@ -239,16 +240,19 @@ const store = async () => {
       const existItem = selectedItems.find(item => item.idN === idN)
       if (existItem) {
         quanity += 1;
+        existItem.quantity = (existItem.quantity || 0) + 1;
         // console.log(quanity)
       } else {
-        selectedItems.push(selectedItem)
-        quanity = 1
+        selectedItem.quantity = 1;
+        selectedItems.push(selectedItem);
         // console.log(quanity)
       }
 
       // console.log(selectedItems, quanity)
       showCart(selectedItems);
+      showCartAmount(selectedItems)
       setLocalStorage(selectedItem)
+
       return selectedItems;
     }
   };
@@ -266,7 +270,22 @@ const store = async () => {
     const updatingCart = selectedItems.filter(item => item.idN !== index);
     selectedItems = updatingCart;
     showCart(selectedItems);
+    showCartAmount(selectedItems)
     setLocalStorage(selectedItems);
+  }
+
+  const showCartAmount = (selectedItems) => {
+    if (Array.isArray(selectedItems)) {
+    }
+    let total = 0;
+
+    selectedItems.forEach(item => {
+      const itemPrice = parseFloat(item.price.replace("$", ""));
+      const itemQuanity = item.quanity || 1;
+      total += itemPrice * itemQuanity;
+    })
+    totalAmount.textContent = `$${total.toFixed(2)}`
+    console.log(total)
   }
 
   if (cartList) {
@@ -275,7 +294,7 @@ const store = async () => {
       const removeCartButton = target.closest('.cart__element');
       const idN = removeCartButton.getAttribute('idn');
       if (removeCartButton) {
-        console.log(idN)
+        // console.log(idN)
         removeItem(idN)
       }
     });
@@ -299,6 +318,8 @@ const store = async () => {
   priceFilter();
   selectedItems = getLocalStorage();
   showCart(selectedItems);
+  showCartAmount(selectedItems)
+
 };
 
 document.addEventListener("DOMContentLoaded", store);
