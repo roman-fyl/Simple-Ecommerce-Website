@@ -7,7 +7,7 @@ const store = async () => {
   const searchInput = document.querySelector(".search__field");
   const priceRange = document.querySelector('input[name="price"]');
   const priceDisplay = document.querySelector(".price__display");
-  const navigation = document.querySelector(".header__content nav");
+  // const navigation = document.querySelector(".header__content nav");
   const menu = document.querySelector(".header__mobile");
   const elementCart = document.querySelector(".cart__section");
   const buttonCart = document.querySelector(".cart");
@@ -31,31 +31,33 @@ const store = async () => {
 
   const showItems = (items, category) => {
     const catalogList = document.getElementById("catalog__list");
-    const elements = [];
+if(catalogList) {
+  const elements = [];
 
-    items
-      .filter((item) =>
-        category === "all" ? item : item.category === category
-      )
-      .forEach((item) => {
-        elements.push(`
-                        <li class="catalog__item" idn="${item.idN}">
-                            <img src="${item.imageSrc}" alt="${item.imageAlt}">
-                            <div class="catalog__item__add_cart">
-                            <a href="#"><img src='../images/icon-add-to-cart.png' alt="Add to cart"></a>
-                            <span>Add</span>
-                            </div>
-                            <div class="item__description">
-                                <h3>${item.title}</h3>
-                                <span class="item__price">$${item.price}</span>
-                                <span class="item__rate"><img src="../images/rate.png" alt="Rate">${item.rate}</span>
-                                <span class="item__topic">${item.category}</span>
-                            </div>
-                        </li>
-            `);
-      });
+  items
+    .filter((item) =>
+      category === "all" ? item : item.category === category
+    )
+    .forEach((item) => {
+      elements.push(`
+                      <li class="catalog__item" idn="${item.idN}">
+                          <img src="${item.imageSrc}" alt="${item.imageAlt}">
+                          <div class="catalog__item__add_cart">
+                          <a href="#"><img src='../images/icon-add-to-cart.png' alt="Add to cart"></a>
+                          <span>Add</span>
+                          </div>
+                          <div class="item__description">
+                              <h3>${item.title}</h3>
+                              <span class="item__price">$${item.price}</span>
+                              <span class="item__rate"><img src="../images/rate.png" alt="Rate">${item.rate}</span>
+                              <span class="item__topic">${item.category}</span>
+                          </div>
+                      </li>
+          `);
+    });
 
-    catalogList.innerHTML = elements.join("");
+  catalogList.innerHTML = elements.join("");
+}
   };
 
   const createFilterOptions = (items) => {
@@ -78,15 +80,23 @@ const store = async () => {
     allFilterOption.textContent = "All";
     allFilterOption.setAttribute("data-value", "all");
     // allFilterOption.classList.add("active");
+   if(catalogFilter) {
     catalogFilter.innerHTML = "";
     catalogFilter.appendChild(allFilterOption);
+   }else {
+    console.log('catalogFilter dont exist')
+   }
 
     filterOptions.forEach((option) => {
       const optionElement = document.createElement("li");
 
-      optionElement.textContent = option;
+      if(optionElement || catalogFilter) {
+        optionElement.textContent = option;
       optionElement.setAttribute("data-value", option);
       catalogFilter.appendChild(optionElement);
+      }else {
+        console.log('catalogFilter or optionElement dont exist')
+       }
     });
   };
 
@@ -146,7 +156,7 @@ const store = async () => {
       return;
     });
   } else {
-    console.error("catalogFilter doesnt exist");
+    console.log("catalogFilter doesnt exist");
   }
 
   const cleanFilters = () => {
