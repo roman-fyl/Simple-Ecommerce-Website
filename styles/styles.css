@@ -706,15 +706,15 @@ input[type=range] {
 .cart__section {
   padding: 20px;
   z-index: 999;
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   min-width: 300px;
-  min-height: 100vh;
-  background: rgb(77, 77, 77);
+  background: rgba(77, 77, 77, 0.9);
   display: flex;
   align-items: center;
   flex-direction: column;
+  border-radius: 7px;
   color: #fff;
 }
 .cart__section h2 {

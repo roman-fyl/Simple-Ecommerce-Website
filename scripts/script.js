@@ -13,16 +13,14 @@ const store = async () => {
   const buttonCart = document.querySelector(".cart");
   const buttonCartClose = document.querySelector(".button__close");
   const totalAmount = document.getElementById("total__amount");
-  const buttonDecrease = document.getElementById("decrease");
-  const buttonIncreaseQuantity = document.getElementById("increase");
 
   let items, data, allFilterOption;
   let selectedItems = [];
 
-
   const getData = async () => {
     try {
       const response = await fetch("../base/base.json");
+
       data = await response.json();
       return data;
     } catch (error) {
@@ -62,6 +60,7 @@ const store = async () => {
 
   const createFilterOptions = (items) => {
     let filterList = {};
+
     items.forEach((item) => {
       if (filterList[item.category]) {
         filterList[item.category] += 1;
@@ -74,6 +73,7 @@ const store = async () => {
   };
 
   const showFilters = (filterOptions) => {
+
     allFilterOption = document.createElement("li");
     allFilterOption.textContent = "All";
     allFilterOption.setAttribute("data-value", "all");
@@ -83,6 +83,7 @@ const store = async () => {
 
     filterOptions.forEach((option) => {
       const optionElement = document.createElement("li");
+
       optionElement.textContent = option;
       optionElement.setAttribute("data-value", option);
       catalogFilter.appendChild(optionElement);
@@ -91,13 +92,19 @@ const store = async () => {
 
   //input search
   const searchItem = ({ type, keyCode }) => {
+
     cleanFilters();
-    showFilters(filterOptions);  // reset Li selection    
+    showFilters(filterOptions); // reset Li selection
+
     const name = searchInput.value.toLowerCase();
     let searchResult = data;
 
     if (
-      type === "input" || type === "change" || (type === "keydown" && keyCode === 13) || type === "click") {
+      type === "input" ||
+      type === "change" ||
+      (type === "keydown" && keyCode === 13) ||
+      type === "click"
+    ) {
       if (name) {
         searchResult = data.filter((item) => {
           return item.title.toLowerCase().includes(name);
@@ -108,12 +115,16 @@ const store = async () => {
   };
   //price search
   const priceFilter = (event) => {
+
     priceRange.addEventListener("input", () => {
       const minPrice = parseFloat(priceRange.value);
+
       priceDisplay.textContent = `Value: $ ${priceRange.value}`;
+
       const filteredByPrice = data.filter((item) => {
         return parseFloat(item.price) >= minPrice;
       });
+
       showItems(filteredByPrice, "all");
       showFilters(filterOptions); // reset Li selection
       return;
@@ -123,9 +134,10 @@ const store = async () => {
   if (catalogFilter) {
     catalogFilter.addEventListener("click", (event) => {
       if (event.target.tagName === "LI") {
-        buttonSwitcher(event)
+        buttonSwitcher(event);
 
         const selectedCategory = event.target.getAttribute("data-value");
+
         showItems(items, selectedCategory);
         searchInput.value = "";
         cleanFilters();
@@ -134,13 +146,14 @@ const store = async () => {
       return;
     });
   } else {
-    console.error('catalogFilter doesnt exist')
+    console.error("catalogFilter doesnt exist");
   }
 
   const cleanFilters = () => {
     priceRange.value = 0;
     priceDisplay.textContent = `Value: $ ${priceRange.value}`;
   };
+
   const buttonSwitcher = (event) => {
     const filterItems = document.querySelectorAll("li");
 
@@ -148,47 +161,49 @@ const store = async () => {
       item.classList.remove("active");
     });
     event.target.classList.add("active");
+  };
 
-  }
   const menuToggle = () => {
-    navigation.classList.toggle('displayShow');
-    return
-  }
+    navigation.classList.toggle("displayShow");
+    return;
+  };
 
   if (buttonCart) {
-    buttonCart.addEventListener('click', (event) => {
+    buttonCart.addEventListener("click", (event) => {
       addItemsToCart(event);
-      if (elementCart.classList.contains('displayHide')) {
-        elementCart.classList.remove('displayHide')
-        elementCart.classList.add('displayShow')
+      if (elementCart.classList.contains("displayHide")) {
+        elementCart.classList.remove("displayHide");
+        elementCart.classList.add("displayShow");
         // console.log('show cart')
-        return
+        return;
       }
     });
   } else {
-    console.log('Button cart doesnt exist')
+    console.log("Button cart doesnt exist");
   }
 
   if (buttonCartClose) {
-    buttonCartClose.addEventListener('click', (event) => {
-      addItemsToCart(event)
-      if (elementCart.classList.contains('displayShow')) {
-        elementCart.classList.remove('displayShow')
-        elementCart.classList.add('displayHide')
+    buttonCartClose.addEventListener("click", (event) => {
+
+      addItemsToCart(event);
+
+      if (elementCart.classList.contains("displayShow")) {
+        elementCart.classList.remove("displayShow");
+        elementCart.classList.add("displayHide");
         // console.log('hide cart')
-        return
+        return;
       }
     });
   } else {
-    console.log('no button buttonCartClose')
+    console.log("no button buttonCartClose");
   }
   const showCart = (selectedItem) => {
     if (!Array.isArray(selectedItems)) {
       selectedItems = [];
     }
     if (selectedItems.length === 0) {
-      elementCart.classList.remove('displayShow')
-      elementCart.classList.add('displayHide')
+      elementCart.classList.remove("displayShow");
+      elementCart.classList.add("displayHide");
     }
 
     let elements = [];
@@ -223,29 +238,31 @@ const store = async () => {
   };
 
   const addItemsToCart = async (event) => {
-    elementCart.classList.remove('displayHide')
-    elementCart.classList.add('displayShow')
+    elementCart.classList.remove("displayHide");
+    elementCart.classList.add("displayShow");
 
     let quantity = 0;
-    const liElement = await event.target.closest('.catalog__item');
+    const liElement = await event.target.closest(".catalog__item");
+
     if (liElement) {
-      const idN = liElement.getAttribute('idN');
-      const imageSrc = liElement.querySelector('img').getAttribute('src')
-      const title = liElement.querySelector('.item__description h3').textContent;
-      const price = liElement.querySelector('.item__description .item__price').textContent;
+      const idN = liElement.getAttribute("idN");
+      const imageSrc = liElement.querySelector("img").getAttribute("src");
+      const title = liElement.querySelector(".item__description h3").textContent;
+      const price = liElement.querySelector(".item__description .item__price").textContent;
+
       const selectedItem = {
         idN: idN,
         imageSrc: imageSrc,
         title: title,
         price: price,
-        quantity: 1
-      }
+        quantity: 1,
+      };
 
+      const existItem = selectedItems.find((item) => item.idN === idN);
 
-      const existItem = selectedItems.find(item => item.idN === idN)
       if (existItem) {
         quantity += 1;
-        existItem.quantity = (existItem.quantity || 0) + 1;
+        existItem.quantity = (existItem.quantity || 1) + 1;
         // console.log(quantity)
       } else {
         selectedItem.quantity = 1;
@@ -255,55 +272,58 @@ const store = async () => {
 
       // console.log(selectedItems, quantity)
       showCart(selectedItems);
-      showCartAmount(selectedItems)
-      setLocalStorage(selectedItem)
+      showCartAmount(selectedItems);
+      setLocalStorage(selectedItem);
 
       return selectedItems;
     }
   };
 
   const setLocalStorage = (selectedItem) => {
-    localStorage.setItem('idN', JSON.stringify(selectedItems));
-    return
-  }
+    localStorage.setItem("idN", JSON.stringify(selectedItems));
+    return;
+  };
+
   const getLocalStorage = () => {
-    const storedItems = JSON.parse(localStorage.getItem('idN'))
-    console.log(storedItems)
-    return storedItems
-  }
+    const storedItems = JSON.parse(localStorage.getItem("idN"));
+    // console.log(storedItems)
+    return storedItems;
+  };
+
   const removeItem = (index) => {
-    const updatingCart = selectedItems.filter(item => item.idN !== index);
+    const updatingCart = selectedItems.filter((item) => item.idN !== index);
+
     selectedItems = updatingCart;
     showCart(selectedItems);
-    showCartAmount(selectedItems)
+    showCartAmount(selectedItems);
     setLocalStorage(selectedItems);
-
-  }
+  };
 
   const showCartAmount = (selectedItems) => {
-    if (Array.isArray(selectedItems)) {
-    }
     let total = 0;
-    selectedItems.forEach(item => {
-      const itemPrice = parseFloat(item.price.replace("$", ""));
-      const itemquantity = item.quantity || 1;
-      console.log(total)
-      total += itemPrice * itemquantity;
-    })
-    totalAmount.textContent = `$${total.toFixed(2)}`
-    console.log(total)
-  }
 
+    if (Array.isArray(selectedItems)) {
+      selectedItems.forEach((item) => {
+        const itemPrice = parseFloat(item.price.replace("$", ""));
+        const itemquantity = item.quantity || 1;
+        // console.log(total)
+        total += itemPrice * itemquantity;
+      });
+    }
+   
+    totalAmount.textContent = `$${total.toFixed(2)}`;
+    // console.log(total)
+  };
 
   if (cartList) {
-    cartList.addEventListener('click', (event) => {
+    cartList.addEventListener("click", (event) => {
       const target = event.target;
-      const increaseQuantity = target.closest('#increase');
-      // const increaseQuantity = target.contains('#increase');
+      const increaseQuantity = target.closest("#increase");
+
       if (increaseQuantity) {
-        const idN = increaseQuantity.getAttribute('data-idn');
-        console.log(idN)
-        const selectedItem = selectedItems.find(item => item.idN === idN)
+        const idN = increaseQuantity.getAttribute("data-idn");
+        const selectedItem = selectedItems.find((item) => item.idN === idN);
+
         if (selectedItem) {
           selectedItem.quantity = (selectedItem.quantity || 0) + 1;
           showCart(selectedItems);
@@ -312,39 +332,68 @@ const store = async () => {
         }
       }
     });
+  }else {
+    console.log('CartList dont exist in IncreaseQuantity function')
   }
 
   if (cartList) {
-    cartList.addEventListener('click', (event) => {
+    cartList.addEventListener("click", (event) => {
       const target = event.target;
-      const removeCartButton = target.closest('.cart__remove');
+      const decreaseQuantity = target.closest("#decrease");
+
+      if (decreaseQuantity) {
+        const idN = decreaseQuantity.getAttribute("data-idn");
+        const selectedItem = selectedItems.find((item) => item.idN === idN);
+
+        if (selectedItem && selectedItem.quantity > 1) {
+          selectedItem.quantity = (selectedItem.quantity || 0) - 1;
+          showCart(selectedItems);
+          showCartAmount(selectedItems);
+          setLocalStorage(selectedItems);
+        }
+      }
+    });
+  }else {
+    console.log('CartList dont exist in decreaseQuantity function')
+  }
+
+  if (cartList) {
+    cartList.addEventListener("click", (event) => {
+      const target = event.target;
+      const removeCartButton = target.closest(".cart__remove");
+
       if (removeCartButton) {
-        const idN = removeCartButton.getAttribute('data-idn');
+        const idN = removeCartButton.getAttribute("data-idn");
         removeItem(idN);
       }
     });
+  }else {
+    console.log('CartList dont exist in removeItem function')
   }
 
-  catalogList.addEventListener('click', (event) => {
+ if(catalogList) {
+  catalogList.addEventListener("click", (event) => {
     const target = event.target;
-    const addCartButton = target.closest('.catalog__item__add_cart');
+    const addCartButton = target.closest(".catalog__item__add_cart");
     if (addCartButton) {
-      console.log(target)
+      // console.log(target)
       addItemsToCart(event);
     }
-  })
+  });
+ }else {
+  console.log('CatalogList dont exist in function')
+}
 
   items = await getData();
   showItems(items, "all");
   const filterOptions = createFilterOptions(items);
   showFilters(filterOptions);
   searchInput.addEventListener("input", searchItem);
-  menu.addEventListener('click', menuToggle);
+  menu.addEventListener("click", menuToggle);
   priceFilter();
   selectedItems = getLocalStorage();
   showCart(selectedItems);
-  showCartAmount(selectedItems)
-
+  showCartAmount(selectedItems);
 };
 
-document.addEventListener("DOMContentLoaded", store); 
+document.addEventListener("DOMContentLoaded", store);
