@@ -3,6 +3,7 @@
 const store = async () => {
   const catalogFilter = document.getElementById("catalog__filter");
   const catalogList = document.getElementById("catalog__list");
+  const cartList = document.getElementById("cart__list");
   const searchInput = document.querySelector(".search__field");
   const priceRange = document.querySelector('input[name="price"]');
   const priceDisplay = document.querySelector(".price__display");
@@ -13,10 +14,10 @@ const store = async () => {
   const buttonCartClose = document.querySelector(".button__close");
 
   let items, data, allFilterOption;
-  let filteredItems = [], selectedItems = [];
+  let selectedItems = [];
 
 
-  const getData = async () => { 
+  const getData = async () => {
     try {
       const response = await fetch("../base/base.json");
       data = await response.json();
@@ -37,20 +38,20 @@ const store = async () => {
       )
       .forEach((item) => {
         elements.push(`
-                    <li class="catalog__item" idn="${item.idN}">
-                        <img src="${item.imageSrc}" alt="${item.imageAlt}">
-                        <div class="catalog__item__add_cart">
-                        <a href="#"><img src='../images/icon-add-to-cart.png' alt="Add to cart"></a>
-                        <span>Add</span>
-                        </div>
-                        <div class="item__description">
-                            <h3>${item.title}</h3>
-                            <span class="item__price">$${item.price}</span>
-                            <span class="item__rate"><img src="../images/rate.png" alt="Rate">${item.rate}</span>
-                            <span class="item__topic">${item.category}</span>
-                        </div>
-                    </li>
-        `);
+                      <li class="catalog__item" idn="${item.idN}">
+                          <img src="${item.imageSrc}" alt="${item.imageAlt}">
+                          <div class="catalog__item__add_cart">
+                          <a href="#"><img src='../images/icon-add-to-cart.png' alt="Add to cart"></a>
+                          <span>Add</span>
+                          </div>
+                          <div class="item__description">
+                              <h3>${item.title}</h3>
+                              <span class="item__price">$${item.price}</span>
+                              <span class="item__rate"><img src="../images/rate.png" alt="Rate">${item.rate}</span>
+                              <span class="item__topic">${item.category}</span>
+                          </div>
+                      </li>
+          `);
       });
 
     catalogList.innerHTML = elements.join("");
@@ -153,8 +154,8 @@ const store = async () => {
   }
 
   if (buttonCart) {
-    buttonCart.addEventListener('click', () => {
-      addItemsToCart();
+    buttonCart.addEventListener('click', (event) => {
+      addItemsToCart(event);
       if (elementCart.classList.contains('displayHide')) {
         elementCart.classList.remove('displayHide')
         elementCart.classList.add('displayShow')
@@ -167,8 +168,8 @@ const store = async () => {
   }
 
   if (buttonCartClose) {
-    buttonCartClose.addEventListener('click', () => {
-      addItemsToCart()
+    buttonCartClose.addEventListener('click', (event) => {
+      addItemsToCart(event)
       if (elementCart.classList.contains('displayShow')) {
         elementCart.classList.remove('displayShow')
         elementCart.classList.add('displayHide')
@@ -180,42 +181,46 @@ const store = async () => {
     console.log('no button buttonCartClose')
   }
   const showCart = (selectedItem) => {
+
     if (!Array.isArray(selectedItems)) {
       selectedItems = [];
-  }
+    }
     let elements = [];
     const cart = document.querySelector(".cart__list");
 
 
     selectedItems.forEach((item) => {
       elements.push(`
-        <li class="cart__element">
-          <div class="catalog__item__cart">
-          <img src="${item.imageSrc}" alt="${item.imageAlt}">
-              <div class="item__description">
-                  <h3>${item.title}</h3>
-                  <span class="item__price">${item.price}</span>
-              </div>
-          </div>
-          <div class="cart__updates">
-              <div class="cart__quantity">
-                  <span class="cart__change"><a href="#">-</a></span>
-                  <span class="cart__field_amount">1</span>
-                  <span class="cart__change"><a href="#">+</a></span>
-              </div>
-              <div class="cart__remove">
-                  <span>Remove</span>
-                  <a href="#"><img src="../images/icon-close.png" alt="Close"></a>
-              </div>
-          </div>
-      </li>
-      `)
+          <li class="cart__element" idn="${item.idN}">
+            <div class="catalog__item__cart">
+            <img src="${item.imageSrc}" alt="${item.imageAlt}">
+                <div class="item__description">
+                    <h3>${item.title}</h3>
+                    <span class="item__price">${item.price}</span>
+                </div>
+            </div>
+            <div class="cart__updates">
+                <div class="cart__quantity">
+                    <span class="cart__change"><a href="#">-</a></span>
+                    <span class="cart__field_amount">1</span>
+                    <span class="cart__change"><a href="#">+</a></span>
+                </div>
+                <div class="cart__remove">
+                    <span>Remove</span>
+                    <a href="#"><img src="../images/icon-close.png" alt="Close"></a>
+                </div>
+            </div>
+        </li>
+        `)
     })
     // console.log(cart)
     cart.innerHTML = elements.join("");
     return
   }
   const addItemsToCart = async (event) => {
+    elementCart.classList.remove('displayHide')
+    elementCart.classList.add('displayShow')
+
     let quanity = 0;
     const liElement = await event.target.closest('.catalog__item');
     if (liElement) {
@@ -230,6 +235,7 @@ const store = async () => {
         price: price
       }
 
+
       const existItem = selectedItems.find(item => item.idN === idN)
       if (existItem) {
         quanity += 1;
@@ -237,9 +243,9 @@ const store = async () => {
       } else {
         selectedItems.push(selectedItem)
         quanity = 1
-        console.log(quanity)
+        // console.log(quanity)
       }
-      
+
       // console.log(selectedItems, quanity)
       showCart(selectedItems);
       setLocalStorage(selectedItem)
@@ -247,21 +253,39 @@ const store = async () => {
     }
   };
 
-const setLocalStorage = (selectedItem) => {
- localStorage.setItem('idN', JSON.stringify(selectedItems));
- return
-}
-const getLocalStorage = () => {
-  const storedItems = JSON.parse(localStorage.getItem('idN'))
-  console.log(storedItems)
-  return storedItems
-}
+  const setLocalStorage = (selectedItem) => {
+    localStorage.setItem('idN', JSON.stringify(selectedItems));
+    return
+  }
+  const getLocalStorage = () => {
+    const storedItems = JSON.parse(localStorage.getItem('idN'))
+    console.log(storedItems)
+    return storedItems
+  }
+  const removeItem = (index) => {
+    const updatingCart = selectedItems.filter(item => item.idN !== index);
+    selectedItems = updatingCart;
+    showCart(selectedItems);
+    setLocalStorage(selectedItems);
+  }
 
+  if (cartList) {
+    cartList.addEventListener('click', (event) => {
+      const target = event.target;
+      const removeCartButton = target.closest('.cart__element');
+      const idN = removeCartButton.getAttribute('idn');
+      if (removeCartButton) {
+        console.log(idN)
+        removeItem(idN)
+      }
+    });
+  }
 
-catalogList.addEventListener('click', (event) => {
+  catalogList.addEventListener('click', (event) => {
     const target = event.target;
-    const addCartButton = target.closest('.catalog__item__add_cart')
+    const addCartButton = target.closest('.catalog__item__add_cart');
     if (addCartButton) {
+      console.log(addCartButton)
       addItemsToCart(event);
     }
   })

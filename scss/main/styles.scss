@@ -686,7 +686,7 @@ h3 {
     &__description {
         display: flex;
         flex-direction: row;
-        margin-top: 15px;
+        margin-top: 5px;
         flex-wrap: wrap;
     }
 
@@ -764,6 +764,7 @@ input[type="range"] {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        margin-bottom: 20px;
 
         @media (min-width: $mobile) and (max-width: $desktop - .1px) {
             flex-direction: row;
