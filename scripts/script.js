@@ -13,6 +13,8 @@ const store = async () => {
   const buttonCart = document.querySelector(".cart");
   const buttonCartClose = document.querySelector(".button__close");
   const totalAmount = document.getElementById("total__amount");
+  const buttonDecrease = document.getElementById("decrease");
+  const buttonIncreaseQuantity = document.getElementById("increase");
 
   let items, data, allFilterOption;
   let selectedItems = [];
@@ -194,7 +196,7 @@ const store = async () => {
 
     selectedItems.forEach((item) => {
       elements.push(`
-            <li class="cart__element" data-idn="${item.idN}">
+            <li class="cart__element" data-idN="${item.idN}">
               <div class="catalog__item__cart">
               <img src="${item.imageSrc}" alt="${item.imageAlt}">
                   <div class="item__description">
@@ -204,9 +206,9 @@ const store = async () => {
               </div>
               <div class="cart__updates">
                   <div class="cart__quantity">
-                      <span class="cart__change"><a href="#">-</a></span>
+                      <span class="cart__change"><a href="#" id="decrease" data-idN="${item.idN}">-</a></span>
                       <span class="cart__field_amount">${item.quantity}</span>
-                      <span class="cart__change"><a href="#">+</a></span>
+                      <span class="cart__change"><a href="#" id="increase" data-idN="${item.idN}">+</a></span>
                   </div>
                   <div class="cart__remove" data-idn="${item.idN}">
                       <span>Remove</span>
@@ -282,7 +284,6 @@ const store = async () => {
     if (Array.isArray(selectedItems)) {
     }
     let total = 0;
-
     selectedItems.forEach(item => {
       const itemPrice = parseFloat(item.price.replace("$", ""));
       const itemquantity = item.quantity || 1;
@@ -291,6 +292,26 @@ const store = async () => {
     })
     totalAmount.textContent = `$${total.toFixed(2)}`
     console.log(total)
+  }
+
+
+  if (cartList) {
+    cartList.addEventListener('click', (event) => {
+      const target = event.target;
+      const increaseQuantity = target.closest('#increase');
+      // const increaseQuantity = target.contains('#increase');
+      if (increaseQuantity) {
+        const idN = increaseQuantity.getAttribute('data-idn');
+        console.log(idN)
+        const selectedItem = selectedItems.find(item => item.idN === idN)
+        if (selectedItem) {
+          selectedItem.quantity = (selectedItem.quantity || 0) + 1;
+          showCart(selectedItems);
+          showCartAmount(selectedItems);
+          setLocalStorage(selectedItems);
+        }
+      }
+    });
   }
 
   if (cartList) {
@@ -308,7 +329,7 @@ const store = async () => {
     const target = event.target;
     const addCartButton = target.closest('.catalog__item__add_cart');
     if (addCartButton) {
-      console.log(addCartButton)
+      console.log(target)
       addItemsToCart(event);
     }
   })
@@ -326,4 +347,4 @@ const store = async () => {
 
 };
 
-document.addEventListener("DOMContentLoaded", store);
+document.addEventListener("DOMContentLoaded", store); 
