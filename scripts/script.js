@@ -79,7 +79,7 @@ if(catalogList) {
     allFilterOption = document.createElement("li");
     allFilterOption.textContent = "All";
     allFilterOption.setAttribute("data-value", "all");
-    // allFilterOption.classList.add("active");
+    allFilterOption.classList.add("active");
    if(catalogFilter) {
     catalogFilter.innerHTML = "";
     catalogFilter.appendChild(allFilterOption);
@@ -87,17 +87,21 @@ if(catalogList) {
     console.log('catalogFilter dont exist')
    }
 
-    filterOptions.forEach((option) => {
-      const optionElement = document.createElement("li");
+if(filterOptions) {
+  filterOptions.forEach((option) => {
+    const optionElement = document.createElement("li");
 
-      if(optionElement || catalogFilter) {
-        optionElement.textContent = option;
-      optionElement.setAttribute("data-value", option);
-      catalogFilter.appendChild(optionElement);
-      }else {
-        console.log('catalogFilter or optionElement dont exist')
-       }
-    });
+    if(optionElement || catalogFilter) {
+      optionElement.textContent = option;
+    optionElement.setAttribute("data-value", option);
+    catalogFilter.appendChild(optionElement);
+    }else {
+      console.log('catalogFilter or optionElement dont exist')
+     }
+  })
+} else {
+  console.log('filterOptions dont exist')
+}
   };
 
   //input search
@@ -248,8 +252,8 @@ if(catalogList) {
   };
 
   const addItemsToCart = async (event) => {
-    elementCart.classList.remove("displayHide");
-    elementCart.classList.add("displayShow");
+    // elementCart.classList.remove("displayHide"); // if you want to show the
+    // elementCart.classList.add("displayShow");// cart, when item is adding
 
     let quantity = 0;
     const liElement = await event.target.closest(".catalog__item");

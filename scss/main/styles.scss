@@ -49,7 +49,7 @@ section {
                     a {
                         color: $white;
                         text-transform: uppercase;
-                        transition: all $transition;
+                        transition: color $transition;
 
                         &:hover {
                             color: $orange;
@@ -89,6 +89,7 @@ section {
 }
 
 .bar {
+    display: block;
     width: 15px;
     height: 3px;
     background-color: $white;
@@ -303,6 +304,13 @@ section {
         a {
             padding: 15px;
             color: $white;
+            transition: all $transition;
+            img {
+                &:hover {
+                    box-shadow: 0 0 5px $white;
+                    border-radius: 50%;
+                }
+            }
         }
     }
 }
@@ -397,6 +405,16 @@ section {
             flex: 1 1 auto;
             flex-wrap: wrap;
             gap: 30px;
+            transition: color $transition;
+            ul {
+                li {
+                    a {
+                        &:hover {
+                            color:$orange;
+                        }
+                    }
+                }
+            }
         }
 
         @media (min-width: $mobile) and (max-width: $tablet - .1px) {
@@ -452,6 +470,7 @@ section {
                 li {
                     a {
                         color: $black;
+                        transition: color $transition;
 
                         @media (min-width: $mobile) and (max-width: $tablet - .1px) {
                             color: $white;
@@ -485,6 +504,12 @@ section {
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
+        a {
+            font: 600 15px $fontMontserrat;
+            line-height: calc(22px / 15px);
+            color: rgba(150, 149, 149, 1);
+        }
     }
 }
 
@@ -585,10 +610,11 @@ section {
             align-items: center;
             cursor: pointer;
             border-radius: 3px;
-            transition: all $transition;
+            transition: transform $transition;
 
             span {
                 color: $white !important;
+                transition: color $transition;
 
                 &:hover {
                     color: $gray !important;
@@ -613,6 +639,7 @@ section {
             line-height: calc(24px / 16px);
             padding: 15px;
             text-transform: capitalize;
+            transition: all $transition;
 
             &:hover {
                 background-color: $orange;
@@ -792,6 +819,11 @@ input[type="range"] {
             font: 700 27px $fontRoboto;
             line-height: calc(49px / 27px);
             color: $white;
+            transition: transform $transition;
+            
+        }
+        &:hover {
+            transform: scale(1.5) ;
         }
     }
 
@@ -809,10 +841,17 @@ input[type="range"] {
         align-items: center;
         justify-content: space-between;
         gap: 10px;
+        transition: all $transition;
 
         span {
             font: 400 11px $fontRoboto;
             line-height: calc(20px / 11px);
+        }
+        img {
+            &:hover {
+                box-shadow: 0 0 5px $white;
+                border-radius: 50%;
+            }
         }
     }
 }

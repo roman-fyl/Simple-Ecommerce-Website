@@ -108,7 +108,7 @@ section {
 .header__content nav ul li a {
   color: #fff;
   text-transform: uppercase;
-  transition: all 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
 }
 .header__content nav ul li a:hover {
   color: rgb(204, 85, 32);
@@ -140,6 +140,7 @@ section {
 }
 
 .bar {
+  display: block;
   width: 15px;
   height: 3px;
   background-color: #fff;
@@ -345,6 +346,11 @@ section {
 .button__close a {
   padding: 15px;
   color: #fff;
+  transition: all 0.2s ease-in-out;
+}
+.button__close a img:hover {
+  box-shadow: 0 0 5px #fff;
+  border-radius: 50%;
 }
 
 .subscription {
@@ -434,6 +440,10 @@ section {
   flex: 1 1 auto;
   flex-wrap: wrap;
   gap: 30px;
+  transition: color 0.2s ease-in-out;
+}
+.footer__content nav ul li a:hover {
+  color: rgb(204, 85, 32);
 }
 @media (min-width: 320px) and (max-width: 767.9px) {
   .footer__content {
@@ -480,6 +490,7 @@ section {
 }
 .page .header nav ul li a {
   color: rgb(0, 0, 0);
+  transition: color 0.2s ease-in-out;
 }
 @media (min-width: 320px) and (max-width: 767.9px) {
   .page .header nav ul li a {
@@ -505,6 +516,12 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+}
+.history__content a {
+  font: 600 15px Montserrat;
+  line-height: 1.4666666667;
+  color: rgb(150, 149, 149);
 }
 
 .text img {
@@ -590,10 +607,11 @@ section {
   align-items: center;
   cursor: pointer;
   border-radius: 3px;
-  transition: all 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 }
 .catalog__item__add_cart span {
   color: #fff !important;
+  transition: color 0.2s ease-in-out;
 }
 .catalog__item__add_cart span:hover {
   color: rgba(216, 216, 216, 0.5) !important;
@@ -614,6 +632,7 @@ section {
   line-height: 1.5;
   padding: 15px;
   text-transform: capitalize;
+  transition: all 0.2s ease-in-out;
 }
 .catalog__filter li:hover {
   background-color: rgb(204, 85, 32);
@@ -772,6 +791,10 @@ input[type=range] {
   font: 700 27px Roboto, sans-serif;
   line-height: 1.8148148148;
   color: #fff;
+  transition: transform 0.2s ease-in-out;
+}
+.cart__change:hover {
+  transform: scale(1.5);
 }
 .cart__field_amount {
   background: rgb(204, 85, 32);
@@ -786,8 +809,13 @@ input[type=range] {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  transition: all 0.2s ease-in-out;
 }
 .cart__remove span {
   font: 400 11px Roboto, sans-serif;
   line-height: 1.8181818182;
+}
+.cart__remove img:hover {
+  box-shadow: 0 0 5px #fff;
+  border-radius: 50%;
 }
