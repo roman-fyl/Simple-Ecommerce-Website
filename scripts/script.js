@@ -7,8 +7,6 @@ const store = async () => {
   const searchInput = document.querySelector(".search__field");
   const priceRange = document.querySelector('input[name="price"]');
   const priceDisplay = document.querySelector(".price__display");
-  // const navigation = document.querySelector(".header__content nav");
-  const menu = document.querySelector(".header__mobile");
   const elementCart = document.querySelector(".cart__section");
   const buttonCart = document.querySelector(".cart");
   const buttonCartClose = document.querySelector(".button__close");
@@ -175,11 +173,6 @@ if(filterOptions) {
       item.classList.remove("active");
     });
     event.target.classList.add("active");
-  };
-
-  const menuToggle = () => {
-    navigation.classList.toggle("displayShow");
-    return;
   };
 
   if (buttonCart) {
@@ -403,7 +396,6 @@ if(filterOptions) {
   const filterOptions = createFilterOptions(items);
   showFilters(filterOptions);
   searchInput.addEventListener("input", searchItem);
-  menu.addEventListener("click", menuToggle);
   priceFilter();
   selectedItems = getLocalStorage();
   showCart(selectedItems);

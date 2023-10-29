@@ -156,8 +156,8 @@ section {
     &__content {
         display: grid;
         grid-template-areas:
-            "item1 item2"
-            "item3 item2";
+            "service-item1 service-item2"
+            "service-item3 service-item2";
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto;
         gap: 15px;
@@ -221,7 +221,7 @@ section {
     }
 }
 
-.item1 {
+.service-item1 {
     grid-area: item1;
     grid-row-start: 1;
     grid-row-end: 2;
@@ -237,7 +237,7 @@ section {
 
 }
 
-.item2 {
+.service-item2 {
     grid-area: item2;
     grid-row-start: 2;
     grid-row-end: 3;
@@ -254,7 +254,7 @@ section {
 
 }
 
-.item3 {
+.service-item3 {
     grid-area: item3;
     grid-row-start: 1;
     grid-row-end: 3;
@@ -272,7 +272,7 @@ section {
 
 .button {
     &__all__foxes {
-        color: #fff;
+        color: #fff !important;
         min-width: 30%;
         padding: 15px 30px;
         text-align: center;
@@ -281,6 +281,7 @@ section {
         font: 500 20px $fontMontserrat;
         line-height: calc(30px / 20px);
     }
+
 
     &__submit {
         font: 500 20px $fontMontserrat;
@@ -305,6 +306,7 @@ section {
             padding: 15px;
             color: $white;
             transition: all $transition;
+
             img {
                 &:hover {
                     box-shadow: 0 0 5px $white;
@@ -406,11 +408,12 @@ section {
             flex-wrap: wrap;
             gap: 30px;
             transition: color $transition;
+
             ul {
                 li {
                     a {
                         &:hover {
-                            color:$orange;
+                            color: $orange;
                         }
                     }
                 }
@@ -505,6 +508,7 @@ section {
         align-items: center;
         justify-content: center;
         flex-direction: column;
+
         a {
             font: 600 15px $fontMontserrat;
             line-height: calc(22px / 15px);
@@ -538,8 +542,7 @@ section {
         }
     }
 
-    .paragraph-1,
-    .paragraph-2 {
+    &__content {
         display: flex;
         padding: 20px 0;
         align-items: center;
@@ -757,7 +760,7 @@ input[type="range"] {
         display: flex;
         align-items: center;
         flex-direction: column;
-        border-radius:7px;
+        border-radius: 7px;
         color: $white;
 
         h2 {
@@ -820,10 +823,11 @@ input[type="range"] {
             line-height: calc(49px / 27px);
             color: $white;
             transition: transform $transition;
-            
+
         }
+
         &:hover {
-            transform: scale(1.5) ;
+            transform: scale(1.5);
         }
     }
 
@@ -847,6 +851,7 @@ input[type="range"] {
             font: 400 11px $fontRoboto;
             line-height: calc(20px / 11px);
         }
+
         img {
             &:hover {
                 box-shadow: 0 0 5px $white;

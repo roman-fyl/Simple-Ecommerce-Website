@@ -7,8 +7,10 @@ const menuSwitcher = () => {
 
  
 const menuToggle = () => {
+ if (navigation) {
   navigation.classList.toggle('displayShow');
   return
+ }
 }
 
 
