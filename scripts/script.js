@@ -56,7 +56,7 @@ const store = async () => {
                       </li>
           `);
         });
-      console.log(displayedItemCount)
+      // console.log(displayedItemCount)
       catalogList.innerHTML = elements.join("");
     }
   }
@@ -104,8 +104,8 @@ const store = async () => {
             optionElement.textContent = option;
             optionElement.setAttribute("data-value", option);
             catalogFilter.appendChild(optionElement);
-            console.log(optionElement)
-            console.log(catalogFilter)
+            // console.log(optionElement)
+            // console.log(catalogFilter)
           } else {
             console.log('CatalogFilter or optionElement dont exist')
           }
