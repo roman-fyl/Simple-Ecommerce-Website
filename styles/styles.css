@@ -324,6 +324,7 @@ section {
   background: rgb(204, 85, 32);
   font: 500 20px Montserrat;
   line-height: 1.5;
+  cursor: pointer;
 }
 .button__all__foxes:hover {
   box-shadow: 0 0 3px rgb(0, 0, 0);
