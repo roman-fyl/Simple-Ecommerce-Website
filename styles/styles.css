@@ -325,6 +325,9 @@ section {
   font: 500 20px Montserrat;
   line-height: 1.5;
 }
+.button__all__foxes:hover {
+  box-shadow: 0 0 3px rgb(0, 0, 0);
+}
 .button__submit {
   font: 500 20px Montserrat;
   line-height: 1.5;
@@ -337,6 +340,9 @@ section {
   background: rgb(0, 0, 0);
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out;
+}
+.button__submit:hover {
+  box-shadow: 0 0 3px rgb(0, 0, 0);
 }
 @media (min-width: 320px) and (max-width: 767.9px) {
   .button__submit {

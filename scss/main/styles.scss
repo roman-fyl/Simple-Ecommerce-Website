@@ -280,6 +280,9 @@ section {
         background: $orange;
         font: 500 20px $fontMontserrat;
         line-height: calc(30px / 20px);
+        &:hover {
+            box-shadow: 0 0 3px $black;
+        }
     }
 
 
@@ -295,6 +298,10 @@ section {
         background: $black;
         cursor: pointer;
         transition: box-shadow 0.2s ease-in-out;
+        &:hover {
+            box-shadow: 0 0 3px $black;
+        }
+        
 
         @media (min-width: $mobile) and (max-width: $tablet - .1px) {
             width: 100%;
