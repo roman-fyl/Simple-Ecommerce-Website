@@ -49,7 +49,7 @@ section {
                     a {
                         color: $white;
                         text-transform: uppercase;
-                        transition: all $transition;
+                        transition: color $transition;
 
                         &:hover {
                             color: $orange;
@@ -89,6 +89,7 @@ section {
 }
 
 .bar {
+    display: block;
     width: 15px;
     height: 3px;
     background-color: $white;
@@ -155,8 +156,8 @@ section {
     &__content {
         display: grid;
         grid-template-areas:
-            "item1 item2"
-            "item3 item2";
+            "service-item1 service-item2"
+            "service-item3 service-item2";
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto auto;
         gap: 15px;
@@ -220,7 +221,7 @@ section {
     }
 }
 
-.item1 {
+.service-item1 {
     grid-area: item1;
     grid-row-start: 1;
     grid-row-end: 2;
@@ -236,7 +237,7 @@ section {
 
 }
 
-.item2 {
+.service-item2 {
     grid-area: item2;
     grid-row-start: 2;
     grid-row-end: 3;
@@ -253,7 +254,7 @@ section {
 
 }
 
-.item3 {
+.service-item3 {
     grid-area: item3;
     grid-row-start: 1;
     grid-row-end: 3;
@@ -271,7 +272,7 @@ section {
 
 .button {
     &__all__foxes {
-        color: #fff;
+        color: #fff !important;
         min-width: 30%;
         padding: 15px 30px;
         text-align: center;
@@ -279,7 +280,13 @@ section {
         background: $orange;
         font: 500 20px $fontMontserrat;
         line-height: calc(30px / 20px);
+        cursor: $cursor;
+
+        &:hover {
+            box-shadow: 0 0 3px $black;
+        }
     }
+
 
     &__submit {
         font: 500 20px $fontMontserrat;
@@ -291,8 +298,13 @@ section {
         border: 1px solid #fff;
         border-radius: 2px;
         background: $black;
-        cursor: pointer;
+        cursor: $cursor;
         transition: box-shadow 0.2s ease-in-out;
+
+        &:hover {
+            box-shadow: 0 0 3px $black;
+        }
+
 
         @media (min-width: $mobile) and (max-width: $tablet - .1px) {
             width: 100%;
@@ -303,6 +315,14 @@ section {
         a {
             padding: 15px;
             color: $white;
+            transition: all $transition;
+
+            img {
+                &:hover {
+                    box-shadow: 0 0 5px $white;
+                    border-radius: 50%;
+                }
+            }
         }
     }
 }
@@ -397,6 +417,17 @@ section {
             flex: 1 1 auto;
             flex-wrap: wrap;
             gap: 30px;
+            transition: color $transition;
+
+            ul {
+                li {
+                    a {
+                        &:hover {
+                            color: $orange;
+                        }
+                    }
+                }
+            }
         }
 
         @media (min-width: $mobile) and (max-width: $tablet - .1px) {
@@ -452,6 +483,7 @@ section {
                 li {
                     a {
                         color: $black;
+                        transition: color $transition;
 
                         @media (min-width: $mobile) and (max-width: $tablet - .1px) {
                             color: $white;
@@ -485,6 +517,13 @@ section {
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
+
+        a {
+            font: 600 15px $fontMontserrat;
+            line-height: calc(22px / 15px);
+            color: rgba(150, 149, 149, 1);
+        }
     }
 }
 
@@ -513,8 +552,7 @@ section {
         }
     }
 
-    .paragraph-1,
-    .paragraph-2 {
+    &__content {
         display: flex;
         padding: 20px 0;
         align-items: center;
@@ -553,6 +591,9 @@ section {
         width: 45%;
         flex-direction: column;
         position: relative;
+        // &:nth-child(-n+2) {
+        //     display: none;
+        // }
 
         &__cart {
             img {
@@ -585,10 +626,11 @@ section {
             align-items: center;
             cursor: pointer;
             border-radius: 3px;
-            transition: all $transition;
+            transition: transform $transition;
 
             span {
                 color: $white !important;
+                transition: color $transition;
 
                 &:hover {
                     color: $gray !important;
@@ -613,6 +655,7 @@ section {
             line-height: calc(24px / 16px);
             padding: 15px;
             text-transform: capitalize;
+            transition: all $transition;
 
             &:hover {
                 background-color: $orange;
@@ -730,7 +773,7 @@ input[type="range"] {
         display: flex;
         align-items: center;
         flex-direction: column;
-        border-radius:7px;
+        border-radius: 7px;
         color: $white;
 
         h2 {
@@ -792,6 +835,12 @@ input[type="range"] {
             font: 700 27px $fontRoboto;
             line-height: calc(49px / 27px);
             color: $white;
+            transition: transform $transition;
+
+        }
+
+        &:hover {
+            transform: scale(1.5);
         }
     }
 
@@ -809,10 +858,18 @@ input[type="range"] {
         align-items: center;
         justify-content: space-between;
         gap: 10px;
+        transition: all $transition;
 
         span {
             font: 400 11px $fontRoboto;
             line-height: calc(20px / 11px);
+        }
+
+        img {
+            &:hover {
+                box-shadow: 0 0 5px $white;
+                border-radius: 50%;
+            }
         }
     }
 }

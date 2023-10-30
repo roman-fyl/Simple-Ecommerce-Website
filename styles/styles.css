@@ -108,7 +108,7 @@ section {
 .header__content nav ul li a {
   color: #fff;
   text-transform: uppercase;
-  transition: all 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
 }
 .header__content nav ul li a:hover {
   color: rgb(204, 85, 32);
@@ -140,6 +140,7 @@ section {
 }
 
 .bar {
+  display: block;
   width: 15px;
   height: 3px;
   background-color: #fff;
@@ -203,7 +204,7 @@ section {
 }
 .items__content {
   display: grid;
-  grid-template-areas: "item1 item2" "item3 item2";
+  grid-template-areas: "service-item1 service-item2" "service-item3 service-item2";
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
   gap: 15px;
@@ -265,7 +266,7 @@ section {
   padding: 50px 0;
 }
 
-.item1 {
+.service-item1 {
   grid-area: item1;
   grid-row-start: 1;
   grid-row-end: 2;
@@ -273,7 +274,7 @@ section {
   grid-column-end: 2;
 }
 @media (min-width: 320px) and (max-width: 767.9px) {
-  .item1 {
+  .service-item1 {
     grid-row-start: 1;
     grid-row-end: 2;
     grid-column-start: 1;
@@ -281,7 +282,7 @@ section {
   }
 }
 
-.item2 {
+.service-item2 {
   grid-area: item2;
   grid-row-start: 2;
   grid-row-end: 3;
@@ -290,7 +291,7 @@ section {
   flex-direction: row-reverse;
 }
 @media (min-width: 320px) and (max-width: 767.9px) {
-  .item2 {
+  .service-item2 {
     grid-row-start: 2;
     grid-row-end: 3;
     grid-column-start: 1;
@@ -298,7 +299,7 @@ section {
   }
 }
 
-.item3 {
+.service-item3 {
   grid-area: item3;
   grid-row-start: 1;
   grid-row-end: 3;
@@ -306,7 +307,7 @@ section {
   grid-column-end: 3;
 }
 @media (min-width: 320px) and (max-width: 767.9px) {
-  .item3 {
+  .service-item3 {
     grid-row-start: 3;
     grid-row-end: 4;
     grid-column-start: 1;
@@ -315,7 +316,7 @@ section {
 }
 
 .button__all__foxes {
-  color: #fff;
+  color: #fff !important;
   min-width: 30%;
   padding: 15px 30px;
   text-align: center;
@@ -323,6 +324,10 @@ section {
   background: rgb(204, 85, 32);
   font: 500 20px Montserrat;
   line-height: 1.5;
+  cursor: pointer;
+}
+.button__all__foxes:hover {
+  box-shadow: 0 0 3px rgb(0, 0, 0);
 }
 .button__submit {
   font: 500 20px Montserrat;
@@ -337,6 +342,9 @@ section {
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out;
 }
+.button__submit:hover {
+  box-shadow: 0 0 3px rgb(0, 0, 0);
+}
 @media (min-width: 320px) and (max-width: 767.9px) {
   .button__submit {
     width: 100%;
@@ -345,6 +353,11 @@ section {
 .button__close a {
   padding: 15px;
   color: #fff;
+  transition: all 0.2s ease-in-out;
+}
+.button__close a img:hover {
+  box-shadow: 0 0 5px #fff;
+  border-radius: 50%;
 }
 
 .subscription {
@@ -434,6 +447,10 @@ section {
   flex: 1 1 auto;
   flex-wrap: wrap;
   gap: 30px;
+  transition: color 0.2s ease-in-out;
+}
+.footer__content nav ul li a:hover {
+  color: rgb(204, 85, 32);
 }
 @media (min-width: 320px) and (max-width: 767.9px) {
   .footer__content {
@@ -480,6 +497,7 @@ section {
 }
 .page .header nav ul li a {
   color: rgb(0, 0, 0);
+  transition: color 0.2s ease-in-out;
 }
 @media (min-width: 320px) and (max-width: 767.9px) {
   .page .header nav ul li a {
@@ -505,6 +523,12 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+}
+.history__content a {
+  font: 600 15px Montserrat;
+  line-height: 1.4666666667;
+  color: rgb(150, 149, 149);
 }
 
 .text img {
@@ -528,15 +552,13 @@ section {
     padding: 15px 0;
   }
 }
-.text .paragraph-1,
-.text .paragraph-2 {
+.text__content {
   display: flex;
   padding: 20px 0;
   align-items: center;
 }
 @media (min-width: 320px) and (max-width: 1169.9px) {
-  .text .paragraph-1,
-  .text .paragraph-2 {
+  .text__content {
     display: block;
   }
 }
@@ -590,10 +612,11 @@ section {
   align-items: center;
   cursor: pointer;
   border-radius: 3px;
-  transition: all 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 }
 .catalog__item__add_cart span {
   color: #fff !important;
+  transition: color 0.2s ease-in-out;
 }
 .catalog__item__add_cart span:hover {
   color: rgba(216, 216, 216, 0.5) !important;
@@ -614,6 +637,7 @@ section {
   line-height: 1.5;
   padding: 15px;
   text-transform: capitalize;
+  transition: all 0.2s ease-in-out;
 }
 .catalog__filter li:hover {
   background-color: rgb(204, 85, 32);
@@ -772,6 +796,10 @@ input[type=range] {
   font: 700 27px Roboto, sans-serif;
   line-height: 1.8148148148;
   color: #fff;
+  transition: transform 0.2s ease-in-out;
+}
+.cart__change:hover {
+  transform: scale(1.5);
 }
 .cart__field_amount {
   background: rgb(204, 85, 32);
@@ -786,8 +814,13 @@ input[type=range] {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  transition: all 0.2s ease-in-out;
 }
 .cart__remove span {
   font: 400 11px Roboto, sans-serif;
   line-height: 1.8181818182;
+}
+.cart__remove img:hover {
+  box-shadow: 0 0 5px #fff;
+  border-radius: 50%;
 }
