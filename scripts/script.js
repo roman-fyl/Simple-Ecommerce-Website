@@ -119,12 +119,12 @@ const store = async () => {
     // showFilters(filterOptions); // reset Li selection
 
     const name = searchInput.value.toLowerCase();
-    if(filteredItems.length > 0) {
+    if (filteredItems.length > 0) {
       searchResult = filteredItems;
     } else {
       searchResult = data;
     }
-   
+
 
     if (
       type === "input" ||
@@ -146,14 +146,14 @@ const store = async () => {
   //price search + 
   const priceFilter = (event) => {
 
-  
+
 
     priceRange.addEventListener("input", () => {
       const minPrice = parseFloat(priceRange.value);
 
       priceDisplay.textContent = `Value: $ ${priceRange.value}`;
 
-      if(filteredItems.length > 0) {
+      if (filteredItems.length > 0) {
         data = filteredItems
       }
 
@@ -178,12 +178,12 @@ const store = async () => {
 
         const selectedCategory = event.target.getAttribute("data-value");
 
-        if(filteredItems.length > 0) {
+        if (filteredItems.length > 0) {
           showItems(filteredItems, selectedCategory);
         } else {
           showItems(items, selectedCategory);
         }
-       
+
         // searchInput.value = "";
         // cleanFilters();
         return;
