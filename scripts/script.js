@@ -92,24 +92,31 @@ const store = async () => {
       catalogFilter.innerHTML = "";
       catalogFilter.appendChild(allFilterOption);
     } else {
-      console.log('catalogFilter dont exist')
+      console.log('CatalogFilter doesnt exist')
     }
 
-    if (filterOptions) {
-      filterOptions.forEach((option) => {
-        const optionElement = document.createElement("li");
+    if (catalogFilter) {
+      if (filterOptions) {
+        filterOptions.forEach((option) => {
+          const optionElement = document.createElement("li");
 
-        if (optionElement || catalogFilter) {
-          optionElement.textContent = option;
-          optionElement.setAttribute("data-value", option);
-          catalogFilter.appendChild(optionElement);
-        } else {
-          console.log('catalogFilter or optionElement dont exist')
-        }
-      })
+          if (optionElement || catalogFilter) {
+            optionElement.textContent = option;
+            optionElement.setAttribute("data-value", option);
+            catalogFilter.appendChild(optionElement);
+            console.log(optionElement)
+            console.log(catalogFilter)
+          } else {
+            console.log('CatalogFilter or optionElement dont exist')
+          }
+        })
+      } else {
+        console.log('FilterOptions dont exist')
+      }
     } else {
-      console.log('filterOptions dont exist')
+      console.log('CatalogFilter doesnt exist')
     }
+
   };
 
   //input search +
@@ -147,28 +154,32 @@ const store = async () => {
   const priceFilter = (event) => {
 
 
+    if (priceRange) {
+      priceRange.addEventListener("input", () => {
+        const minPrice = parseFloat(priceRange.value);
 
-    priceRange.addEventListener("input", () => {
-      const minPrice = parseFloat(priceRange.value);
+        priceDisplay.textContent = `Value: $ ${priceRange.value}`;
 
-      priceDisplay.textContent = `Value: $ ${priceRange.value}`;
+        if (filteredItems.length > 0) {
+          data = filteredItems
+        }
 
-      if (filteredItems.length > 0) {
-        data = filteredItems
-      }
+        const filteredByPrice = data.filter((item) => {
+          return parseFloat(item.price) >= minPrice;
+        });
 
-      const filteredByPrice = data.filter((item) => {
-        return parseFloat(item.price) >= minPrice;
+        showItems(filteredByPrice, "all");
+        // showItems(filteredByPrice, filteredItems);
+
+        // showFilters(filterOptions); // reset Li selection
+        filteredItems = filteredByPrice
+        console.log(filteredItems);
+        return;
       });
+    } else {
+      console.log('Price range doesnt exist')
+    }
 
-      showItems(filteredByPrice, "all");
-      // showItems(filteredByPrice, filteredItems);
-
-      // showFilters(filterOptions); // reset Li selection
-      filteredItems = filteredByPrice
-      console.log(filteredItems);
-      return;
-    });
   };
   //category search
   if (catalogFilter) {
@@ -191,7 +202,7 @@ const store = async () => {
       return;
     });
   } else {
-    console.log("catalogFilter doesnt exist");
+    console.log("CatalogFilter doesnt exist");
   }
 
   const cleanFilters = () => {
@@ -421,14 +432,19 @@ const store = async () => {
       }
     });
   } else {
-    console.log('CatalogList dont exist in function')
+    console.log('CatalogList doesnt exist in function')
   }
 
   items = await getData();
   showItems(items, "all");
   const filterOptions = createFilterOptions(items);
   showFilters(filterOptions);
-  searchInput.addEventListener("input", searchItem);
+  if (searchInput) {
+    searchInput.addEventListener("input", searchItem);
+  } else {
+    console.log('SearchInput doesnt exist')
+  }
+
   priceFilter();
   selectedItemsToCart = getLocalStorage();
   showCart(selectedItemsToCart);
