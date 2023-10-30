@@ -194,10 +194,10 @@ const store = async () => {
     console.log("catalogFilter doesnt exist");
   }
 
-  // const cleanFilters = () => {
-  //   priceRange.value = 0;
-  //   priceDisplay.textContent = `Value: $ ${priceRange.value}`;
-  // };
+  const cleanFilters = () => {
+    priceRange.value = 0;
+    priceDisplay.textContent = `Value: $ ${priceRange.value}`;
+  };
 
   const buttonSwitcher = (event) => {
     const filterItems = document.querySelectorAll("li");
