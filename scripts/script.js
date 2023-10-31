@@ -1,6 +1,6 @@
 "use strict";
 
-const store = async () => {
+const initBasket = async () => {
   const catalogFilter = document.getElementById("catalog__filter");
   const catalogList = document.getElementById("catalog__list");
   const cartList = document.getElementById("cart__list");
@@ -9,11 +9,12 @@ const store = async () => {
   const priceDisplay = document.querySelector(".price__display");
   const elementCart = document.querySelector(".cart__section");
   const buttonCart = document.querySelector(".cart");
-  const buttonCartClose = document.querySelector(".button__close");
+  const buttonCartClose = elementCart.querySelector(".button__close");
   const totalAmount = document.getElementById("total__amount");
   const buttonLoadMore = document.getElementById("button__all__foxes");
+  const quantityCart = document.getElementById('quantity-in-cart');
 
-  let items, data, allFilterOption;
+  let items, data, selectedCategory;
   let selectedItemsToCart = [], filteredItems = [];
   let displayedItemCount = 6;
 
@@ -48,7 +49,7 @@ const store = async () => {
                           <span>Add</span>
                           </div>
                           <div class="item__description">
-                              <h3>${item.title}</h3>
+                              <h4>${item.title}</h4>
                               <span class="item__price">$${item.price}</span>
                               <span class="item__rate"><img src="../images/rate.png" alt="Rate">${item.rate}</span>
                               <span class="item__topic">${item.category}</span>
@@ -83,41 +84,23 @@ const store = async () => {
   };
 
   const showFilters = (filterOptions) => {
-
-    allFilterOption = document.createElement("li");
-    allFilterOption.textContent = "All";
-    allFilterOption.setAttribute("data-value", "all");
-    allFilterOption.classList.add("active");
-    if (catalogFilter) {
-      catalogFilter.innerHTML = "";
-      catalogFilter.appendChild(allFilterOption);
-    } else {
-      console.log('CatalogFilter doesnt exist')
+    if (!catalogFilter) {
+      console.log('CatalogFilter doesnt exist');
+      return;
     }
 
-    if (catalogFilter) {
-      if (filterOptions) {
-        filterOptions.forEach((option) => {
-          const optionElement = document.createElement("li");
+    let filtersHTML = '';
 
-          if (optionElement || catalogFilter) {
-            optionElement.textContent = option;
-            optionElement.setAttribute("data-value", option);
-            catalogFilter.appendChild(optionElement);
-            // console.log(optionElement)
-            // console.log(catalogFilter)
-          } else {
-            console.log('CatalogFilter or optionElement dont exist')
-          }
-        })
-      } else {
-        console.log('FilterOptions dont exist')
-      }
+    if (filterOptions) {
+      filtersHTML = `<li data-value="all" class="active">All</li>`;
+      filtersHTML += filterOptions.map(option => `<li data-value="${option}">${option}</li>`).join('');
     } else {
-      console.log('CatalogFilter doesnt exist')
+      console.log('FilterOptions dont exist');
     }
 
+    catalogFilter.innerHTML = filtersHTML;
   };
+
 
   //input search +
   const searchItem = ({ type, keyCode }) => {
@@ -143,12 +126,12 @@ const store = async () => {
         searchResult = data.filter((item) => {
           return item.title.toLowerCase().includes(name);
         });
+        filteredItems = searchResult;
       }
     }
     showItems(searchResult, "all");
-    filteredItems = searchResult;
     console.log(filteredItems)
-    return
+    // return
   };
   //price search + 
   const priceFilter = (event) => {
@@ -169,8 +152,6 @@ const store = async () => {
         });
 
         showItems(filteredByPrice, "all");
-        // showItems(filteredByPrice, filteredItems);
-
         // showFilters(filterOptions); // reset Li selection
         filteredItems = filteredByPrice
         console.log(filteredItems);
@@ -191,10 +172,11 @@ const store = async () => {
 
         if (filteredItems.length > 0) {
           showItems(filteredItems, selectedCategory);
+          console.log(filteredItems)
         } else {
           showItems(items, selectedCategory);
+          console.log(items)
         }
-
         // searchInput.value = "";
         // cleanFilters();
         return;
@@ -224,7 +206,7 @@ const store = async () => {
       addItemsToCart(event);
       if (elementCart.classList.contains("displayHide")) {
         elementCart.classList.remove("displayHide");
-        elementCart.classList.add("displayShow");
+        elementCart.classList.add("elementShow");
         // console.log('show cart')
         return;
       }
@@ -238,8 +220,8 @@ const store = async () => {
 
       addItemsToCart(event);
 
-      if (elementCart.classList.contains("displayShow")) {
-        elementCart.classList.remove("displayShow");
+      if (elementCart.classList.contains("elementShow")) {
+        elementCart.classList.remove("elementShow");
         elementCart.classList.add("displayHide");
         // console.log('hide cart')
         return;
@@ -253,7 +235,7 @@ const store = async () => {
       selectedItemsToCart = [];
     }
     if (selectedItemsToCart.length === 0) {
-      elementCart.classList.remove("displayShow");
+      elementCart.classList.remove("elementShow");
       elementCart.classList.add("displayHide");
     }
 
@@ -266,7 +248,7 @@ const store = async () => {
               <div class="catalog__item__cart">
               <img src="${item.imageSrc}" alt="${item.imageAlt}">
                   <div class="item__description">
-                      <h3>${item.title}</h3>
+                      <h4>${item.title}</h4>
                       <span class="item__price">${item.price}</span>
                   </div>
               </div>
@@ -290,15 +272,14 @@ const store = async () => {
 
   const addItemsToCart = async (event) => {
     // elementCart.classList.remove("displayHide"); // if you want to show the
-    // elementCart.classList.add("displayShow");// cart, when item is adding
+    // elementCart.classList.add("elementShow");// cart, when item is adding
 
-    let quantity = 0;
     const liElement = await event.target.closest(".catalog__item");
 
     if (liElement) {
       const idN = liElement.getAttribute("idN");
       const imageSrc = liElement.querySelector("img").getAttribute("src");
-      const title = liElement.querySelector(".item__description h3").textContent;
+      const title = liElement.querySelector(".item__description h4").textContent;
       const price = liElement.querySelector(".item__description .item__price").textContent;
 
       const selectedItem = {
@@ -309,22 +290,26 @@ const store = async () => {
         quantity: 1,
       };
 
-      const existItem = selectedItemsToCart.find((item) => item.idN === idN);
+      const existingItem = selectedItemsToCart.find((item) => item.idN === idN);
 
-      if (existItem) {
-        quantity += 1;
-        existItem.quantity = (existItem.quantity || 1) + 1;
+      if (existingItem) {
+        existingItem.quantity += 1;
         // console.log(quantity)
       } else {
-        selectedItem.quantity = 1;
-        selectedItemsToCart.push(selectedItem);
-        // console.log(quantity)
+        const selectedItem = items.find((item) => item.idN === idN);
+        if (selectedItem) {
+          selectedItem.quantity = 1;
+          selectedItemsToCart.push(selectedItem);
+        }
       }
 
       // console.log(selectedItemsToCart, quantity)
       showCart(selectedItemsToCart);
       showCartAmount(selectedItemsToCart);
       setLocalStorage(selectedItem);
+      calculateTotalQuantity(selectedItemsToCart);
+      updateQuantityCart();
+
 
       return selectedItemsToCart;
     }
@@ -348,23 +333,54 @@ const store = async () => {
     showCart(selectedItemsToCart);
     showCartAmount(selectedItemsToCart);
     setLocalStorage(selectedItemsToCart);
+    calculateTotalQuantity(selectedItemsToCart);
+    updateQuantityCart();
   };
 
-  const showCartAmount = (selectedItemsToCart) => {
+  const showCartAmount = async (selectedItemsToCart) => {
     let total = 0;
 
     if (Array.isArray(selectedItemsToCart)) {
       selectedItemsToCart.forEach((item) => {
         const itemPrice = parseFloat(item.price.replace("$", ""));
         const itemquantity = item.quantity || 1;
-        // console.log(total)
+        // console.log(itemquantity)
         total += itemPrice * itemquantity;
+        return total
+      });
+    }
+    // console.log(total)
+    totalAmount.textContent = `$${total.toFixed(2)}`;
+    calculateTotalQuantity(selectedItemsToCart);
+    // console.log(total)
+  };
+
+  const calculateTotalQuantity = (items) => {
+    let totalQuantity = 0;
+
+    if (Array.isArray(items)) {
+      items.forEach((item) => {
+        totalQuantity += item.quantity || 0;
       });
     }
 
-    totalAmount.textContent = `$${total.toFixed(2)}`;
-    // console.log(total)
+    const storedItems = getLocalStorage();
+    if (Array.isArray(storedItems)) {
+      storedItems.forEach((item) => {
+        totalQuantity += item.quantity || 0;
+      });
+    }
+    return totalQuantity;
   };
+
+
+  const updateQuantityCart = (items) => {
+    if (quantityCart) {
+      const totalQuantity = calculateTotalQuantity(items);
+      quantityCart.textContent = totalQuantity;
+    }
+  };
+
 
   if (cartList) {
     cartList.addEventListener("click", (event) => {
@@ -376,10 +392,12 @@ const store = async () => {
         const selectedItem = selectedItemsToCart.find((item) => item.idN === idN);
 
         if (selectedItem) {
-          selectedItem.quantity = (selectedItem.quantity || 0) + 1;
+          selectedItem.quantity += 1;
           showCart(selectedItemsToCart);
           showCartAmount(selectedItemsToCart);
           setLocalStorage(selectedItemsToCart);
+          calculateTotalQuantity(selectedItemsToCart);
+          updateQuantityCart();
         }
       }
     });
@@ -397,10 +415,12 @@ const store = async () => {
         const selectedItem = selectedItemsToCart.find((item) => item.idN === idN);
 
         if (selectedItem && selectedItem.quantity > 1) {
-          selectedItem.quantity = (selectedItem.quantity || 0) - 1;
+          selectedItem.quantity -= 1;
           showCart(selectedItemsToCart);
           showCartAmount(selectedItemsToCart);
           setLocalStorage(selectedItemsToCart);
+          calculateTotalQuantity(selectedItemsToCart);
+          updateQuantityCart();
         }
       }
     });
@@ -449,6 +469,8 @@ const store = async () => {
   selectedItemsToCart = getLocalStorage();
   showCart(selectedItemsToCart);
   showCartAmount(selectedItemsToCart);
+  calculateTotalQuantity(selectedItemsToCart);
+  updateQuantityCart();
 };
 
-document.addEventListener("DOMContentLoaded", store);
+document.addEventListener("DOMContentLoaded", initBasket);

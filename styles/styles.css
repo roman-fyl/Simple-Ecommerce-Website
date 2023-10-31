@@ -17,6 +17,7 @@ body {
   min-width: 320px;
   overscroll-behavior: none;
   overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 a {
@@ -119,6 +120,9 @@ section {
   }
 }
 .header__content span img {
+  padding-left: 5px;
+}
+.header__content span img:first-child {
   padding-left: 20px;
 }
 .header__mobile {
@@ -129,6 +133,15 @@ section {
   .header__mobile {
     display: block;
   }
+}
+
+#quantity-in-cart {
+  font: 600 18px Montserrat;
+  line-height: 1.1111111111;
+}
+#quantity-in-cart:hover {
+  color: rgb(204, 85, 32);
+  text-decoration: underline;
 }
 
 .displayShow {
@@ -170,13 +183,13 @@ section {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.45);
 }
-.intro h1 {
+.intro h2 {
   font: 700 80px Playfair;
   line-height: 1.125;
   width: 35%;
 }
 @media (min-width: 320px) and (max-width: 767.9px) {
-  .intro h1 {
+  .intro h2 {
     font-size: 65px;
     width: 100%;
   }
@@ -225,7 +238,7 @@ section {
   background-color: rgb(244, 244, 244);
   padding: 30px;
 }
-.items__element h3 {
+.items__element h4 {
   font: 600 18px Montserrat;
   line-height: 1.5;
   color: rgb(150, 149, 149);
@@ -234,7 +247,7 @@ section {
   left: 40px;
 }
 @media (min-width: 320px) and (max-width: 767.9px) {
-  .items__element h3 {
+  .items__element h4 {
     font-size: 14px;
   }
 }
@@ -515,7 +528,7 @@ section {
   background-color: rgb(230, 230, 230);
   padding: 50px 0;
 }
-.history h1 {
+.history h2 {
   font: 700 50px Playfair;
   line-height: 1.2;
 }
@@ -525,16 +538,23 @@ section {
   justify-content: center;
   flex-direction: column;
 }
-.history__content a {
+
+.breadcrumb li {
+  display: inline;
+}
+.breadcrumb li a {
+  color: rgb(150, 149, 149);
   font: 600 15px Montserrat;
   line-height: 1.4666666667;
-  color: rgb(150, 149, 149);
+}
+.breadcrumb li a:hover {
+  text-decoration: underline;
 }
 
 .text img {
   width: 100%;
 }
-.text h2 {
+.text h3 {
   font: 700 24px Playfair;
   line-height: 1.4166666667;
   padding-bottom: 20px;
@@ -638,6 +658,7 @@ section {
   padding: 15px;
   text-transform: capitalize;
   transition: all 0.2s ease-in-out;
+  cursor: pointer;
 }
 .catalog__filter li:hover {
   background-color: rgb(204, 85, 32);
@@ -685,13 +706,13 @@ section {
   margin-bottom: 15px;
 }
 
-h3 {
+h4 {
   font: 700 20px Montserrat;
   line-height: 1.5;
   flex: 1 1 10%;
 }
 @media (min-width: 320px) and (max-width: 1169.9px) {
-  h3 {
+  h4 {
     flex: 0 0 80%;
   }
 }
@@ -701,10 +722,12 @@ h3 {
   flex-direction: row;
   margin-top: 5px;
   flex-wrap: wrap;
+  align-items: center;
 }
 .item__price {
-  font: 600 20px Montserrat;
+  font: 600 20px Montserrat !important;
   line-height: 1.5;
+  color: rgb(0, 0, 0) !important;
   flex: 1 1 10%;
 }
 .item__rate {
@@ -717,9 +740,14 @@ h3 {
   text-transform: capitalize;
 }
 
+input[type=text]:hover {
+  border: 1px solid red;
+}
+
 input[type=range] {
   width: 100%;
   accent-color: rgb(204, 85, 32);
+  cursor: pointer;
 }
 
 .active {
@@ -730,7 +758,9 @@ input[type=range] {
 .cart__section {
   padding: 20px;
   z-index: 999;
-  position: absolute;
+  position: fixed;
+  height: 100%;
+  overflow-y: scroll !important;
   top: 0;
   right: 0;
   min-width: 300px;
@@ -741,12 +771,12 @@ input[type=range] {
   border-radius: 7px;
   color: #fff;
 }
-.cart__section h2 {
+.cart__section h3 {
   font: 700 50px Playfair;
   line-height: 1.125;
   padding: 50px 0;
 }
-.cart__section h4 {
+.cart__section h5 {
   font: 700 50px Playfair;
   line-height: 1.125;
 }
@@ -764,6 +794,9 @@ input[type=range] {
   width: 100%;
   flex: 1 1 auto;
   margin-bottom: 50px;
+}
+.cart__list .item__price {
+  color: #fff !important;
 }
 .cart__element {
   width: 100%;
