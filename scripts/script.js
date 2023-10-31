@@ -13,8 +13,13 @@ const initBasket = async () => {
   const totalAmount = document.getElementById("total__amount");
   const buttonLoadMore = document.getElementById("button__all__foxes");
   const quantityCart = document.getElementById('quantity-in-cart');
+  const filter = {
+    input: "",
+    tag: "all",
+    price: 0
+  }
 
-  let items, data, selectedCategory;
+  let items, data;
   let selectedItemsToCart = [], filteredItems = [];
   let displayedItemCount = 6;
 
@@ -30,18 +35,17 @@ const initBasket = async () => {
     }
   };
 
-  const showItems = (items, category) => {
+  const showItems = (items = [], category = "all") => {
     const catalogList = document.getElementById("catalog__list");
     if (catalogList) {
-      const elements = [];
 
-      items
-        .filter((item) =>
-          category === "all" ? item : item.category === category
-        )
+      console.log(filter)
+      catalogList.innerHTML = data
+        .filter(item => filter.tag === "all" ? item : item.category === filter.tag)
+        .filter(item => item.title.toLowerCase().includes(filter.input))
+        .filter(item => parseFloat(item.price) >= filter.price)
         .slice(0, displayedItemCount)
-        .forEach((item) => {
-          elements.push(`
+        .map((item) => (`
                       <li class="catalog__item" idn="${item.idN}">
                           <img src="${item.imageSrc}" alt="${item.imageAlt}">
                           <div class="catalog__item__add_cart">
@@ -55,10 +59,7 @@ const initBasket = async () => {
                               <span class="item__topic">${item.category}</span>
                           </div>
                       </li>
-          `);
-        });
-      // console.log(displayedItemCount)
-      catalogList.innerHTML = elements.join("");
+          `)).join("");
     }
   }
   if (buttonLoadMore) {
@@ -101,61 +102,21 @@ const initBasket = async () => {
     catalogFilter.innerHTML = filtersHTML;
   };
 
-
   //input search +
-  const searchItem = ({ type, keyCode }) => {
-    let searchResult;
-    // cleanFilters();
-    // showFilters(filterOptions); // reset Li selection
+  const searchItem = ({ type, keyCode, target }) => {
 
-    const name = searchInput.value.toLowerCase();
-    if (filteredItems.length > 0) {
-      searchResult = filteredItems;
-    } else {
-      searchResult = data;
-    }
-
-
-    if (
-      type === "input" ||
-      type === "change" ||
-      (type === "keydown" && keyCode === 13) ||
-      type === "click"
-    ) {
-      if (name) {
-        searchResult = data.filter((item) => {
-          return item.title.toLowerCase().includes(name);
-        });
-        filteredItems = searchResult;
-      }
-    }
-    showItems(searchResult, "all");
-    console.log(filteredItems)
+    filter.input = target.value.toLowerCase();
+    showItems();
     // return
   };
   //price search + 
-  const priceFilter = (event) => {
-
+  const priceFilter = () => {
 
     if (priceRange) {
-      priceRange.addEventListener("input", () => {
-        const minPrice = parseFloat(priceRange.value);
-
-        priceDisplay.textContent = `Value: $ ${priceRange.value}`;
-
-        if (filteredItems.length > 0) {
-          data = filteredItems
-        }
-
-        const filteredByPrice = data.filter((item) => {
-          return parseFloat(item.price) >= minPrice;
-        });
-
-        showItems(filteredByPrice, "all");
-        // showFilters(filterOptions); // reset Li selection
-        filteredItems = filteredByPrice
-        console.log(filteredItems);
-        return;
+      priceRange.addEventListener("input", (event) => {
+        priceDisplay.textContent = `Value: $ ${event.target.value}`;
+        filter.price = parseFloat(event.target.value)
+        showItems();
       });
     } else {
       console.log('Price range doesnt exist')
@@ -167,21 +128,9 @@ const initBasket = async () => {
     catalogFilter.addEventListener("click", (event) => {
       if (event.target.tagName === "LI") {
         buttonSwitcher(event);
-
-        const selectedCategory = event.target.getAttribute("data-value");
-
-        if (filteredItems.length > 0) {
-          showItems(filteredItems, selectedCategory);
-          console.log(filteredItems)
-        } else {
-          showItems(items, selectedCategory);
-          console.log(items)
-        }
-        // searchInput.value = "";
-        // cleanFilters();
-        return;
+        filter.tag = event.target.getAttribute("data-value");
+        showItems()
       }
-      return;
     });
   } else {
     console.log("CatalogFilter doesnt exist");
@@ -207,7 +156,6 @@ const initBasket = async () => {
       if (elementCart.classList.contains("displayHide")) {
         elementCart.classList.remove("displayHide");
         elementCart.classList.add("elementShow");
-        // console.log('show cart')
         return;
       }
     });
@@ -223,7 +171,6 @@ const initBasket = async () => {
       if (elementCart.classList.contains("elementShow")) {
         elementCart.classList.remove("elementShow");
         elementCart.classList.add("displayHide");
-        // console.log('hide cart')
         return;
       }
     });
@@ -271,9 +218,6 @@ const initBasket = async () => {
   };
 
   const addItemsToCart = async (event) => {
-    // elementCart.classList.remove("displayHide"); // if you want to show the
-    // elementCart.classList.add("elementShow");// cart, when item is adding
-
     const liElement = await event.target.closest(".catalog__item");
 
     if (liElement) {
@@ -294,7 +238,6 @@ const initBasket = async () => {
 
       if (existingItem) {
         existingItem.quantity += 1;
-        // console.log(quantity)
       } else {
         const selectedItem = items.find((item) => item.idN === idN);
         if (selectedItem) {
@@ -303,7 +246,6 @@ const initBasket = async () => {
         }
       }
 
-      // console.log(selectedItemsToCart, quantity)
       showCart(selectedItemsToCart);
       showCartAmount(selectedItemsToCart);
       setLocalStorage(selectedItem);
@@ -322,7 +264,6 @@ const initBasket = async () => {
 
   const getLocalStorage = () => {
     const storedItems = JSON.parse(localStorage.getItem("idN"));
-    // console.log(storedItems)
     return storedItems;
   };
 
@@ -344,15 +285,12 @@ const initBasket = async () => {
       selectedItemsToCart.forEach((item) => {
         const itemPrice = parseFloat(item.price.replace("$", ""));
         const itemquantity = item.quantity || 1;
-        // console.log(itemquantity)
         total += itemPrice * itemquantity;
         return total
       });
     }
-    // console.log(total)
     totalAmount.textContent = `$${total.toFixed(2)}`;
     calculateTotalQuantity(selectedItemsToCart);
-    // console.log(total)
   };
 
   const calculateTotalQuantity = (items) => {
@@ -376,6 +314,7 @@ const initBasket = async () => {
 
   const updateQuantityCart = (items) => {
     if (quantityCart) {
+      quantityCart.textContent = 0;
       const totalQuantity = calculateTotalQuantity(items);
       quantityCart.textContent = totalQuantity;
     }

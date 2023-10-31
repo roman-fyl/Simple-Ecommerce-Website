@@ -86,10 +86,19 @@ section {
 #quantity-in-cart {
     font: 600 18px $fontMontserrat;
             line-height: calc(20px / 18px);
+            position: absolute;
+            top: -13px;
+            left: 10px;
+            // top: 15px;
             &:hover {
                 color: $orange;
                 text-decoration: underline;
             }
+}
+.icons {
+    &__section {
+        position: relative;
+    }
 }
 .displayShow {
     display: flex !important;
