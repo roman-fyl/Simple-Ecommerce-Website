@@ -9,9 +9,10 @@ const initBasket = async () => {
   const priceDisplay = document.querySelector(".price__display");
   const elementCart = document.querySelector(".cart__section");
   const buttonCart = document.querySelector(".cart");
-  const buttonCartClose = document.querySelector(".button__close");
+  const buttonCartClose = elementCart.querySelector(".button__close");
   const totalAmount = document.getElementById("total__amount");
   const buttonLoadMore = document.getElementById("button__all__foxes");
+  const quantityCart = document.getElementById('quantity-in-cart');
 
   let items, data, allFilterOption;
   let selectedItemsToCart = [], filteredItems = [];
@@ -292,7 +293,6 @@ const initBasket = async () => {
     // elementCart.classList.remove("displayHide"); // if you want to show the
     // elementCart.classList.add("elementShow");// cart, when item is adding
 
-    let quantity = 0;
     const liElement = await event.target.closest(".catalog__item");
 
     if (liElement) {
@@ -309,22 +309,26 @@ const initBasket = async () => {
         quantity: 1,
       };
 
-      const existItem = selectedItemsToCart.find((item) => item.idN === idN);
+      const existingItem = selectedItemsToCart.find((item) => item.idN === idN);
 
-      if (existItem) {
-        quantity += 1;
-        existItem.quantity = (existItem.quantity || 1) + 1;
+      if (existingItem) {
+        existingItem.quantity += 1;
         // console.log(quantity)
       } else {
-        selectedItem.quantity = 1;
-        selectedItemsToCart.push(selectedItem);
-        // console.log(quantity)
+        const selectedItem = items.find((item) => item.idN === idN);
+        if (selectedItem) {
+          selectedItem.quantity = 1;
+          selectedItemsToCart.push(selectedItem);
+        }
       }
 
       // console.log(selectedItemsToCart, quantity)
       showCart(selectedItemsToCart);
       showCartAmount(selectedItemsToCart);
       setLocalStorage(selectedItem);
+      calculateTotalQuantity(selectedItemsToCart);
+      updateQuantityCart();
+      
 
       return selectedItemsToCart;
     }
@@ -348,23 +352,54 @@ const initBasket = async () => {
     showCart(selectedItemsToCart);
     showCartAmount(selectedItemsToCart);
     setLocalStorage(selectedItemsToCart);
+    calculateTotalQuantity(selectedItemsToCart);
+    updateQuantityCart();
   };
 
-  const showCartAmount = (selectedItemsToCart) => {
+  const showCartAmount = async (selectedItemsToCart) => {
     let total = 0;
 
     if (Array.isArray(selectedItemsToCart)) {
       selectedItemsToCart.forEach((item) => {
         const itemPrice = parseFloat(item.price.replace("$", ""));
         const itemquantity = item.quantity || 1;
-        // console.log(total)
+        // console.log(itemquantity)
         total += itemPrice * itemquantity;
+        return total
+      });
+    }
+    // console.log(total)
+    totalAmount.textContent = `$${total.toFixed(2)}`;
+    calculateTotalQuantity(selectedItemsToCart);
+    // console.log(total)
+  };
+
+  const calculateTotalQuantity = (items) => {
+    let totalQuantity = 0;
+
+    if (Array.isArray(items)) {
+      items.forEach((item) => {
+        totalQuantity += item.quantity || 0;
       });
     }
 
-    totalAmount.textContent = `$${total.toFixed(2)}`;
-    // console.log(total)
-  };
+    const storedItems = getLocalStorage();
+    if (Array.isArray(storedItems)) {
+      storedItems.forEach((item) => {
+        totalQuantity += item.quantity || 0;
+      });
+    }
+    return totalQuantity;
+};
+
+
+const updateQuantityCart = (items) => {
+  if (quantityCart) {
+    const totalQuantity = calculateTotalQuantity(items);
+    quantityCart.textContent = totalQuantity;
+  }
+};
+
 
   if (cartList) {
     cartList.addEventListener("click", (event) => {
@@ -376,10 +411,12 @@ const initBasket = async () => {
         const selectedItem = selectedItemsToCart.find((item) => item.idN === idN);
 
         if (selectedItem) {
-          selectedItem.quantity = (selectedItem.quantity || 0) + 1;
+          selectedItem.quantity += 1;
           showCart(selectedItemsToCart);
           showCartAmount(selectedItemsToCart);
           setLocalStorage(selectedItemsToCart);
+          calculateTotalQuantity(selectedItemsToCart);
+          updateQuantityCart();
         }
       }
     });
@@ -397,10 +434,12 @@ const initBasket = async () => {
         const selectedItem = selectedItemsToCart.find((item) => item.idN === idN);
 
         if (selectedItem && selectedItem.quantity > 1) {
-          selectedItem.quantity = (selectedItem.quantity || 0) - 1;
+          selectedItem.quantity -= 1;
           showCart(selectedItemsToCart);
           showCartAmount(selectedItemsToCart);
           setLocalStorage(selectedItemsToCart);
+          calculateTotalQuantity(selectedItemsToCart);
+          updateQuantityCart();
         }
       }
     });
@@ -449,6 +488,8 @@ const initBasket = async () => {
   selectedItemsToCart = getLocalStorage();
   showCart(selectedItemsToCart);
   showCartAmount(selectedItemsToCart);
+  calculateTotalQuantity(selectedItemsToCart);
+  updateQuantityCart();
 };
 
 document.addEventListener("DOMContentLoaded", initBasket);

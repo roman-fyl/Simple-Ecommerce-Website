@@ -120,6 +120,9 @@ section {
   }
 }
 .header__content span img {
+  padding-left: 5px;
+}
+.header__content span img:first-child {
   padding-left: 20px;
 }
 .header__mobile {
@@ -130,6 +133,15 @@ section {
   .header__mobile {
     display: block;
   }
+}
+
+#quantity-in-cart {
+  font: 600 18px Montserrat;
+  line-height: 1.1111111111;
+}
+#quantity-in-cart:hover {
+  color: rgb(204, 85, 32);
+  text-decoration: underline;
 }
 
 .displayShow {
