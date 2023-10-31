@@ -14,7 +14,7 @@ const initBasket = async () => {
   const buttonLoadMore = document.getElementById("button__all__foxes");
   const quantityCart = document.getElementById('quantity-in-cart');
 
-  let items, data, allFilterOption;
+  let items, data, selectedCategory;
   let selectedItemsToCart = [], filteredItems = [];
   let displayedItemCount = 6;
 
@@ -84,41 +84,23 @@ const initBasket = async () => {
   };
 
   const showFilters = (filterOptions) => {
-
-    allFilterOption = document.createElement("li");
-    allFilterOption.textContent = "All";
-    allFilterOption.setAttribute("data-value", "all");
-    allFilterOption.classList.add("active");
-    if (catalogFilter) {
-      catalogFilter.innerHTML = "";
-      catalogFilter.appendChild(allFilterOption);
-    } else {
-      console.log('CatalogFilter doesnt exist')
+    if (!catalogFilter) {
+      console.log('CatalogFilter doesnt exist');
+      return;
     }
 
-    if (catalogFilter) {
-      if (filterOptions) {
-        filterOptions.forEach((option) => {
-          const optionElement = document.createElement("li");
+    let filtersHTML = '';
 
-          if (optionElement || catalogFilter) {
-            optionElement.textContent = option;
-            optionElement.setAttribute("data-value", option);
-            catalogFilter.appendChild(optionElement);
-            // console.log(optionElement)
-            // console.log(catalogFilter)
-          } else {
-            console.log('CatalogFilter or optionElement dont exist')
-          }
-        })
-      } else {
-        console.log('FilterOptions dont exist')
-      }
+    if (filterOptions) {
+      filtersHTML = `<li data-value="all" class="active">All</li>`;
+      filtersHTML += filterOptions.map(option => `<li data-value="${option}">${option}</li>`).join('');
     } else {
-      console.log('CatalogFilter doesnt exist')
+      console.log('FilterOptions dont exist');
     }
 
+    catalogFilter.innerHTML = filtersHTML;
   };
+
 
   //input search +
   const searchItem = ({ type, keyCode }) => {
@@ -144,12 +126,12 @@ const initBasket = async () => {
         searchResult = data.filter((item) => {
           return item.title.toLowerCase().includes(name);
         });
+        filteredItems = searchResult;
       }
     }
     showItems(searchResult, "all");
-    filteredItems = searchResult;
     console.log(filteredItems)
-    return
+    // return
   };
   //price search + 
   const priceFilter = (event) => {
@@ -170,8 +152,6 @@ const initBasket = async () => {
         });
 
         showItems(filteredByPrice, "all");
-        // showItems(filteredByPrice, filteredItems);
-
         // showFilters(filterOptions); // reset Li selection
         filteredItems = filteredByPrice
         console.log(filteredItems);
@@ -192,10 +172,11 @@ const initBasket = async () => {
 
         if (filteredItems.length > 0) {
           showItems(filteredItems, selectedCategory);
+          console.log(filteredItems)
         } else {
           showItems(items, selectedCategory);
+          console.log(items)
         }
-
         // searchInput.value = "";
         // cleanFilters();
         return;
@@ -328,7 +309,7 @@ const initBasket = async () => {
       setLocalStorage(selectedItem);
       calculateTotalQuantity(selectedItemsToCart);
       updateQuantityCart();
-      
+
 
       return selectedItemsToCart;
     }
@@ -390,15 +371,15 @@ const initBasket = async () => {
       });
     }
     return totalQuantity;
-};
+  };
 
 
-const updateQuantityCart = (items) => {
-  if (quantityCart) {
-    const totalQuantity = calculateTotalQuantity(items);
-    quantityCart.textContent = totalQuantity;
-  }
-};
+  const updateQuantityCart = (items) => {
+    if (quantityCart) {
+      const totalQuantity = calculateTotalQuantity(items);
+      quantityCart.textContent = totalQuantity;
+    }
+  };
 
 
   if (cartList) {

@@ -776,7 +776,6 @@ h4 {
     }
 }
 input[type="text"] {
-    cursor: $cursor;
 &:hover {
     border: 1px solid red;
 }
@@ -796,9 +795,8 @@ input[type="range"] {
     &__section {
         padding: 20px;
         z-index: 999;
-        // position: fixed;
-        position: absolute;
-        min-height: 100%;
+        position: fixed;
+        height: 100%;
         overflow-y: scroll !important;
         top: 0;
         right: 0;

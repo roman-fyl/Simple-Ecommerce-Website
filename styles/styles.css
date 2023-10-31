@@ -740,9 +740,6 @@ h4 {
   text-transform: capitalize;
 }
 
-input[type=text] {
-  cursor: pointer;
-}
 input[type=text]:hover {
   border: 1px solid red;
 }
@@ -761,8 +758,8 @@ input[type=range] {
 .cart__section {
   padding: 20px;
   z-index: 999;
-  position: absolute;
-  min-height: 100%;
+  position: fixed;
+  height: 100%;
   overflow-y: scroll !important;
   top: 0;
   right: 0;
