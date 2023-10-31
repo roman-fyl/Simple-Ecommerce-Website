@@ -1,6 +1,6 @@
 "use strict";
 
-const store = async () => {
+const initBasket = async () => {
   const catalogFilter = document.getElementById("catalog__filter");
   const catalogList = document.getElementById("catalog__list");
   const cartList = document.getElementById("cart__list");
@@ -48,7 +48,7 @@ const store = async () => {
                           <span>Add</span>
                           </div>
                           <div class="item__description">
-                              <h3>${item.title}</h3>
+                              <h4>${item.title}</h4>
                               <span class="item__price">$${item.price}</span>
                               <span class="item__rate"><img src="../images/rate.png" alt="Rate">${item.rate}</span>
                               <span class="item__topic">${item.category}</span>
@@ -224,7 +224,7 @@ const store = async () => {
       addItemsToCart(event);
       if (elementCart.classList.contains("displayHide")) {
         elementCart.classList.remove("displayHide");
-        elementCart.classList.add("displayShow");
+        elementCart.classList.add("elementShow");
         // console.log('show cart')
         return;
       }
@@ -238,8 +238,8 @@ const store = async () => {
 
       addItemsToCart(event);
 
-      if (elementCart.classList.contains("displayShow")) {
-        elementCart.classList.remove("displayShow");
+      if (elementCart.classList.contains("elementShow")) {
+        elementCart.classList.remove("elementShow");
         elementCart.classList.add("displayHide");
         // console.log('hide cart')
         return;
@@ -253,7 +253,7 @@ const store = async () => {
       selectedItemsToCart = [];
     }
     if (selectedItemsToCart.length === 0) {
-      elementCart.classList.remove("displayShow");
+      elementCart.classList.remove("elementShow");
       elementCart.classList.add("displayHide");
     }
 
@@ -266,7 +266,7 @@ const store = async () => {
               <div class="catalog__item__cart">
               <img src="${item.imageSrc}" alt="${item.imageAlt}">
                   <div class="item__description">
-                      <h3>${item.title}</h3>
+                      <h4>${item.title}</h4>
                       <span class="item__price">${item.price}</span>
                   </div>
               </div>
@@ -290,7 +290,7 @@ const store = async () => {
 
   const addItemsToCart = async (event) => {
     // elementCart.classList.remove("displayHide"); // if you want to show the
-    // elementCart.classList.add("displayShow");// cart, when item is adding
+    // elementCart.classList.add("elementShow");// cart, when item is adding
 
     let quantity = 0;
     const liElement = await event.target.closest(".catalog__item");
@@ -298,7 +298,7 @@ const store = async () => {
     if (liElement) {
       const idN = liElement.getAttribute("idN");
       const imageSrc = liElement.querySelector("img").getAttribute("src");
-      const title = liElement.querySelector(".item__description h3").textContent;
+      const title = liElement.querySelector(".item__description h4").textContent;
       const price = liElement.querySelector(".item__description .item__price").textContent;
 
       const selectedItem = {
@@ -451,4 +451,4 @@ const store = async () => {
   showCartAmount(selectedItemsToCart);
 };
 
-document.addEventListener("DOMContentLoaded", store);
+document.addEventListener("DOMContentLoaded", initBasket);
