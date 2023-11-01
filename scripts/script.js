@@ -36,14 +36,18 @@ const initBasket = async () => {
 
   const showItems = (items = [], category = "all") => {
     const catalogList = document.getElementById("catalog__list");
+    
+    buttonLoadMore.classList.remove('displayHide')
 
     if (catalogList) {
-      catalogList.innerHTML = data
+      const filteredItems = data
         .filter(item => filter.tag === "all" ? item : item.category === filter.tag)
         .filter(item => item.title.toLowerCase().includes(filter.input))
         .filter(item => parseFloat(item.price) >= filter.price)
         .slice(0, displayedItemCount)
-        .map((item) => (`
+
+      if (filteredItems.length > 0) {
+        catalogList.innerHTML = filteredItems.map((item) => (`
                       <li class="catalog__item" idn="${item.idN}">
                           <img src="${item.imageSrc}" alt="${item.imageAlt}">
                           <div class="catalog__item__add_cart">
@@ -58,6 +62,11 @@ const initBasket = async () => {
                           </div>
                       </li>
           `)).join("");
+      }
+      else {
+        catalogList.innerHTML = `<span>No data to display</span>`
+        buttonLoadMore.classList.add('displayHide')
+      }
     }
   }
 
@@ -415,7 +424,7 @@ const initBasket = async () => {
   showItems(items, "all");
   const filterOptions = createFilterOptions(items);
   showFilters(filterOptions);
-  
+
   if (searchInput) {
     searchInput.addEventListener("input", searchItem);
   } else {
