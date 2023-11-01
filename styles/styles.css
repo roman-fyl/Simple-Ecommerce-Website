@@ -17,7 +17,7 @@ body {
   min-width: 320px;
   overscroll-behavior: none;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 a {
@@ -103,7 +103,7 @@ section {
   }
 }
 .header__content nav ul li {
-  padding: 0 10px;
+  padding: 0 30px;
   margin: 20px 0;
 }
 .header__content nav ul li a {
@@ -141,9 +141,9 @@ section {
   position: absolute;
   top: -13px;
   left: 10px;
+  color: rgb(204, 85, 32);
 }
 #quantity-in-cart:hover {
-  color: rgb(204, 85, 32);
   text-decoration: underline;
 }
 
@@ -446,16 +446,16 @@ section {
   justify-content: space-between;
   align-items: flex-start;
 }
-.footer__content span {
+.footer__content div {
   margin-right: 50px;
 }
 @media (min-width: 320px) and (max-width: 767.9px) {
-  .footer__content span ul {
+  .footer__content div ul {
     text-align: center;
   }
 }
 @media (min-width: 320px) and (max-width: 767.9px) {
-  .footer__content span {
+  .footer__content div {
     margin-right: 0;
     margin: 0 auto;
   }
@@ -571,11 +571,11 @@ section {
   line-height: 1.5;
   text-align: justify;
 }
-.text span {
+.text div {
   padding: 40px;
 }
 @media (min-width: 320px) and (max-width: 1169.9px) {
-  .text span {
+  .text div {
     padding: 15px 0;
   }
 }
