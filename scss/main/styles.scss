@@ -11,10 +11,30 @@ section {
     flex: 1 1 auto;
 }
 
-.header {
+.wrapper {
+    background-image: url("../images/main-logo.png");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
     position: relative;
-    // color: #fff;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.45);
+    }
+}
+
+.header {
+    position: fixed;
     background: rgba(60, 60, 60, 0.7);
+    z-index: 10;
+    width: 100%;
 
     &__content {
         display: flex;
@@ -83,15 +103,19 @@ section {
             display: block;
         }
     }
+
+    @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+        background: rgba(60, 60, 60, 1);
+    }
 }
 
 #quantity-in-cart {
-    font: 600 18px $fontMontserrat;
-    line-height: calc(20px / 18px);
+    font: 600 15px $fontMontserrat;
+    line-height: calc(20px / 15px);
     position: absolute;
     top: -13px;
     left: 10px;
-    color: $orange;
+    color: rgb(152, 152, 152);
 
     // top: 15px;
     &:hover {
@@ -123,27 +147,12 @@ section {
 }
 
 .intro {
-    background-image: url("../images/main-logo.png");
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
     color: $white;
-    position: relative;
+    // position: relative;
 
     &__content {
         position: absolute;
         top: 30%;
-    }
-
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.45);
     }
 
     h2 {
@@ -501,7 +510,9 @@ section {
 
 .page {
     .header {
-        background-color: rgba(242, 242, 242, 1);
+        // background-color: rgba(242, 242, 242, 1);
+        background-color: $white;
+        box-shadow: 0 0 10px $gray;
 
         nav {
             ul {
@@ -521,15 +532,16 @@ section {
                 }
             }
         }
-    }
 
-    .bar {
-        background-color: $black;
+        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+            background-color: rgba(60, 60, 60, 0.7);
+        }
     }
 }
 
 .history {
-    background-color: rgba(230, 230, 230, 1);
+    background-color: rgb(230, 230, 230);
+    margin: 77px 0;
     padding: 50px 0;
 
     h2 {
@@ -611,11 +623,14 @@ section {
             flex-direction: column;
         }
     }
-
+    &__block {
+        width: 100%;
+    }
     &__list {
         display: flex;
         width: 100%;
         flex-direction: row;
+        justify-content: space-around;
         flex-wrap: wrap;
         gap: 50px;
         align-items: center;
@@ -626,9 +641,6 @@ section {
         width: 45%;
         flex-direction: column;
         position: relative;
-        // &:nth-child(-n+2) {
-        //     display: none;
-        // }
 
         &__cart {
             img {
@@ -823,6 +835,7 @@ input[type="range"] {
         flex-direction: column;
         border-radius: 7px;
         color: $white;
+        flex: 1 1 auto;
 
         h3 {
             font: 700 50px $fontPlayfair;

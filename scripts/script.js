@@ -1,27 +1,26 @@
 "use strict";
 
 const initBasket = async () => {
-  const catalogFilter = document.getElementById("catalog__filter");
-  const catalogList = document.getElementById("catalog__list");
-  const cartList = document.getElementById("cart__list");
-  const searchInput = document.querySelector(".search__field");
-  const priceRange = document.querySelector('input[name="price"]');
-  const priceDisplay = document.querySelector(".price__display");
-  const elementCart = document.querySelector(".cart__section");
-  const buttonCart = document.querySelector(".cart");
+  const doc = document;
+  const catalogFilter = doc.getElementById("catalog__filter");
+  const catalogList = doc.getElementById("catalog__list");
+  const cartList = doc.getElementById("cart__list");
+  const searchInput = doc.querySelector(".search__field");
+  const priceRange = doc.querySelector('input[name="price"]');
+  const priceDisplay = doc.querySelector(".price__display");
+  const elementCart = doc.querySelector(".cart__section");
+  const buttonCart = doc.querySelector(".cart");
   const buttonCartClose = elementCart.querySelector(".button__close");
-  const totalAmount = document.getElementById("total__amount");
-  const buttonLoadMore = document.getElementById("button__all__foxes");
-  const quantityCart = document.getElementById('quantity-in-cart');
+  const totalAmount = doc.getElementById("total__amount");
+  const buttonLoadMore = doc.getElementById("button__all__foxes");
+  const quantityCart = doc.getElementById('quantity-in-cart');
   const filter = {
     input: "",
     tag: "all",
     price: 0
   }
 
-  let items, data;
-  let selectedItemsToCart = [], filteredItems = [];
-  let displayedItemCount = 6;
+  let items, data, selectedItemsToCart = [], displayedItemCount = 6;
 
   const getData = async () => {
     try {
@@ -37,9 +36,8 @@ const initBasket = async () => {
 
   const showItems = (items = [], category = "all") => {
     const catalogList = document.getElementById("catalog__list");
-    if (catalogList) {
 
-      console.log(filter)
+    if (catalogList) {
       catalogList.innerHTML = data
         .filter(item => filter.tag === "all" ? item : item.category === filter.tag)
         .filter(item => item.title.toLowerCase().includes(filter.input))
@@ -62,11 +60,12 @@ const initBasket = async () => {
           `)).join("");
     }
   }
+
   if (buttonLoadMore) {
+
     buttonLoadMore.addEventListener("click", () => {
       displayedItemCount += 6;
       showItems(items, "all");
-
     });
   }
 
@@ -74,17 +73,18 @@ const initBasket = async () => {
     let filterList = {};
 
     items.forEach((item) => {
+
       if (filterList[item.category]) {
         filterList[item.category] += 1;
       } else {
         filterList[item.category] = 1;
       }
     });
-    // console.log(filterList);
     return Object.keys(filterList);
   };
 
   const showFilters = (filterOptions) => {
+
     if (!catalogFilter) {
       console.log('CatalogFilter doesnt exist');
       return;
@@ -94,22 +94,21 @@ const initBasket = async () => {
 
     if (filterOptions) {
       filtersHTML = `<li data-value="all" class="active">All</li>`;
-      filtersHTML += filterOptions.map(option => `<li data-value="${option}">${option}</li>`).join('');
+      filtersHTML += filterOptions.map(option => `
+        <li data-value="${option}">${option}</li>
+      `).join('');
     } else {
       console.log('FilterOptions dont exist');
     }
-
     catalogFilter.innerHTML = filtersHTML;
   };
 
-  //input search +
   const searchItem = ({ type, keyCode, target }) => {
 
     filter.input = target.value.toLowerCase();
     showItems();
-    // return
   };
-  //price search + 
+
   const priceFilter = () => {
 
     if (priceRange) {
@@ -121,11 +120,11 @@ const initBasket = async () => {
     } else {
       console.log('Price range doesnt exist')
     }
-
   };
-  //category search
+
   if (catalogFilter) {
     catalogFilter.addEventListener("click", (event) => {
+
       if (event.target.tagName === "LI") {
         buttonSwitcher(event);
         filter.tag = event.target.getAttribute("data-value");
@@ -135,11 +134,6 @@ const initBasket = async () => {
   } else {
     console.log("CatalogFilter doesnt exist");
   }
-
-  const cleanFilters = () => {
-    priceRange.value = 0;
-    priceDisplay.textContent = `Value: $ ${priceRange.value}`;
-  };
 
   const buttonSwitcher = (event) => {
     const filterItems = document.querySelectorAll("li");
@@ -153,6 +147,7 @@ const initBasket = async () => {
   if (buttonCart) {
     buttonCart.addEventListener("click", (event) => {
       addItemsToCart(event);
+
       if (elementCart.classList.contains("displayHide")) {
         elementCart.classList.remove("displayHide");
         elementCart.classList.add("elementShow");
@@ -164,8 +159,8 @@ const initBasket = async () => {
   }
 
   if (buttonCartClose) {
-    buttonCartClose.addEventListener("click", (event) => {
 
+    buttonCartClose.addEventListener("click", (event) => {
       addItemsToCart(event);
 
       if (elementCart.classList.contains("elementShow")) {
@@ -178,9 +173,11 @@ const initBasket = async () => {
     console.log("no button buttonCartClose");
   }
   const showCart = (selectedItem) => {
+
     if (!Array.isArray(selectedItemsToCart)) {
       selectedItemsToCart = [];
     }
+
     if (selectedItemsToCart.length === 0) {
       elementCart.classList.remove("elementShow");
       elementCart.classList.add("displayHide");
@@ -225,7 +222,6 @@ const initBasket = async () => {
       const imageSrc = liElement.querySelector("img").getAttribute("src");
       const title = liElement.querySelector(".item__description h4").textContent;
       const price = liElement.querySelector(".item__description .item__price").textContent;
-
       const selectedItem = {
         idN: idN,
         imageSrc: imageSrc,
@@ -237,9 +233,11 @@ const initBasket = async () => {
       const existingItem = selectedItemsToCart.find((item) => item.idN === idN);
 
       if (existingItem) {
+
         existingItem.quantity += 1;
       } else {
         const selectedItem = items.find((item) => item.idN === idN);
+
         if (selectedItem) {
           selectedItem.quantity = 1;
           selectedItemsToCart.push(selectedItem);
@@ -252,7 +250,6 @@ const initBasket = async () => {
       calculateTotalQuantity(selectedItemsToCart);
       updateQuantityCart();
 
-
       return selectedItemsToCart;
     }
   };
@@ -264,6 +261,7 @@ const initBasket = async () => {
 
   const getLocalStorage = () => {
     const storedItems = JSON.parse(localStorage.getItem("idN"));
+
     return storedItems;
   };
 
@@ -282,9 +280,12 @@ const initBasket = async () => {
     let total = 0;
 
     if (Array.isArray(selectedItemsToCart)) {
+
       selectedItemsToCart.forEach((item) => {
+
         const itemPrice = parseFloat(item.price.replace("$", ""));
         const itemquantity = item.quantity || 1;
+
         total += itemPrice * itemquantity;
         return total
       });
@@ -297,13 +298,16 @@ const initBasket = async () => {
     let totalQuantity = 0;
 
     if (Array.isArray(items)) {
+
       items.forEach((item) => {
         totalQuantity += item.quantity || 0;
       });
     }
 
     const storedItems = getLocalStorage();
+
     if (Array.isArray(storedItems)) {
+
       storedItems.forEach((item) => {
         totalQuantity += item.quantity || 0;
       });
@@ -313,24 +317,32 @@ const initBasket = async () => {
 
 
   const updateQuantityCart = (items) => {
+
     if (quantityCart) {
+
       quantityCart.textContent = 0;
+
       const totalQuantity = calculateTotalQuantity(items);
+
       quantityCart.textContent = totalQuantity;
     }
   };
 
 
   if (cartList) {
+
     cartList.addEventListener("click", (event) => {
+
       const target = event.target;
       const increaseQuantity = target.closest("#increase");
 
       if (increaseQuantity) {
+
         const idN = increaseQuantity.getAttribute("data-idn");
         const selectedItem = selectedItemsToCart.find((item) => item.idN === idN);
 
         if (selectedItem) {
+
           selectedItem.quantity += 1;
           showCart(selectedItemsToCart);
           showCartAmount(selectedItemsToCart);
@@ -346,10 +358,12 @@ const initBasket = async () => {
 
   if (cartList) {
     cartList.addEventListener("click", (event) => {
+
       const target = event.target;
       const decreaseQuantity = target.closest("#decrease");
 
       if (decreaseQuantity) {
+
         const idN = decreaseQuantity.getAttribute("data-idn");
         const selectedItem = selectedItemsToCart.find((item) => item.idN === idN);
 
@@ -369,11 +383,13 @@ const initBasket = async () => {
 
   if (cartList) {
     cartList.addEventListener("click", (event) => {
+
       const target = event.target;
       const removeCartButton = target.closest(".cart__remove");
 
       if (removeCartButton) {
         const idN = removeCartButton.getAttribute("data-idn");
+
         removeItem(idN);
       }
     });
@@ -383,10 +399,11 @@ const initBasket = async () => {
 
   if (catalogList) {
     catalogList.addEventListener("click", (event) => {
+
       const target = event.target;
       const addCartButton = target.closest(".catalog__item__add_cart");
+
       if (addCartButton) {
-        // console.log(target)
         addItemsToCart(event);
       }
     });
@@ -398,6 +415,7 @@ const initBasket = async () => {
   showItems(items, "all");
   const filterOptions = createFilterOptions(items);
   showFilters(filterOptions);
+  
   if (searchInput) {
     searchInput.addEventListener("input", searchItem);
   } else {
