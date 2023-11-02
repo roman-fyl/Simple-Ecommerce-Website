@@ -232,7 +232,7 @@ const initBasket = async () => {
               <img src="${item.imageSrc}" alt="${item.imageAlt}">
                   <div class="item__description">
                       <h4>${item.title}</h4>
-                      <span class="item__price">${item.price}</span>
+                      <span class="item__price">$${item.price}</span>
                   </div>
               </div>
               <div class="cart__updates">
