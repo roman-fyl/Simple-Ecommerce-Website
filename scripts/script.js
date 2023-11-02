@@ -18,7 +18,6 @@ const initBasket = async () => {
   const sections = doc.querySelectorAll('section');
   const footer = doc.querySelector('footer');
 
-
   const filter = {
     input: "",
     tag: "all",
@@ -49,10 +48,8 @@ const initBasket = async () => {
       }
     }
 
-
     if (catalogList) {
       const filteredItems = data
-
         .filter(item => filter.tag === "all" ? item : item.category === filter.tag)
         .filter(item => item.title.toLowerCase().includes(filter.input))
         .filter(item => parseFloat(item.price) >= filter.price)
@@ -105,7 +102,6 @@ const initBasket = async () => {
   };
 
   const showFilters = (filterOptions) => {
-
     if (!catalogFilter) {
       console.log('CatalogFilter doesnt exist');
       return;
@@ -124,14 +120,14 @@ const initBasket = async () => {
     catalogFilter.innerHTML = filtersHTML;
   };
 
-  const searchItem = (target) => {
-
-    filter.input = target.value.toLowerCase();
-    showItems();
+  const searchItem = (event) => {
+    if (event && event.target && event.target.value) {
+      filter.input = event.target.value.toLowerCase();
+      showItems();
+    }
   };
 
   const priceFilter = () => {
-
     if (priceRange) {
       priceRange.addEventListener("input", (event) => {
         priceDisplay.textContent = `Value: $ ${event.target.value}`;
@@ -209,8 +205,8 @@ const initBasket = async () => {
   } else {
     console.log("no button buttonCartClose");
   }
-  const showCart = (selectedItem) => {
 
+  const showCart = (selectedItem) => {
     if (!Array.isArray(selectedItemsToCart)) {
       selectedItemsToCart = [];
     }
@@ -270,7 +266,6 @@ const initBasket = async () => {
       };
 
       const existingItem = selectedItemsToCart.find((item) => item.idN === idN);
-
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
@@ -365,7 +360,6 @@ const initBasket = async () => {
     return totalQuantity;
   };
 
-
   const updateQuantityCart = (items) => {
     if (quantityCart) {
       quantityCart.textContent = 0;
@@ -384,14 +378,12 @@ const initBasket = async () => {
 
 
   if (cartList) {
-
     cartList.addEventListener("click", (event) => {
 
       const target = event.target;
       const increaseQuantity = target.closest("#increase");
 
       if (increaseQuantity) {
-
         const idN = increaseQuantity.getAttribute("data-idn");
         const selectedItem = selectedItemsToCart.find((item) => item.idN === idN);
 
@@ -419,7 +411,6 @@ const initBasket = async () => {
       const decreaseQuantity = target.closest("#decrease");
 
       if (decreaseQuantity) {
-
         const idN = decreaseQuantity.getAttribute("data-idn");
         const selectedItem = selectedItemsToCart.find((item) => item.idN === idN);
 
