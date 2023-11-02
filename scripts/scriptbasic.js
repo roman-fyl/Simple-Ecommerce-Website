@@ -15,20 +15,18 @@ const menuSwitcher = () => {
     }
   }
 
-  if (elementNavMenu) {
-    if (Array.isArray(elementNavMenu)) {
-      
-      elementNavMenu.forEach((element) => {
-        element.addEventListener('click', (event) => {
-          elementNavMenu.forEach((item) => {
-            item.classList.remove('elementActive');
-          });
-          event.target.classList.add('elementActive');
-        });
-      });
-    }
+  const switchActiveElements = (event) => {
+    const menuItems = document.querySelectorAll(".element-menu a");
+    const currentURL = window.location.href;
+    
+    menuItems.forEach((item) => {
+      if (item.href === currentURL) {
+        item.classList.add("elementActive");
+      }
+    });
   }
 
+  switchActiveElements()
   menu.addEventListener('click', menuToggle);
 };
 

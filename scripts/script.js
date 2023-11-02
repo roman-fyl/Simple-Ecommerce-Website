@@ -12,6 +12,7 @@ const initBasket = async () => {
   const buttonCart = doc.querySelector(".cart");
   const buttonCartClose = elementCart.querySelector(".button__close");
   const totalAmount = doc.getElementById("total__amount");
+  const totalItems = doc.getElementById("total__items");
   const buttonLoadMore = doc.getElementById("button__all__foxes");
   const quantityCart = doc.getElementById('quantity-in-cart');
   const sections = doc.querySelectorAll('section');
@@ -164,8 +165,6 @@ const initBasket = async () => {
     event.target.classList.add("active");
   };
 
-
-
   if (buttonCart) {
     buttonCart.addEventListener("click", (event) => {
       addItemsToCart(event);
@@ -197,12 +196,15 @@ const initBasket = async () => {
 
       }
       if (sections) {
-        sections.forEach(section => section.classList.remove("elementOpacity"))
+        sections.forEach(section => section.classList.remove("elementOpacity"));
+
       }
       if (footer) {
-        footer.classList.remove('elementOpacity')
+        footer.classList.remove('elementOpacity');
+
       }
-      return;
+
+      return
     });
   } else {
     console.log("no button buttonCartClose");
@@ -216,6 +218,8 @@ const initBasket = async () => {
     if (selectedItemsToCart.length === 0) {
       elementCart.classList.remove("elementShow");
       elementCart.classList.add("elementHide");
+      sections.forEach(section => section.classList.remove("elementOpacity"));
+      footer.classList.remove('elementOpacity');
     }
 
     let elements = [];
@@ -268,7 +272,6 @@ const initBasket = async () => {
       const existingItem = selectedItemsToCart.find((item) => item.idN === idN);
 
       if (existingItem) {
-
         existingItem.quantity += 1;
       } else {
         const selectedItem = items.find((item) => item.idN === idN);
@@ -283,6 +286,8 @@ const initBasket = async () => {
       showCartAmount(selectedItemsToCart);
       setLocalStorage(selectedItem);
       calculateTotalQuantity(selectedItemsToCart);
+      showCartQuantity(selectedItemsToCart)
+      updateQuantityInCart()
       updateQuantityCart();
 
       return selectedItemsToCart;
@@ -291,6 +296,7 @@ const initBasket = async () => {
 
   const setLocalStorage = (selectedItem) => {
     localStorage.setItem("idN", JSON.stringify(selectedItemsToCart));
+
     return;
   };
 
@@ -308,6 +314,8 @@ const initBasket = async () => {
     showCartAmount(selectedItemsToCart);
     setLocalStorage(selectedItemsToCart);
     calculateTotalQuantity(selectedItemsToCart);
+    showCartQuantity(selectedItemsToCart)
+    updateQuantityInCart()
     updateQuantityCart();
   };
 
@@ -328,6 +336,13 @@ const initBasket = async () => {
     totalAmount.textContent = `$${total.toFixed(2)}`;
     calculateTotalQuantity(selectedItemsToCart);
   };
+
+  const showCartQuantity = (selectedItemsToCart) => {
+    const uniqueItems = new Set(selectedItemsToCart.map((item) => item.idN));
+    return uniqueItems.size;
+  };
+
+  showCartQuantity(selectedItemsToCart)
 
   const calculateTotalQuantity = (items) => {
     let totalQuantity = 0;
@@ -352,14 +367,18 @@ const initBasket = async () => {
 
 
   const updateQuantityCart = (items) => {
-
     if (quantityCart) {
-
       quantityCart.textContent = 0;
 
-      const totalQuantity = calculateTotalQuantity(items);
+      const uniqueItemsCount = showCartQuantity(selectedItemsToCart);
 
-      quantityCart.textContent = totalQuantity;
+      quantityCart.textContent = uniqueItemsCount;
+    }
+  };
+
+  const updateQuantityInCart = (items) => {
+    if (totalItems) {
+      totalItems.textContent = calculateTotalQuantity(items);
     }
   };
 
@@ -384,6 +403,8 @@ const initBasket = async () => {
           setLocalStorage(selectedItemsToCart);
           calculateTotalQuantity(selectedItemsToCart);
           updateQuantityCart();
+          updateQuantityInCart();
+          showCartQuantity(selectedItemsToCart)
         }
       }
     });
@@ -408,6 +429,7 @@ const initBasket = async () => {
           showCartAmount(selectedItemsToCart);
           setLocalStorage(selectedItemsToCart);
           calculateTotalQuantity(selectedItemsToCart);
+          showCartQuantity(selectedItemsToCart)
           updateQuantityCart();
         }
       }
@@ -462,6 +484,8 @@ const initBasket = async () => {
   showCart(selectedItemsToCart);
   showCartAmount(selectedItemsToCart);
   calculateTotalQuantity(selectedItemsToCart);
+  showCartQuantity(selectedItemsToCart)
+  updateQuantityInCart()
   updateQuantityCart();
 };
 
