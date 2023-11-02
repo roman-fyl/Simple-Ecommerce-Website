@@ -4,7 +4,6 @@ const menuSwitcher = () => {
 
   const navigation = document.querySelector(".header__content nav");
   const menu = document.querySelector(".header__mobile");
-  const elementNavMenu = document.querySelectorAll('.element-menu');
 
   const menuToggle = () => {
     
