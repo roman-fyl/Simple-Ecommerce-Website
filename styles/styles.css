@@ -969,6 +969,5 @@ input[type=range] {
 }
 
 .elementActive {
-  text-decoration: underline;
   color: rgb(204, 85, 32) !important;
 }
