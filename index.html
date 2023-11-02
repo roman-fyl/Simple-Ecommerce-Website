@@ -22,20 +22,23 @@
                         <span class="bar"></span>
                         <span class="bar"></span>
                     </div>
-                    <h1><a href="./index.html"><img src="./images/logo.png" alt="logo"></a></h1>
+                    <h1 class="header__logo">
+                        <a href="./index.html"> <span>foxmind</span>
+                           <span>ed</span></a>
+                    </h1>
                     <nav>
                         <ul>
-                            <li>
+                            <li class="element-menu">
                                 <a href="./pages/items.html">Shop</a>
                             </li>
-                            <li>
+                            <li class="element-menu">
                                 <a href="./index.html">Mainpage</a>
                             </li>
-                            <li>
+                            <li class="element-menu">
                                 <a href="./pages/our-history.html">Our history</a>
                             </li>
-                            <li>
-                                <a href="./pages/items.html">All items</a>
+                            <li class="element-menu">
+                                <a href="./pages/items.html#">All items</a>
                             </li>
                         </ul>
                     </nav>
@@ -48,13 +51,15 @@
             </div>
         </header>
         <!--Cart started-->
-        <div class="cart__section displayHide">
+        <div class="cart__section elementHide">
             <div class="button__close"><a href="#"><img src="../images/icon-close.png" alt="Close"></a></div>
             <h3>Your bag</h3>
             <ul class="cart__list" id="cart__list">
                 <!--Inserted by -->
             </ul>
-            <h5>Total:</h5>
+            <h5>Total Items:</h5>
+            <h5 id="total__items"></h5>
+            <h5>Total Amount:</h5>
             <h5 id="total__amount"></h5>
             <span class="items__button catalog__page">
                 <button type="button" class="button__all__foxes">Checkout</button>
@@ -104,7 +109,7 @@
         <section class="subscription">
             <div class="container">
                 <div class="subscription__content">
-                    <span>Join our newsletter</span>
+                    <h2>Join our newsletter</h2>
                     <p>Lorem ipsum dolor sit amet consectetur. Molestie turpis quis turpis fermentum egestas
                         bibendum.Lorem
                         ipsum dolor sit amet consectetur.</p>
@@ -121,8 +126,8 @@
                 <div class="footer__content">
                     <div>
                         <ul>
-                            <li title="Logo"><a href="./index.html"><img src="./images/main-logo-footer.png"
-                                        alt="Logo"></a>
+                            <li title="Logo" class="footer__logo"><a href="./index.html"><span>foxmind</span>
+                                <span>ed</span></a>
                             </li>
                             <li>Lorem ipsum dolor sit amet consectetur consectetur</li>
                             <li>Call us: <a href="tel:895632547887">8956-3254-7887</a>

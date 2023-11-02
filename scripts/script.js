@@ -12,8 +12,13 @@ const initBasket = async () => {
   const buttonCart = doc.querySelector(".cart");
   const buttonCartClose = elementCart.querySelector(".button__close");
   const totalAmount = doc.getElementById("total__amount");
+  const totalItems = doc.getElementById("total__items");
   const buttonLoadMore = doc.getElementById("button__all__foxes");
   const quantityCart = doc.getElementById('quantity-in-cart');
+  const sections = doc.querySelectorAll('section');
+  const footer = doc.querySelector('footer');
+
+
   const filter = {
     input: "",
     tag: "all",
@@ -34,13 +39,20 @@ const initBasket = async () => {
     }
   };
 
-  const showItems = (items = [], category = "all") => {
+  const showItems = () => {
     const catalogList = document.getElementById("catalog__list");
-    
-    buttonLoadMore.classList.remove('displayHide')
+
+    if (buttonLoadMore) {
+      if (buttonLoadMore.classList.contains('elementHide')) {
+        buttonLoadMore.classList.remove('elementHide')
+
+      }
+    }
+
 
     if (catalogList) {
       const filteredItems = data
+
         .filter(item => filter.tag === "all" ? item : item.category === filter.tag)
         .filter(item => item.title.toLowerCase().includes(filter.input))
         .filter(item => parseFloat(item.price) >= filter.price)
@@ -65,7 +77,7 @@ const initBasket = async () => {
       }
       else {
         catalogList.innerHTML = `<span>No data to display</span>`
-        buttonLoadMore.classList.add('displayHide')
+        buttonLoadMore.classList.add('elementHide')
       }
     }
   }
@@ -74,7 +86,7 @@ const initBasket = async () => {
 
     buttonLoadMore.addEventListener("click", () => {
       displayedItemCount += 6;
-      showItems(items, "all");
+      showItems();
     });
   }
 
@@ -112,7 +124,7 @@ const initBasket = async () => {
     catalogFilter.innerHTML = filtersHTML;
   };
 
-  const searchItem = ({ type, keyCode, target }) => {
+  const searchItem = (target) => {
 
     filter.input = target.value.toLowerCase();
     showItems();
@@ -157,9 +169,15 @@ const initBasket = async () => {
     buttonCart.addEventListener("click", (event) => {
       addItemsToCart(event);
 
-      if (elementCart.classList.contains("displayHide")) {
-        elementCart.classList.remove("displayHide");
+      if (elementCart.classList.contains("elementHide")) {
+        elementCart.classList.remove("elementHide");
         elementCart.classList.add("elementShow");
+        if (sections) {
+          sections.forEach(section => section.classList.add("elementOpacity"))
+        }
+        if (footer) {
+          footer.classList.add('elementOpacity')
+        }
         return;
       }
     });
@@ -174,9 +192,19 @@ const initBasket = async () => {
 
       if (elementCart.classList.contains("elementShow")) {
         elementCart.classList.remove("elementShow");
-        elementCart.classList.add("displayHide");
-        return;
+        elementCart.classList.add("elementHide");
+
       }
+      if (sections) {
+        sections.forEach(section => section.classList.remove("elementOpacity"));
+
+      }
+      if (footer) {
+        footer.classList.remove('elementOpacity');
+
+      }
+
+      return
     });
   } else {
     console.log("no button buttonCartClose");
@@ -189,7 +217,9 @@ const initBasket = async () => {
 
     if (selectedItemsToCart.length === 0) {
       elementCart.classList.remove("elementShow");
-      elementCart.classList.add("displayHide");
+      elementCart.classList.add("elementHide");
+      sections.forEach(section => section.classList.remove("elementOpacity"));
+      footer.classList.remove('elementOpacity');
     }
 
     let elements = [];
@@ -202,7 +232,7 @@ const initBasket = async () => {
               <img src="${item.imageSrc}" alt="${item.imageAlt}">
                   <div class="item__description">
                       <h4>${item.title}</h4>
-                      <span class="item__price">${item.price}</span>
+                      <span class="item__price">$${item.price}</span>
                   </div>
               </div>
               <div class="cart__updates">
@@ -242,7 +272,6 @@ const initBasket = async () => {
       const existingItem = selectedItemsToCart.find((item) => item.idN === idN);
 
       if (existingItem) {
-
         existingItem.quantity += 1;
       } else {
         const selectedItem = items.find((item) => item.idN === idN);
@@ -257,6 +286,8 @@ const initBasket = async () => {
       showCartAmount(selectedItemsToCart);
       setLocalStorage(selectedItem);
       calculateTotalQuantity(selectedItemsToCart);
+      showCartQuantity(selectedItemsToCart)
+      updateQuantityInCart()
       updateQuantityCart();
 
       return selectedItemsToCart;
@@ -265,6 +296,7 @@ const initBasket = async () => {
 
   const setLocalStorage = (selectedItem) => {
     localStorage.setItem("idN", JSON.stringify(selectedItemsToCart));
+
     return;
   };
 
@@ -282,6 +314,8 @@ const initBasket = async () => {
     showCartAmount(selectedItemsToCart);
     setLocalStorage(selectedItemsToCart);
     calculateTotalQuantity(selectedItemsToCart);
+    showCartQuantity(selectedItemsToCart)
+    updateQuantityInCart()
     updateQuantityCart();
   };
 
@@ -289,19 +323,26 @@ const initBasket = async () => {
     let total = 0;
 
     if (Array.isArray(selectedItemsToCart)) {
-
       selectedItemsToCart.forEach((item) => {
-
         const itemPrice = parseFloat(item.price.replace("$", ""));
         const itemquantity = item.quantity || 1;
 
         total += itemPrice * itemquantity;
+
         return total
       });
     }
+
     totalAmount.textContent = `$${total.toFixed(2)}`;
     calculateTotalQuantity(selectedItemsToCart);
   };
+
+  const showCartQuantity = (selectedItemsToCart) => {
+    const uniqueItems = new Set(selectedItemsToCart.map((item) => item.idN));
+    return uniqueItems.size;
+  };
+
+  showCartQuantity(selectedItemsToCart)
 
   const calculateTotalQuantity = (items) => {
     let totalQuantity = 0;
@@ -326,14 +367,18 @@ const initBasket = async () => {
 
 
   const updateQuantityCart = (items) => {
-
     if (quantityCart) {
-
       quantityCart.textContent = 0;
 
-      const totalQuantity = calculateTotalQuantity(items);
+      const uniqueItemsCount = showCartQuantity(selectedItemsToCart);
 
-      quantityCart.textContent = totalQuantity;
+      quantityCart.textContent = uniqueItemsCount;
+    }
+  };
+
+  const updateQuantityInCart = (items) => {
+    if (totalItems) {
+      totalItems.textContent = calculateTotalQuantity(items);
     }
   };
 
@@ -358,6 +403,8 @@ const initBasket = async () => {
           setLocalStorage(selectedItemsToCart);
           calculateTotalQuantity(selectedItemsToCart);
           updateQuantityCart();
+          updateQuantityInCart();
+          showCartQuantity(selectedItemsToCart)
         }
       }
     });
@@ -382,6 +429,7 @@ const initBasket = async () => {
           showCartAmount(selectedItemsToCart);
           setLocalStorage(selectedItemsToCart);
           calculateTotalQuantity(selectedItemsToCart);
+          showCartQuantity(selectedItemsToCart)
           updateQuantityCart();
         }
       }
@@ -436,6 +484,8 @@ const initBasket = async () => {
   showCart(selectedItemsToCart);
   showCartAmount(selectedItemsToCart);
   calculateTotalQuantity(selectedItemsToCart);
+  showCartQuantity(selectedItemsToCart)
+  updateQuantityInCart()
   updateQuantityCart();
 };
 
