@@ -14,6 +14,8 @@ const initBasket = async () => {
   const totalAmount = doc.getElementById("total__amount");
   const buttonLoadMore = doc.getElementById("button__all__foxes");
   const quantityCart = doc.getElementById('quantity-in-cart');
+  const headerMobileMenu = doc.querySelector(".header__mobile");
+
   const filter = {
     input: "",
     tag: "all",
@@ -36,8 +38,14 @@ const initBasket = async () => {
 
   const showItems = (items = [], category = "all") => {
     const catalogList = document.getElementById("catalog__list");
-    
-    buttonLoadMore.classList.remove('displayHide')
+
+    if(buttonLoadMore) {
+      if(buttonLoadMore.classList.contains('elementHide')) {
+        buttonLoadMore.classList.remove('elementHide')
+      
+      }
+    }
+ 
 
     if (catalogList) {
       const filteredItems = data
@@ -65,7 +73,7 @@ const initBasket = async () => {
       }
       else {
         catalogList.innerHTML = `<span>No data to display</span>`
-        buttonLoadMore.classList.add('displayHide')
+        buttonLoadMore.classList.add('elementHide')
       }
     }
   }
@@ -157,8 +165,8 @@ const initBasket = async () => {
     buttonCart.addEventListener("click", (event) => {
       addItemsToCart(event);
 
-      if (elementCart.classList.contains("displayHide")) {
-        elementCart.classList.remove("displayHide");
+      if (elementCart.classList.contains("elementHide")) {
+        elementCart.classList.remove("elementHide");
         elementCart.classList.add("elementShow");
         return;
       }
@@ -174,7 +182,7 @@ const initBasket = async () => {
 
       if (elementCart.classList.contains("elementShow")) {
         elementCart.classList.remove("elementShow");
-        elementCart.classList.add("displayHide");
+        elementCart.classList.add("elementHide");
         return;
       }
     });
@@ -189,7 +197,7 @@ const initBasket = async () => {
 
     if (selectedItemsToCart.length === 0) {
       elementCart.classList.remove("elementShow");
-      elementCart.classList.add("displayHide");
+      elementCart.classList.add("elementHide");
     }
 
     let elements = [];

@@ -35,6 +35,26 @@ section {
     background: rgba(60, 60, 60, 0.7);
     z-index: 10;
     width: 100%;
+    &__logo {
+        span {
+            font-weight: 700;
+            font-size: 40px;
+            line-height: calc(72.72 / 40);
+            color: $white;
+            &:last-child {
+              background-color: $orange;
+              color: $white;
+              line-height: 1;
+              @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+                font-size: 20px;
+            }
+            }
+            @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+                font-size: 20px;
+            }
+          }
+       
+    }
 
     &__content {
         display: flex;
@@ -115,7 +135,8 @@ section {
     position: absolute;
     top: -13px;
     left: 10px;
-    color: rgb(152, 152, 152);
+    color: rgb(255, 255, 255);
+    
 
     // top: 15px;
     &:hover {
@@ -126,14 +147,18 @@ section {
 .icons {
     &__section {
         position: relative;
+        img {
+            // filter: invert(1);
+            // background:rgba(255, 255, 255, 0.7);
+        }
     }
 }
 
-.displayShow {
+.elementShow {
     display: flex !important;
 }
 
-.displayHide {
+.elementHide {
     display: none !important;
 }
 
@@ -376,7 +401,7 @@ section {
         }
     }
 
-    span {
+    h2 {
         font: 600 32px $fontMontserrat;
         line-height: calc(48px / 32px);
 
@@ -419,7 +444,18 @@ section {
 
 .footer {
     background-color: $black;
-
+    &__logo {
+        span {
+            font-weight: 700;
+            font-size: 20px;
+            line-height: calc(72.72 / 40);
+            &:last-child {
+              background-color: $orange;
+              color: $white;
+              line-height: 1;
+            }
+          }
+    }
     &__content {
         padding: 100px 0;
         color: $white;
@@ -513,6 +549,25 @@ section {
         // background-color: rgba(242, 242, 242, 1);
         background-color: $white;
         box-shadow: 0 0 10px $gray;
+        &__logo {
+            span {
+                font-weight: 700;
+                font-size: 40px;
+                line-height: calc(72.72 / 40);
+                color: $black;
+                @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+                    font-size: 20px;
+                }
+                &:last-child {
+                  background-color: $orange;
+                  color: $white;
+                  line-height: 1;
+                  @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+                    font-size: 20px;
+                }
+                }
+              }
+        }
 
         nav {
             ul {
@@ -536,6 +591,17 @@ section {
         @media (min-width: $mobile) and (max-width: $tablet - .1px) {
             background-color: rgba(60, 60, 60, 0.7);
         }
+        &__mobile {
+            img {
+                filter: invert(1);
+            }
+        }
+    }
+    .icons__section {
+        filter: invert(1);
+        @media (min-width: $mobile) and (max-width: $tablet - .1px) {
+            filter: none;
+                }
     }
 }
 
