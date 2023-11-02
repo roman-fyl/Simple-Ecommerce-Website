@@ -17,6 +17,7 @@ const initBasket = async () => {
   const sections = doc.querySelectorAll('section');
   const footer = doc.querySelector('footer');
 
+
   const filter = {
     input: "",
     tag: "all",
@@ -37,19 +38,20 @@ const initBasket = async () => {
     }
   };
 
-  const showItems = (items = [], category = "all") => {
+  const showItems = () => {
     const catalogList = document.getElementById("catalog__list");
 
-    if(buttonLoadMore) {
-      if(buttonLoadMore.classList.contains('elementHide')) {
+    if (buttonLoadMore) {
+      if (buttonLoadMore.classList.contains('elementHide')) {
         buttonLoadMore.classList.remove('elementHide')
-      
+
       }
     }
- 
+
 
     if (catalogList) {
       const filteredItems = data
+
         .filter(item => filter.tag === "all" ? item : item.category === filter.tag)
         .filter(item => item.title.toLowerCase().includes(filter.input))
         .filter(item => parseFloat(item.price) >= filter.price)
@@ -83,7 +85,7 @@ const initBasket = async () => {
 
     buttonLoadMore.addEventListener("click", () => {
       displayedItemCount += 6;
-      showItems(items, "all");
+      showItems();
     });
   }
 
@@ -121,7 +123,7 @@ const initBasket = async () => {
     catalogFilter.innerHTML = filtersHTML;
   };
 
-  const searchItem = ({ type, keyCode, target }) => {
+  const searchItem = (target) => {
 
     filter.input = target.value.toLowerCase();
     showItems();
@@ -162,6 +164,8 @@ const initBasket = async () => {
     event.target.classList.add("active");
   };
 
+
+
   if (buttonCart) {
     buttonCart.addEventListener("click", (event) => {
       addItemsToCart(event);
@@ -169,10 +173,10 @@ const initBasket = async () => {
       if (elementCart.classList.contains("elementHide")) {
         elementCart.classList.remove("elementHide");
         elementCart.classList.add("elementShow");
-        if(sections) {
-         sections.forEach(section =>  section.classList.add("elementOpacity"))
+        if (sections) {
+          sections.forEach(section => section.classList.add("elementOpacity"))
         }
-        if(footer) {
+        if (footer) {
           footer.classList.add('elementOpacity')
         }
         return;
@@ -190,15 +194,15 @@ const initBasket = async () => {
       if (elementCart.classList.contains("elementShow")) {
         elementCart.classList.remove("elementShow");
         elementCart.classList.add("elementHide");
-        
+
       }
-      if(sections) {
-        sections.forEach(section =>  section.classList.remove("elementOpacity"))
-       }
-       if(footer) {
-         footer.classList.remove('elementOpacity')
-       }
-       return;
+      if (sections) {
+        sections.forEach(section => section.classList.remove("elementOpacity"))
+      }
+      if (footer) {
+        footer.classList.remove('elementOpacity')
+      }
+      return;
     });
   } else {
     console.log("no button buttonCartClose");
@@ -311,16 +315,16 @@ const initBasket = async () => {
     let total = 0;
 
     if (Array.isArray(selectedItemsToCart)) {
-
       selectedItemsToCart.forEach((item) => {
-
         const itemPrice = parseFloat(item.price.replace("$", ""));
         const itemquantity = item.quantity || 1;
 
         total += itemPrice * itemquantity;
+
         return total
       });
     }
+
     totalAmount.textContent = `$${total.toFixed(2)}`;
     calculateTotalQuantity(selectedItemsToCart);
   };

@@ -847,11 +847,11 @@ input[type=range] {
   z-index: 999;
   position: fixed;
   height: 100%;
-  overflow-y: scroll !important;
+  overflow-y: auto;
   top: 0;
   right: 0;
   min-width: 300px;
-  background: rgba(77, 77, 77, 0.9);
+  background: rgb(77, 77, 77);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -952,4 +952,11 @@ input[type=range] {
   width: 100%;
   height: 100%;
   filter: blur(10px);
+}
+
+.elementActive nav ul li {
+  color: rgb(204, 85, 32);
+}
+.elementActive nav ul li a {
+  color: rgb(204, 85, 32);
 }
