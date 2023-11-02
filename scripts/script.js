@@ -14,7 +14,8 @@ const initBasket = async () => {
   const totalAmount = doc.getElementById("total__amount");
   const buttonLoadMore = doc.getElementById("button__all__foxes");
   const quantityCart = doc.getElementById('quantity-in-cart');
-  const headerMobileMenu = doc.querySelector(".header__mobile");
+  const sections = doc.querySelectorAll('section');
+  const footer = doc.querySelector('footer');
 
   const filter = {
     input: "",
@@ -168,6 +169,12 @@ const initBasket = async () => {
       if (elementCart.classList.contains("elementHide")) {
         elementCart.classList.remove("elementHide");
         elementCart.classList.add("elementShow");
+        if(sections) {
+         sections.forEach(section =>  section.classList.add("elementOpacity"))
+        }
+        if(footer) {
+          footer.classList.add('elementOpacity')
+        }
         return;
       }
     });
@@ -183,8 +190,15 @@ const initBasket = async () => {
       if (elementCart.classList.contains("elementShow")) {
         elementCart.classList.remove("elementShow");
         elementCart.classList.add("elementHide");
-        return;
+        
       }
+      if(sections) {
+        sections.forEach(section =>  section.classList.remove("elementOpacity"))
+       }
+       if(footer) {
+         footer.classList.remove('elementOpacity')
+       }
+       return;
     });
   } else {
     console.log("no button buttonCartClose");
