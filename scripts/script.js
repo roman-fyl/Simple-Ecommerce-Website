@@ -71,10 +71,12 @@ const initBasket = async () => {
                           </div>
                       </li>
           `)).join("");
+          return
       }
       else {
         catalogList.innerHTML = `<span>No data to display</span>`
         buttonLoadMore.classList.add('elementHide')
+        return
       }
     }
   }
@@ -121,10 +123,13 @@ const initBasket = async () => {
   };
 
   const searchItem = (event) => {
-    if (event?.target?.value) {
+    if (!event.target.value) { 
+      filter.input = "";
+    } else {
       filter.input = event.target.value.toLowerCase();
-      showItems();
     }
+  
+    showItems();
   };
 
   const priceFilter = () => {
