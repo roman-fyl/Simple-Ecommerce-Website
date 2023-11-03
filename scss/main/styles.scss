@@ -56,6 +56,7 @@
                 @media (min-width: $mobile) and (max-width: $tablet - .1px) {
                     font-size: 20px;
                 }
+
                 @media (min-width: $tablet) and (max-width: $desktop - .1px) {
                     font-size: 20px;
                 }
@@ -571,6 +572,7 @@
                         font-size: 20px;
                         color: $white;
                     }
+
                     @media (min-width: $tablet) and (max-width: $desktop - .1px) {
                         font-size: 20px;
                     }
@@ -713,6 +715,7 @@
 
         &__block {
             width: 100%;
+            min-height: 538px;
         }
 
         &__list {
@@ -953,7 +956,22 @@
 
             h5 {
                 text-align: center;
+                position: relative;
+
+                [attr='data-total'] {
+                    &:after {
+                        content: attr(data-total);
+                    }
+                }
+
+                [attr='data-total=0'] {
+                    &:after {
+                        content: none
+                    }
+                }
             }
+
+
 
             .item__price {
                 color: $white !important;

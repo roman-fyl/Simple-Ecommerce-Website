@@ -11,8 +11,8 @@ const initBasket = async () => {
   const elementCart = doc.querySelector(".cart__section");
   const buttonCart = doc.querySelector(".cart");
   const buttonCartClose = elementCart.querySelector(".button__close");
-  const totalAmount = doc.getElementById("total__amount");
   const totalItems = doc.getElementById("total__items");
+  const totalAmount = doc.getElementById("total__amount");
   const buttonLoadMore = doc.getElementById("button__all__foxes");
   const quantityCart = doc.getElementById('quantity-in-cart');
   const sections = doc.querySelectorAll('section');
@@ -121,7 +121,7 @@ const initBasket = async () => {
   };
 
   const searchItem = (event) => {
-    if (event && event.target && event.target.value) {
+    if (event?.target?.value) {
       filter.input = event.target.value.toLowerCase();
       showItems();
     }
@@ -206,7 +206,7 @@ const initBasket = async () => {
     console.log("no button buttonCartClose");
   }
 
-  const showCart = (selectedItem) => {
+  const showCart = (selectedItemsToCart) => {
     if (!Array.isArray(selectedItemsToCart)) {
       selectedItemsToCart = [];
     }
@@ -328,8 +328,9 @@ const initBasket = async () => {
       });
     }
 
-    totalAmount.textContent = `$${total.toFixed(2)}`;
-    calculateTotalQuantity(selectedItemsToCart);
+    totalAmount.setAttribute('data-total', total)
+    const totalItemsValue = totalAmount.getAttribute('data-total');
+    totalAmount.textContent = `Total Amount: $${totalItemsValue}`
   };
 
   const showCartQuantity = (selectedItemsToCart) => {
@@ -372,10 +373,11 @@ const initBasket = async () => {
 
   const updateQuantityInCart = (items) => {
     if (totalItems) {
-      totalItems.textContent = calculateTotalQuantity(items);
+      totalItems.setAttribute('data-total', calculateTotalQuantity(items))
+      const totalItemsValue = totalItems.getAttribute('data-total');
+      totalItems.textContent = `Total Items: ${totalItemsValue}`
     }
   };
-
 
   if (cartList) {
     cartList.addEventListener("click", (event) => {
@@ -420,8 +422,9 @@ const initBasket = async () => {
           showCartAmount(selectedItemsToCart);
           setLocalStorage(selectedItemsToCart);
           calculateTotalQuantity(selectedItemsToCart);
-          showCartQuantity(selectedItemsToCart)
+          showCartQuantity(selectedItemsToCart);
           updateQuantityCart();
+          updateQuantityInCart();
         }
       }
     });

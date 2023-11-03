@@ -694,6 +694,7 @@ section {
 }
 .catalog__block {
   width: 100%;
+  min-height: 538px;
 }
 .catalog__list {
   display: flex;
@@ -896,6 +897,13 @@ input[type=range] {
 }
 .cart__list h5 {
   text-align: center;
+  position: relative;
+}
+.cart__list h5 [attr=data-total]:after {
+  content: attr(data-total);
+}
+.cart__list h5 [attr="data-total=0"]:after {
+  content: none;
 }
 .cart__list .item__price {
   color: #fff !important;
