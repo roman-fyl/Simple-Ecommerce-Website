@@ -201,6 +201,7 @@ section {
 .icons__section {
   position: relative;
 }
+
 .elementShow {
   display: flex !important;
 }
