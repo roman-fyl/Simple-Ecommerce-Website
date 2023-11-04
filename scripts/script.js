@@ -11,8 +11,8 @@ const initBasket = async () => {
   const elementCart = doc.querySelector(".cart__section");
   const buttonCart = doc.querySelector(".cart");
   const buttonCartClose = elementCart.querySelector(".button__close");
-  const totalItems = doc.getElementById("total__items");
-  const totalAmount = doc.getElementById("total__amount");
+  const totalItems = document.getElementById('total__items');
+  const totalAmount = document.getElementById('total__amount');
   const buttonLoadMore = doc.getElementById("button__all__foxes");
   const quantityCart = doc.getElementById('quantity-in-cart');
   const sections = doc.querySelectorAll('section');
@@ -321,21 +321,19 @@ const initBasket = async () => {
 
   const showCartAmount = async (selectedItemsToCart) => {
     let total = 0;
-
+  
     if (Array.isArray(selectedItemsToCart)) {
       selectedItemsToCart.forEach((item) => {
         const itemPrice = parseFloat(item.price.replace("$", ""));
-        const itemquantity = item.quantity || 1;
-
-        total += itemPrice * itemquantity;
-
-        return total
+        const itemQuantity = item.quantity || 1;
+  
+        total += itemPrice * itemQuantity;
       });
     }
-
-    totalAmount.setAttribute('data-total', total)
-    const totalItemsValue = totalAmount.getAttribute('data-total');
-    totalAmount.textContent = `Total Amount: $${totalItemsValue}`
+  
+    if (totalAmount) {
+      totalAmount.setAttribute('data-total', total);
+    }
   };
 
   const showCartQuantity = (selectedItemsToCart) => {
@@ -378,11 +376,13 @@ const initBasket = async () => {
 
   const updateQuantityInCart = (items) => {
     if (totalItems) {
-      totalItems.setAttribute('data-total', calculateTotalQuantity(items))
-      const totalItemsValue = totalItems.getAttribute('data-total');
-      totalItems.textContent = `Total Items: ${totalItemsValue}`
+      totalItems.setAttribute('data-total', calculateTotalQuantity(items));
     }
   };
+
+  // totalAmount.setAttribute('data-total', total)
+  // const totalItemsValue = totalAmount.getAttribute('data-total');
+  // totalAmount.textContent = `Total Amount: $${totalItemsValue}`
 
   if (cartList) {
     cartList.addEventListener("click", (event) => {
@@ -393,6 +393,7 @@ const initBasket = async () => {
       if (increaseQuantity) {
         const idN = increaseQuantity.getAttribute("data-idn");
         const selectedItem = selectedItemsToCart.find((item) => item.idN === idN);
+        event.preventDefault()
 
         if (selectedItem) {
 
