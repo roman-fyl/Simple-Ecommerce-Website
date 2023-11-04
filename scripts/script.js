@@ -71,7 +71,7 @@ const initBasket = async () => {
                           </div>
                       </li>
           `)).join("");
-          return
+        return
       }
       else {
         catalogList.innerHTML = `<span>No data to display</span>`
@@ -123,12 +123,12 @@ const initBasket = async () => {
   };
 
   const searchItem = (event) => {
-    if (!event.target.value) { 
+    if (!event.target.value) {
       filter.input = "";
     } else {
       filter.input = event.target.value.toLowerCase();
     }
-  
+
     showItems();
   };
 
@@ -321,16 +321,16 @@ const initBasket = async () => {
 
   const showCartAmount = async (selectedItemsToCart) => {
     let total = 0;
-  
+
     if (Array.isArray(selectedItemsToCart)) {
       selectedItemsToCart.forEach((item) => {
         const itemPrice = parseFloat(item.price.replace("$", ""));
         const itemQuantity = item.quantity || 1;
-  
+
         total += itemPrice * itemQuantity;
       });
     }
-  
+
     if (totalAmount) {
       totalAmount.setAttribute('data-total', total);
     }
@@ -379,10 +379,6 @@ const initBasket = async () => {
       totalItems.setAttribute('data-total', calculateTotalQuantity(items));
     }
   };
-
-  // totalAmount.setAttribute('data-total', total)
-  // const totalItemsValue = totalAmount.getAttribute('data-total');
-  // totalAmount.textContent = `Total Amount: $${totalItemsValue}`
 
   if (cartList) {
     cartList.addEventListener("click", (event) => {
